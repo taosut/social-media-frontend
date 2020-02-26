@@ -1,23 +1,18 @@
 <template>
-  <v-app :style="{height: '200vh'}">
-    <the-navbar></the-navbar>
+  <v-app>
     <nuxt />
     <app-footer></app-footer>
   </v-app>
 </template>
 
 <script>
-import TheNavbar from '@/components/shared/navbar/TheNavbar'
 import AppFooter from '@/components/shared/footer/AppFooter'
-
 export default {
   components: {
-    TheNavbar,
     AppFooter
-  },
-  data() {
-    return {}
-  },
-  methods: {}
+  }
 }
 </script>
+
+<style>
+</style>
