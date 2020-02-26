@@ -1,6 +1,6 @@
 <template>
   <v-app :dark="false" :style="{height: '200vh'}">
-    <the-app-navbar></the-app-navbar>
+    <the-navbar></the-navbar>
     <v-content></v-content>
     <v-footer app>
       <span>&copy; 2020 Marko Zlatar</span>
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import TheAppNavbar from '@/components/shared/navbar/TheAppNavbar'
+import TheNavbar from '@/components/shared/navbar/TheNavbar'
 
 export default {
   components: {
-    TheAppNavbar
+    TheNavbar
   },
   data() {
     return {}
