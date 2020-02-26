@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  layout: 'empty',
+  layout: 'no-navbar',
   props: {
     error: {
       type: Object,

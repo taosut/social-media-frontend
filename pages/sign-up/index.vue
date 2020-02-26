@@ -39,6 +39,7 @@
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn block>Create account</v-btn>
+              <nuxt-link class="my-2" to="/sign-in">Already have account? Login</nuxt-link>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -49,7 +50,7 @@
 
 <script>
 export default {
-  layout: 'auth',
+  layout: 'no-navbar',
   data() {
     return {
       show: false,
