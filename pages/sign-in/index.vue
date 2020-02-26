@@ -14,7 +14,7 @@
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn block>Login</v-btn>
               <p class="my-2 text-center or-paragraph full-width">or</p>
-              <v-btn block>Sign In</v-btn>
+              <v-btn :nuxt="true" to="/sign-up" block>Sign In</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -46,9 +46,5 @@ export default {
     position: absolute;
     transform: translate(10%, 10px);
   }
-}
-
-.row--height {
-  min-height: 90vh;
 }
 </style>
