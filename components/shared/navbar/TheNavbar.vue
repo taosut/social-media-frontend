@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar height="64" app elevate-on-scroll>
+  <v-app-bar clipped-right height="64" app elevate-on-scroll>
     <v-spacer></v-spacer>
     <v-toolbar-title class="display-1 mx-1">LOGO</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -67,6 +67,14 @@
             ></v-text-field>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="openDrawerCloseMenu">
+          <v-list-item-icon>
+            <v-icon>mdi-wechat</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Chat</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item @click="navMenu=false" to="/upload">
           <v-list-item-icon>
             <v-icon>mdi-upload</v-icon>
@@ -90,16 +98,30 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data() {
     return {
       navMenu: false
     }
   },
+  computed: {
+    ...mapGetters({
+      drawer: 'drawer'
+    })
+  },
   methods: {
+    ...mapActions({
+      changeDrawer: 'changeDrawer'
+    }),
     search() {
       this.navMenu = false
       console.log('Search works')
+    },
+    openDrawerCloseMenu() {
+      this.navMenu = false
+      this.changeDrawer(true)
     }
   }
 }
