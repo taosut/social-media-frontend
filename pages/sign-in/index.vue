@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-container>
-      <v-row class="align-center justify-center row--height">
+      <v-row class="align-center justify-center auth-row--height">
         <v-col cols="12" sm="8" md="6" xl="4">
           <v-card outlined>
             <v-card-text>
@@ -9,7 +9,12 @@
                 <h1>LOGO</h1>
               </v-card-title>
               <v-text-field label="Enter email"></v-text-field>
-              <v-text-field label="Enter password"></v-text-field>
+              <v-text-field
+                label="Enter password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword"
+              ></v-text-field>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn block>Login</v-btn>
@@ -25,7 +30,12 @@
 
 <script>
 export default {
-  layout: 'no-navbar'
+  layout: 'no-navbar',
+  data() {
+    return {
+      showPassword: false
+    }
+  }
 }
 </script>
 
