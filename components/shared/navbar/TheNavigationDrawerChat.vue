@@ -35,7 +35,7 @@
           <v-icon>mdi-message</v-icon>
         </v-list-item-icon>
       </v-list-item>
-      <v-list-group>
+      <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-title>Online friends</v-list-item-title>
         </template>

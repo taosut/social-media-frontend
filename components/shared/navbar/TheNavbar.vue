@@ -39,18 +39,6 @@
       </v-btn>
     </v-badge>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
-    <!-- <v-text-field
-      class="hidden-sm-and-down"
-      @keypress.enter="searchForPeople(searchQuery)"
-      solo
-      dense
-      clearable
-      hide-details
-      label="Search people..."
-      append-icon="mdi-magnify"
-      rounded
-      v-model="searchQuery"
-    ></v-text-field>-->
     <navbar-search class="hidden-sm-and-down"></navbar-search>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
     <v-btn :nuxt="true" class="mx-1 hidden-sm-and-down" depressed to="/upload" exact>
@@ -65,7 +53,6 @@
       :hide-details="true"
       label="Dark Theme"
     ></v-switch>
-    <!-- MENU -->
     <the-navbar-menu></the-navbar-menu>
     <v-spacer></v-spacer>
   </v-app-bar>
