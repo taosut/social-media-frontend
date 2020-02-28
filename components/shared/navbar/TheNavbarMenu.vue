@@ -1,7 +1,7 @@
 <template>
-  <v-menu :close-on-content-click="false" v-model="nvMenu" left bottom offset-y>
+  <v-menu :close-on-content-click="false" v-model="navMenu" left bottom offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn class="hidden-md-and-up" :class="{ 'v-btn--active': nvMenu }" icon v-on="on">
+      <v-btn class="hidden-md-and-up" :class="{ 'v-btn--active': navMenu }" icon v-on="on">
         <v-icon>mdi-settings</v-icon>
       </v-btn>
     </template>
@@ -11,16 +11,7 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-text-field
-            @keypress.enter="search"
-            solo
-            dense
-            clearable
-            hide-details
-            label="Search people..."
-            append-icon="mdi-magnify"
-            rounded
-          ></v-text-field>
+          <navbar-search></navbar-search>
         </v-list-item-content>
       </v-list-item>
       <v-list-item @click="changeNavbarMenu(false)" to="/upload">
@@ -44,9 +35,14 @@
 </template>
 
 <script>
+import NavbarSearch from '@/components/shared/navbar/NavbarSearch'
+
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  components: {
+    NavbarSearch
+  },
   computed: {
     navMenu: {
       get() {

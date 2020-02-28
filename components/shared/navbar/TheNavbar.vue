@@ -39,7 +39,7 @@
       </v-btn>
     </v-badge>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
-    <v-text-field
+    <!-- <v-text-field
       class="hidden-sm-and-down"
       @keypress.enter="searchForPeople(searchQuery)"
       solo
@@ -50,7 +50,8 @@
       append-icon="mdi-magnify"
       rounded
       v-model="searchQuery"
-    ></v-text-field>
+    ></v-text-field>-->
+    <navbar-search class="hidden-sm-and-down"></navbar-search>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
     <v-btn :nuxt="true" class="mx-1 hidden-sm-and-down" depressed to="/upload" exact>
       <v-icon left>mdi-upload</v-icon>Upload
@@ -72,12 +73,14 @@
 
 <script>
 import TheNavbarMenu from '@/components/shared/navbar/TheNavbarMenu'
+import NavbarSearch from '@/components/shared/navbar/NavbarSearch'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    TheNavbarMenu
+    TheNavbarMenu,
+    NavbarSearch
   },
   data() {
     return {
