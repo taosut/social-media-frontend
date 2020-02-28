@@ -1,7 +1,7 @@
 <template>
   <v-menu :close-on-content-click="false" v-model="navMenu" left bottom offset-y>
     <template v-slot:activator="{ on }">
-      <v-btn class="hidden-md-and-up" :class="{ 'v-btn--active': navMenu }" icon v-on="on">
+      <v-btn class="hidden-md-and-up mx-1" :class="{ 'v-btn--active': navMenu }" v-on="on" icon>
         <v-icon>mdi-settings</v-icon>
       </v-btn>
     </template>
@@ -44,12 +44,13 @@ export default {
     NavbarSearch
   },
   computed: {
+    ...mapGetters({}),
     navMenu: {
       get() {
         return this.$store.getters.navbarMenu
       },
       set(value) {
-        this.changeNavbarMenu('changeNavbarMenu', value)
+        this.$store.dispatch('changeNavbarMenu', value)
       }
     }
   },
