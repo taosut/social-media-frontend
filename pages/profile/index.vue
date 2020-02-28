@@ -15,7 +15,7 @@
               <v-img src="/avatar.png"></v-img>
             </v-avatar>
           </v-col>
-          <v-col class="page-header" cols="7" md="6">
+          <v-col class="page-header" cols="12" sm="7" md="6">
             <div class="d-flex align-center justify-start">
               <h2>Marko Zlatar</h2>
               <v-btn color="primary mx-3" depressed>Fallow</v-btn>
@@ -34,13 +34,14 @@
                 <span class="body-1">fallow</span>
               </div>
             </div>
-            <p>
+            <p class="ma-0">
               Description:
               <br />Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum ducimus eligendi veniam vero debitis. Optio vel cumque, ex aspernatur harum voluptates nisi minima consequatur sint?
             </p>
           </v-col>
         </v-col>
       </v-row>
+      <v-divider></v-divider>
     </v-container>
   </v-content>
 </template>
@@ -57,5 +58,11 @@ export default {}
 .page-header {
   max-height: 250px;
   height: 250px;
+}
+
+@media screen and (max-width: 600px) {
+  .page-header {
+    max-height: none;
+  }
 }
 </style>
