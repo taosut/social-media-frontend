@@ -1,7 +1,8 @@
 export const state = () => ({
   drawer: false,
   navbarMenu: false,
-  searchQuery: ''
+  searchQuery: '',
+  postDialog: true
 })
 
 export const getters = {
@@ -13,6 +14,9 @@ export const getters = {
   },
   searchQuery(state) {
     return state.searchQuery
+  },
+  postDialog(state) {
+    return state.postDialog
   }
 }
 
@@ -25,6 +29,9 @@ export const mutations = {
   },
   changeSearchQuery(state, payload) {
     state.searchQuery = payload
+  },
+  changePostDialog(state, payload) {
+    state.postDialog = payload
   }
 }
 export const actions = {
@@ -41,5 +48,8 @@ export const actions = {
   },
   changeSearchQuery(context, payload) {
     context.commit('changeSearchQuery', payload)
+  },
+  changePostDialog(context, payload) {
+    context.commit('changePostDialog', payload)
   }
 }
