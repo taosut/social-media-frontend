@@ -18,7 +18,7 @@
           <v-col class="page-header" cols="12" sm="7" md="6">
             <div class="d-flex align-center justify-start">
               <h2>Marko Zlatar</h2>
-              <v-btn color="primary mx-3" depressed>Fallow</v-btn>
+              <v-btn color="primary mx-3" depressed>Follow</v-btn>
             </div>
             <div class="d-flex align-center justify-start">
               <div class="cursor-pointer">
@@ -27,11 +27,11 @@
               </div>
               <div class="ma-3 cursor-pointer">
                 <span class="body-1 font-weight-bold">256k</span>
-                <span class="body-1">fallowers</span>
+                <span class="body-1">followers</span>
               </div>
               <div class="cursor-pointer">
                 <span class="body-1 font-weight-bold">36</span>
-                <span class="body-1">fallowing</span>
+                <span class="body-1">following</span>
               </div>
             </div>
             <p class="ma-0">
