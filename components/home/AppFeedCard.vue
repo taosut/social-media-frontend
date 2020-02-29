@@ -1,5 +1,10 @@
 <template>
-  <v-skeleton-loader class="mb-5" :loading="loading" type="image, list-item-avatar-three-line">
+  <v-skeleton-loader
+    class="mb-5"
+    :loading="loading"
+    type="image, list-item-avatar-three-line"
+    height="500px"
+  >
     <v-card class="mb-5">
       <v-img
         @click="$store.dispatch('changePostDialog', true)"
@@ -41,10 +46,10 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false
-    }, 3000)
+    }, 1000)
   }
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 </style>
