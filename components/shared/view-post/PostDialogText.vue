@@ -1,8 +1,12 @@
 <template>
   <v-col cols="12" md="4" class="d-flex flex-column align-start justify-center">
-    <div class="d-flex flex-row align-center justify-center">
+    <div class="d-flex mt-3 flex-row align-center justify-center">
       <v-avatar size="40">
-        <v-img src="/avatar.png"></v-img>
+        <v-img src="/avatar.png">
+          <template v-slot:placeholder>
+            <v-progress-circular indeterminate color="grey"></v-progress-circular>
+          </template>
+        </v-img>
       </v-avatar>
       <v-badge offset-y="2" offset-x="15" :value="true" icon="mdi-check-decagram">
         <span class="mx-2 font-weight-bold">username</span>

@@ -22,7 +22,7 @@
       <v-btn icon>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon @click="$store.dispatch('changePostDialog', true)">
         <v-icon>mdi-comment</v-icon>
       </v-btn>
     </v-card-actions>

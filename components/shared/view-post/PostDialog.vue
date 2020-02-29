@@ -1,6 +1,14 @@
 <template>
   <v-dialog v-model="postDialog" width="80%">
     <v-card>
+      <v-btn
+        @click="$store.dispatch('changePostDialog', false)"
+        absolute
+        :style="{top: '5px', right: '5px'}"
+        icon
+      >
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
       <div class="ma-0 px-6 d-flex flex-column flex-md-row align-center justify-center">
         <v-col class="pa-0 m-0" cols="12" md="8">
           <v-img class="mr-6" max-height="700px" contain src="/feed-img.jpg"></v-img>
