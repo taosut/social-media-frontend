@@ -2,7 +2,7 @@ export const state = () => ({
   drawer: false,
   navbarMenu: false,
   searchQuery: '',
-  postDialog: true
+  postDialog: false
 })
 
 export const getters = {

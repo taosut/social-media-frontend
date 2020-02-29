@@ -109,9 +109,7 @@ export default {
   watch: {
     tab: function(value) {
       if (!value) {
-        console.log('first')
       } else {
-        console.log('second')
       }
     }
   },
