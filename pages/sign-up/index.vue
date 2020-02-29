@@ -8,14 +8,7 @@
               <v-card-title class="d-flex align-center justify-center">
                 <h1>LOGO</h1>
               </v-card-title>
-              <v-row>
-                <v-col class="ma-0 py-0" cols="6">
-                  <v-text-field label="First Name"></v-text-field>
-                </v-col>
-                <v-col class="ma-0 py-0" cols="6">
-                  <v-text-field label="Last Name"></v-text-field>
-                </v-col>
-              </v-row>
+              <v-text-field label="Username"></v-text-field>
               <v-text-field label="Enter email"></v-text-field>
               <div class="d-flex flex-column align-center justify-center">
                 <v-file-input
@@ -36,6 +29,7 @@
                 @click:append="show = !show"
               ></v-text-field>
               <v-text-field label="Confirm password" :type="show ? 'type' : 'password'"></v-text-field>
+              <v-textarea counter="255" rows="4" no-resize label="Enter something about you"></v-textarea>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn block>Create account</v-btn>
