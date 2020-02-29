@@ -10,7 +10,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-list max-height="400px" width="300px" style="overflow-y: scroll" three-line>
+    <v-list max-height="400px" width="300px" class="chatbox-list" three-line>
       <template v-for="(item, index) in items">
         <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader>
 
@@ -77,5 +77,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+.chatbox-list {
+  &::-webkit-scrollbar {
+    width: 0px; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  overflow-y: scroll;
+}
 </style>
