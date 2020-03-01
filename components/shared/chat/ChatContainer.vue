@@ -29,6 +29,6 @@ export default {
   height: auto;
   max-width: 100%;
   overflow-x: scroll;
-  z-index: 1000000;
+  z-index: 100;
 }
 </style>
