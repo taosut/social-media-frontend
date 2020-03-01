@@ -26,6 +26,7 @@ export const actions = {
     })
     if (!chatboxExist) context.commit('createChatbox', payload)
     else {
+      // Show alert that chat is already opened
     }
   },
   removeChatbox(context, payload) {
