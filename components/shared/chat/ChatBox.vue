@@ -1,15 +1,14 @@
 <template>
   <v-card>
     <v-toolbar height="35px" color="grey">
-      <v-toolbar-title>Username</v-toolbar-title>
+      <v-toolbar-title>{{ chatbox.username }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <v-btn @click="removeChatbox(chatbox)" icon>
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
-
     <v-list
       max-height="370px"
       height="370px"
@@ -53,7 +52,15 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
+  props: {
+    chatbox: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       items: [
@@ -98,6 +105,9 @@ export default {
     this.scrollBottom()
   },
   methods: {
+    ...mapActions({
+      removeChatbox: 'chat/removeChatbox'
+    }),
     scrollBottom() {
       this.$refs['chatbox-list'].$el.scrollTop = this.$refs[
         'chatbox-list'

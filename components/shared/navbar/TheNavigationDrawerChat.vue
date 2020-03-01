@@ -74,10 +74,12 @@ export default {
   watch: {},
   methods: {
     ...mapActions({
-      changeDrawer: 'changeDrawer'
+      changeDrawer: 'changeDrawer',
+      createChatbox: 'chat/createChatbox'
     }),
     openChat() {
       console.log('chat oppened')
+      this.createChatbox({ userId: Date.now().toString(), username: 'marko' })
     }
   }
 }

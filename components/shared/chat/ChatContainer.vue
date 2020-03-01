@@ -1,20 +1,29 @@
 <template>
   <div class="chat-container">
-    <chat-box class="mr-2"></chat-box>
+    <chat-box v-for="(chatbox, index) in chatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chat-box>
   </div>
 </template>
 
 <script>
 import ChatBox from '@/components/shared/chat/ChatBox'
 
+import { mapGetters, mapActions } from 'vuex'
 export default {
+  components: {
+    ChatBox
+  },
   data() {
     return {
       show: true
     }
   },
-  components: {
-    ChatBox
+  computed: {
+    ...mapGetters({
+      chatboxes: 'chat/chatboxes'
+    })
+  },
+  methods: {
+    ...mapActions({})
   }
 }
 </script>
