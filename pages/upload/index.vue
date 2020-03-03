@@ -8,12 +8,17 @@
               <h2 class="text-center full-width font-weight-light">New post</h2>
             </v-card-title>
             <v-card-text>
-              <v-text-field label="Post title"></v-text-field>
-              <v-textarea label="Post description" counter="1500"></v-textarea>
+              <v-text-field v-model="title" label="Post title"></v-text-field>
+              <v-textarea v-model="description" label="Post description" counter="1500"></v-textarea>
             </v-card-text>
-            <v-file-input clearable accept="image/*" label="Post image"></v-file-input>
+            <v-file-input v-model="file" clearable accept="image/*" label="Post image"></v-file-input>
             <v-card-actions class="d-flex align-center justify-space-between">
-              <v-btn>Post preview</v-btn>
+              <post-preview-dialog
+                :title="title"
+                :description="description"
+                :author="{username:'marko'}"
+                :image="imageUrl"
+              ></post-preview-dialog>
               <v-btn>Create post</v-btn>
             </v-card-actions>
           </v-card>
@@ -24,7 +29,42 @@
 </template>
 
 <script>
-export default {}
+import PostPreviewDialog from '@/components/upload/PostPreviewDialog'
+
+export default {
+  components: {
+    PostPreviewDialog
+  },
+  data() {
+    return {
+      title: '',
+      description: '',
+      file: null,
+      imageUrl: ''
+    }
+  },
+  watch: {
+    file: function(value) {
+      if (!value) this.imageUrl = ''
+      else {
+        const reader = new FileReader()
+
+        reader.addEventListener(
+          'load',
+          () => {
+            this.imageUrl = reader.result
+          },
+          false
+        )
+
+        if (this.file) {
+          reader.readAsDataURL(this.file)
+        }
+      }
+    }
+  },
+  methods: {}
+}
 </script>
 
 <style>
