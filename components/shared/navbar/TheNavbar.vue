@@ -35,7 +35,7 @@
       color="red"
     >
       <v-btn @click="changeDrawer(true)" class="mx-1 hidden-md-and-up" :icon="true" depressed>
-        <v-icon>mdi-wechat</v-icon>
+        <v-icon>mdi-chat</v-icon>
       </v-btn>
     </v-badge>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
