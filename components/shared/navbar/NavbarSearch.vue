@@ -8,6 +8,7 @@
     label="Search for people"
     append-icon="mdi-magnify"
     rounded
+    @click:append="searchForPeople(searchQuery)"
     v-model="searchQuery"
   ></v-text-field>
 </template>
