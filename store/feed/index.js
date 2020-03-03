@@ -1,9 +1,21 @@
 export const state = () => ({
-  // add feedIsFetching
+  fetchingFeed: false
 })
 
-export const getters = {}
+export const getters = {
+  fetchingFeed(state) {
+    return state.fetchingFeed
+  }
+}
 
-export const mutations = {}
+export const mutations = {
+  changeFetchingFeed(state, payload) {
+    state.fetchingFeed = payload
+  }
+}
 
-export const actions = {}
+export const actions = {
+  changeFetchingFeed(context, payload) {
+    context.commit('changeFetchingFeed', payload)
+  }
+}

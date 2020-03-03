@@ -27,6 +27,8 @@
 <script>
 import AppFeedCard from '@/components/home/AppFeedCard'
 
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   components: {
     AppFeedCard
@@ -35,6 +37,11 @@ export default {
     return {
       a: 10
     }
+  },
+  computed: {
+    ...mapGetters({
+      fetchingFeed: 'feed/fetchingFeed'
+    })
   },
   mounted() {
     if (process.client)
@@ -50,15 +57,21 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      changeFetchingFeed: 'feed/changeFetchingFeed'
+    }),
     handleScroll() {
-      console.log(
-        window.innerHeight,
-        this.$refs['feed-preloader'].$el.getBoundingClientRect().top
-      )
-      // check if feedIsFetching and if user scrolled Enough to fetch new feed...
-
-      // if () {
-      // }
+      if (
+        window.innerHeight >=
+          this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&
+        !this.fetchingFeed
+      ) {
+        this.changeFetchingFeed(true)
+        setTimeout(() => {
+          this.a += 10
+          this.changeFetchingFeed(false)
+        }, 2000)
+      }
     }
   }
 }
