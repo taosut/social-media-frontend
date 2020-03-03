@@ -38,7 +38,8 @@ export default {
       feed: [
         {
           title: 'This is title',
-          description: 'description',
+          description:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi magnam officiis eveniet, aut consequatur, sed harum amet libero fugit sapiente minus architecto ad. Nisi, fugiat! Porro repellat quam dicta aliquid minima quia fugit odit cupiditate placeat, beatae sapiente maiores maxime soluta obcaecati veniam commodi facilis illum animi, consectetur at aliquam et suscipit sit excepturi. Provident vero maxime nihil iste.',
           postedAt: new Date(),
           author: 'Marko Zlatar',
           image: '/feed-img.jpg'
@@ -52,7 +53,8 @@ export default {
         },
         {
           title: 'This is title',
-          description: 'description',
+          description:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi magnam officiis eveniet, aut consequatur, sed harum amet libero fugit sapiente minus architecto ad. Nisi, fugiat! Porro repellat quam dicta aliquid minima quia fugit odit cupiditate placeat, beatae sapiente maiores maxime soluta obcaecati veniam commodi facilis illum animi, consectetur at aliquam et suscipit sit excepturi. Provident vero maxime nihil iste.',
           postedAt: new Date(),
           author: 'Marko Zlatar',
           image: '/feed-img.jpg'

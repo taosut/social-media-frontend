@@ -21,7 +21,7 @@
           <v-list-item-subtitle>by {{ post.author }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-      <v-card-text>{{ post.description }}</v-card-text>
+      <v-card-text>{{ post.description | cutOffDescription }}</v-card-text>
       <v-card-actions>
         <v-btn text @click="$store.dispatch('changePostDialog', true)">Read more</v-btn>
         <v-spacer></v-spacer>
@@ -38,6 +38,12 @@
 
 <script>
 export default {
+  filters: {
+    cutOffDescription(value) {
+      if (value.length > 140) return value.slice(0, 140) + '...'
+      else return value
+    }
+  },
   props: {
     post: {
       type: Object,
