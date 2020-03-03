@@ -17,11 +17,11 @@
           <v-img src="/avatar.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="headline">This is headling</v-list-item-title>
-          <v-list-item-subtitle>by First Last</v-list-item-subtitle>
+          <v-list-item-title class="headline">{{ post.title }}</v-list-item-title>
+          <v-list-item-subtitle>by {{ post.author }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-      <v-card-text>This is my super cool text for dummy feed card that i going to see every time when i open this project for long time...</v-card-text>
+      <v-card-text>{{ post.description }}</v-card-text>
       <v-card-actions>
         <v-btn text @click="$store.dispatch('changePostDialog', true)">Read more</v-btn>
         <v-spacer></v-spacer>
@@ -38,6 +38,12 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       loading: true

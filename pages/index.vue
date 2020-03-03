@@ -12,7 +12,7 @@
       <v-row class="align-start justify-center">
         <!-- FEED -->
         <v-col cols="12" md="8" xl="7">
-          <app-feed-card v-for="n in a" :key="n"></app-feed-card>
+          <app-feed-card :post="post" v-for="(post, index) in feed" :key="index"></app-feed-card>
         </v-col>
         <v-col cols="12" md="8" xl="7">
           <v-card ref="feed-preloader" height="60px" class="d-flex align-center justify-center">
@@ -35,7 +35,78 @@ export default {
   },
   data() {
     return {
-      a: 10
+      feed: [
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        },
+        {
+          title: 'This is title',
+          description: 'description',
+          postedAt: new Date(),
+          author: 'Marko Zlatar',
+          image: '/feed-img.jpg'
+        }
+      ]
     }
   },
   computed: {
@@ -68,7 +139,7 @@ export default {
       ) {
         this.changeFetchingFeed(true)
         setTimeout(() => {
-          this.a += 10
+          //fetch 10 more posts...
           this.changeFetchingFeed(false)
         }, 2000)
       }
