@@ -117,11 +117,17 @@ export default {
     })
   },
   mounted() {
-    if (process.client)
+    if (process.client) {
       window.addEventListener('scroll', this.handleScroll, {
         capture: true,
         passive: true
       })
+
+      this.setAlert({
+        status: 300,
+        message: 'Dummy warning'
+      })
+    }
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll, {
@@ -131,7 +137,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      changeFetchingFeed: 'feed/changeFetchingFeed'
+      changeFetchingFeed: 'feed/changeFetchingFeed',
+      setAlert: 'alerts/setAlert'
     }),
     handleScroll() {
       if (

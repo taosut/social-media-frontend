@@ -5,6 +5,7 @@
     <the-navigation-drawer-chat></the-navigation-drawer-chat>
     <post-dialog></post-dialog>
     <chat-container></chat-container>
+    <app-alerts></app-alerts>
     <app-footer></app-footer>
   </v-app>
 </template>
@@ -15,6 +16,7 @@ import AppFooter from '@/components/shared/footer/AppFooter'
 import TheNavigationDrawerChat from '@/components/shared/navbar/TheNavigationDrawerChat'
 import PostDialog from '@/components/shared/view-post/PostDialog'
 import ChatContainer from '@/components/shared/chat/ChatContainer'
+import AppAlerts from '@/components/shared/AppAlerts'
 
 export default {
   components: {
@@ -22,7 +24,8 @@ export default {
     AppFooter,
     TheNavigationDrawerChat,
     PostDialog,
-    ChatContainer
+    ChatContainer,
+    AppAlerts
   },
   data() {
     return {}
