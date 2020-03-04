@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="postDialog" width="80%">
+  <v-dialog
+    v-model="postDialog"
+    :width=" $vuetify.breakpoint.xsOnly ? '100%' :'80%'"
+    :fullscreen="$vuetify.breakpoint.xsOnly"
+    transition="scroll-y-transition"
+  >
     <v-card>
       <v-btn
         @click="$store.dispatch('changePostDialog', false)"

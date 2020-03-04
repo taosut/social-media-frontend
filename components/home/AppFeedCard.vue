@@ -8,7 +8,7 @@
     <v-card class="mb-5">
       <v-img
         @click="$store.dispatch('changePostDialog', true)"
-        :aspect-ratio="$vuetify.breakpoint.xsOnly ? 1 : 16/9"
+        :aspect-ratio="16/9"
         src="/feed-img.jpg"
         class="cursor-pointer"
       ></v-img>
