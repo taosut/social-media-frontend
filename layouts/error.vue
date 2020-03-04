@@ -1,8 +1,20 @@
 <template>
-  <v-app :dark="false">
-    <h1 v-if="error.statusCode === 404">{{ pageNotFound }}</h1>
-    <h1 v-else>{{ otherError }}</h1>
-    <NuxtLink to="/">Home page</NuxtLink>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col class="container d-flex flex-column justify-center align-center" cols="12">
+          <v-icon size="100" class="error-icon">mdi-alert-octagon</v-icon>
+          <h1 class="text-center error-text" v-if="error.statusCode === 404">{{ pageNotFound }}</h1>
+          <h1 class="text-center error-text" v-else>
+            An Error Occurred
+            <br />Sorry for this inconvenience
+          </h1>
+          <a href="/" class="text-decoration-none mt-2">
+            <v-btn>Back to home</v-btn>
+          </a>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
@@ -17,8 +29,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
+      pageNotFound: '404 Page Not Found',
+      otherError: 'An error occured'
     }
   },
   head() {
@@ -31,8 +43,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
   font-size: 20px;
+}
+.container {
+  height: 95vh;
+}
+.error-text {
+  font-size: 70px;
+}
+
+@media screen and (max-width: 600px) {
+  .error-icon {
+    font-size: 120px;
+  }
+  .error-text {
+    font-size: 25px;
+  }
 }
 </style>

@@ -18,6 +18,8 @@ import PostDialog from '@/components/shared/view-post/PostDialog'
 import ChatContainer from '@/components/shared/chat/ChatContainer'
 import AppAlerts from '@/components/shared/AppAlerts'
 
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   components: {
     TheNavbar,
@@ -30,7 +32,22 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    ...mapGetters({
+      error: 'error',
+      errorStatusCode: 'errorStatusCode'
+    })
+  },
+  watch: {
+    errorStatusCode: function(value) {
+      throw this.error
+    }
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    ...mapActions({
+      setError: 'setError'
+    })
+  }
 }
 </script>

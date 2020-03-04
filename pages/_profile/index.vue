@@ -100,6 +100,12 @@
 
 <script>
 export default {
+  validate(context) {
+    if (context.params.profile === 'profile') {
+      return true
+    }
+    return false
+  },
   data() {
     return {
       tab: 0

@@ -29,7 +29,6 @@ export const mutations = {
     state.text = payload.text
   },
   clearAlert(state) {
-    state.type = 'success'
     state.show = false
     state.text = ''
   },

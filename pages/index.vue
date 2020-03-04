@@ -122,11 +122,6 @@ export default {
         capture: true,
         passive: true
       })
-
-      this.setAlert({
-        status: 300,
-        message: 'Dummy warning'
-      })
     }
   },
   destroyed() {
@@ -137,8 +132,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      changeFetchingFeed: 'feed/changeFetchingFeed',
-      setAlert: 'alerts/setAlert'
+      changeFetchingFeed: 'feed/changeFetchingFeed'
     }),
     handleScroll() {
       if (

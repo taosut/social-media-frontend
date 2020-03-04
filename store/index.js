@@ -2,7 +2,11 @@ export const state = () => ({
   drawer: false,
   navbarMenu: false,
   searchQuery: '',
-  postDialog: false
+  postDialog: false,
+  error: {
+    message: '',
+    statusCode: null
+  }
 })
 
 export const getters = {
@@ -17,6 +21,12 @@ export const getters = {
   },
   postDialog(state) {
     return state.postDialog
+  },
+  error(state) {
+    return state.error
+  },
+  errorStatusCode(state) {
+    return state.error.statusCode
   }
 }
 
@@ -32,9 +42,20 @@ export const mutations = {
   },
   changePostDialog(state, payload) {
     state.postDialog = payload
+  },
+  setError(state, payload) {
+    state.error.statusCode = payload.status
+    state.error.message = payload.message
+  },
+  clearError(state) {
+    state.error.statusCode = null
+    state.error.message = ''
   }
 }
 export const actions = {
+  setError(context, payload) {
+    context.commit('setError', payload)
+  },
   changeDrawer(context, payload) {
     context.commit('changeDrawer', payload)
   },
