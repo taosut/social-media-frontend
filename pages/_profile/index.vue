@@ -100,6 +100,7 @@
 
 <script>
 export default {
+  auth: false,
   validate(context) {
     if (context.params.profile === 'profile') {
       return true

@@ -44,6 +44,7 @@
 
 <script>
 export default {
+  auth: false,
   layout: 'no-navbar',
   data() {
     return {

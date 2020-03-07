@@ -44,7 +44,7 @@
     <v-btn :nuxt="true" class="mx-1 hidden-sm-and-down" depressed to="/upload" exact>
       <v-icon left>mdi-upload</v-icon>Upload
     </v-btn>
-    <v-btn :nuxt="true" class="mx-1 hidden-sm-and-down" depressed to="/logout" exact>
+    <v-btn @click="logout" class="mx-1 hidden-sm-and-down" depressed>
       <v-icon left>mdi-logout</v-icon>Logout
     </v-btn>
     <v-switch
@@ -83,7 +83,10 @@ export default {
     ...mapActions({
       changeDrawer: 'changeDrawer',
       changeNavbarMenu: 'changeNavbarMenu',
-      searchForPeople: 'searchForPeople'
+      searchForPeople: 'searchForPeople',
+      async logout() {
+        await this.$auth.logout()
+      }
     })
   }
 }

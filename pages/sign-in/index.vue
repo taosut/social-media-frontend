@@ -8,8 +8,9 @@
               <v-card-title class="d-flex align-center justify-center">
                 <h1>LOGO</h1>
               </v-card-title>
-              <v-text-field label="Enter email"></v-text-field>
+              <v-text-field v-model="email" label="Enter email"></v-text-field>
               <v-text-field
+                v-model="password"
                 label="Enter password"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showPassword ? 'text' : 'password'"
@@ -17,7 +18,7 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
-              <v-btn block>Login</v-btn>
+              <v-btn @click="signIn" block>Login</v-btn>
               <p class="my-2 text-center or-paragraph full-width">or</p>
               <v-btn :nuxt="true" to="/sign-up" block>Sign In</v-btn>
             </v-card-actions>
@@ -33,7 +34,20 @@ export default {
   layout: 'no-navbar',
   data() {
     return {
-      showPassword: false
+      showPassword: false,
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async signIn() {
+      try {
+        const response = await this.$auth.loginWith('local', {
+          data: { email: this.email, password: this.password }
+        })
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

@@ -30,6 +30,10 @@ import AppFeedCard from '@/components/home/AppFeedCard'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  validate(context) {
+    if (!context.$auth.loggedIn) context.redirect('/sign-in')
+    return true
+  },
   components: {
     AppFeedCard
   },

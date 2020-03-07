@@ -2,6 +2,8 @@ import colors from 'vuetify/es5/util/colors'
 
 import srCyrl from 'vuetify/es5/locale/sr-Cyrl'
 
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -44,13 +46,40 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.SERVER_URL
+  },
+  auth: {
+    redirect: {
+      login: '/sign-in',
+      logout: '/sign-in',
+      home: '/',
+      callback: '/'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/sign-in',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: false,
+          user: false,
+          tokenRequired: true,
+          tokenName: 'Authorization',
+          tokenType: 'Bearer'
+        }
+      }
+    }
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -91,5 +120,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  router: {
+    middleware: ['auth']
   }
 }
