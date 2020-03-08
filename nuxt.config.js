@@ -72,7 +72,7 @@ export default {
             propertyName: 'token'
           },
           logout: false,
-          user: false,
+          user: { url: '/auth/user', method: 'get', propertName: 'user' },
           tokenRequired: true,
           tokenName: 'Authorization',
           tokenType: 'Bearer'
