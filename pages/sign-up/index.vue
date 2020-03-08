@@ -24,6 +24,7 @@
               ></v-text-field>
               <div class="d-flex flex-column align-center justify-center">
                 <v-file-input
+                  accept="image/*"
                   :error-messages="imageFileErrors"
                   @change="$v.imageFile.$touch()"
                   @blur="$v.imageFile.$touch()"

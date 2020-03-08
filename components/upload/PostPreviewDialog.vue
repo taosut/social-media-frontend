@@ -14,7 +14,7 @@
       ></v-img>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img src="/avatar.png"></v-img>
+          <v-img :src="author.profileImage"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="headline">{{ title }}</v-list-item-title>
@@ -41,7 +41,6 @@ export default {
       type: String,
       required: true
     },
-    // author avatar/profile image, author username in this obj
     author: {
       type: Object,
       required: true

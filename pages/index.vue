@@ -6,7 +6,7 @@
           <p
             class="font-weight-light ma-0"
             :class="{ 'headline': $vuetify.breakpoint.xsOnly, 'display-1': $vuetify.breakpoint.smAndUp}"
-          >Hi Marko, here are latest posts:</p>
+          >Hi {{ $auth.user.username }}, here are latest posts:</p>
         </v-col>
       </v-row>
       <v-row class="align-start justify-center">
