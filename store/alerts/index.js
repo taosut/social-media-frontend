@@ -41,6 +41,8 @@ export const actions = {
     context.commit('setShowAlert', payload)
   },
   setAlert(context, payload) {
+    console.log(payload)
+    payload.status = Boolean(payload.status) ? payload.status : 500
     const alertType = parseInt(payload.status / 100)
     if (Boolean(payload.message) && Boolean(payload.status)) {
       switch (alertType) {
@@ -85,11 +87,25 @@ export const actions = {
           }, 5000)
           break
         default:
-          // set Error;
+          context.commit(
+            'setError',
+            {
+              status: 500,
+              message: 'An error occurred'
+            },
+            { root: true }
+          )
           break
       }
     } else {
-      // set Error;
+      context.commit(
+        'setError',
+        {
+          status: 500,
+          message: 'An error occurred'
+        },
+        { root: true }
+      )
     }
   }
 }
