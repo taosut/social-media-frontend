@@ -188,19 +188,19 @@ export default {
             })
           }
 
-          this.loading = false
           this.$v.$reset()
           this.title = ''
           this.description = ''
           this.imageFile = null
           this.imageUrl = ''
 
+          await this.$auth.fetchUser()
+          
+          this.loading = false
           this.setAlert({
             status: 200,
             message: result.message
           })
-          
-          await this.$auth.fetchUser()
         } catch (err) {
           this.loading = false
           if (err.response) {
