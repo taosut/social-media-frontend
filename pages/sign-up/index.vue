@@ -67,7 +67,7 @@
               ></v-textarea>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
-              <v-btn :disabled="$v.$invalid" @click="signUp" block>Create account</v-btn>
+              <v-btn :loading="loading" :disabled="$v.$invalid" @click="signUp" block>Create account</v-btn>
               <nuxt-link class="my-2" to="/sign-in">Already have account? Login</nuxt-link>
             </v-card-actions>
           </v-card>
@@ -107,6 +107,7 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
+      loading: false,
       show: false,
       imageFile: null,
       imageUrl: null,
@@ -215,7 +216,6 @@ export default {
   },
   watch: {
     imageFile: function(value) {
-      console.log(value)
       const reader = new FileReader()
       reader.addEventListener(
         'load',
@@ -228,6 +228,18 @@ export default {
       if (this.imageFile) {
         reader.readAsDataURL(this.imageFile)
       }
+    }
+  },
+  mounted() {
+    if (process.client) {
+      window.addEventListener('keypress', event => {
+        if (
+          event.code === 'Enter' ||
+          event.key === 'Enter' ||
+          event.keyCode === 13
+        )
+          this.signUp()
+      })
     }
   },
   methods: {
@@ -245,16 +257,44 @@ export default {
         formData.append('profileImage', this.imageFile)
 
         try {
+          this.loading = true
           const result = await this.$axios.$post('/auth/sign-up', formData)
 
-          console.log(result)
-        } catch (err) {
-          console.log(err.response)
-          console.log(err.message)
-          this.setAlert({
-            status: err.status,
-            message: err.response.data.message
+          if (!result) {
+            this.setAlert({
+              status: 500,
+              message: 'An error occurred'
+            })
+          }
+
+          this.loading = false
+
+          await this.$auth.loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password
+            }
           })
+
+          this.setAlert({
+            status: 200,
+            message: 'You have successfully logged in'
+          })
+
+          this.$router.replace('/')
+        } catch (err) {
+          this.loading = false
+          if (err.response) {
+            this.setAlert({
+              status: err.response.status,
+              message: err.response.data.message
+            })
+          } else {
+            this.setAlert({
+              status: 500,
+              message: 'An error occurred'
+            })
+          }
         }
       }
     }
