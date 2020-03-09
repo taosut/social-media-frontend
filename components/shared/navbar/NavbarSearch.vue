@@ -1,16 +1,16 @@
 <template>
-  <v-text-field
-    @keypress.enter="searchForPeople(searchQuery)"
+  <v-autocomplete
     solo
     dense
     clearable
     hide-details
     label="Search for people"
-    append-icon="mdi-magnify"
     rounded
-    @click:append="searchForPeople(searchQuery)"
-    v-model="searchQuery"
-  ></v-text-field>
+    v-model="model"
+    :search-input.sync="search"
+    :loading="loading"
+    :items="users"
+  ></v-autocomplete>
 </template>
 
 <script>
@@ -18,23 +18,35 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
-    return {}
+    return {
+      model: null,
+      search: null,
+      loading: false,
+      users: []
+    }
   },
   computed: {
-    ...mapGetters({}),
-    searchQuery: {
-      get() {
-        return this.$store.getters.searchQuery
-      },
-      set(value) {
-        this.$store.dispatch('changeSearchQuery', value)
+    ...mapGetters({})
+  },
+  watch: {
+    async search(value) {
+      if (!this.loading) {
+        try {
+          this.loading = true
+          const result = await this.$axios.$get(`/users/search/${value}`)
+
+          if (!result) users = []
+
+          this.loading = false
+          this.users = result.users
+        } catch (err) {
+          this.loading = false
+        }
       }
     }
   },
   methods: {
-    ...mapActions({
-      searchForPeople: 'searchForPeople'
-    })
+    ...mapActions({})
   }
 }
 </script>

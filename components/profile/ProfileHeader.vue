@@ -16,7 +16,11 @@
       <v-col class="page-header" cols="12" sm="7" md="6">
         <div class="d-flex align-center justify-start">
           <h2>{{ username }}</h2>
-          <v-btn color="primary mx-3" depressed>Follow</v-btn>
+          <v-btn
+            v-if="$route.params.profile !== $auth.user.username"
+            color="primary mx-3"
+            depressed
+          >Follow</v-btn>
         </div>
         <div class="d-flex align-center justify-start">
           <div>
