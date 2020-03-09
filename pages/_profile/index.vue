@@ -1,8 +1,15 @@
 <template>
   <v-content>
     <v-container>
-      <profile-header></profile-header>
-      <profile-posts></profile-posts>
+      <profile-header
+        :username="user.username"
+        :followersNumber="user.followersNumber"
+        :followingNumber="user.followingNumber"
+        :postsNumber="user.postsNumber"
+        :description="user.description"
+        :profileImage="user.profileImage.location"
+      ></profile-header>
+      <profile-posts :posts="user.posts" :taggedPosts="user.taggedPosts"></profile-posts>
     </v-container>
   </v-content>
 </template>
@@ -18,6 +25,9 @@ export default {
     //   return true
     // }
     return true
+  },
+  async asyncData(context) {
+    return await context.$axios.$get(`/users/${context.params.profile}`)
   },
   components: {
     ProfileHeader,
@@ -39,10 +49,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.avatar-border {
-  border: 5px solid rgb(228, 68, 68);
-}
-
 .page-header {
   max-height: 250px;
   height: 250px;

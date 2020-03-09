@@ -21,7 +21,7 @@
       :nuxt="true"
       class="mx-1"
       depressed
-      to="/profile"
+      :to="`/${$auth.user.username}`"
       exact
     >
       <v-icon :left="!$vuetify.breakpoint.mdAndDown">mdi-account</v-icon>
