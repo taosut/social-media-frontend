@@ -21,13 +21,23 @@ import ProfilePosts from '@/components/profile/ProfilePosts'
 export default {
   auth: false,
   validate(context) {
-    // if (context.params.profile === 'profile') {
-    //   return true
-    // }
-    return true
+    if (Boolean(context.params.profile) && context.params.profile.length) {
+      return true
+    }
+    return false
   },
   async asyncData(context) {
-    return await context.$axios.$get(`/users/${context.params.profile}`)
+    try {
+      const result = await context.$axios.$get(
+        `/users/${context.params.profile}`
+      )
+      if (result && result.user) return result
+      else context.error({ statusCode: 404, message: 'User not found' })
+    } catch (err) {
+      if (err.response && err.response.status === 404)
+        context.error({ statusCode: 404, message: 'User not found' })
+      else context.error({ statusCode: 500, message: 'An error occurred' })
+    }
   },
   components: {
     ProfileHeader,
