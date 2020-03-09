@@ -235,9 +235,10 @@ export default {
     if (process.client) {
       window.addEventListener('keypress', event => {
         if (
-          event.code === 'Enter' ||
-          event.key === 'Enter' ||
-          event.keyCode === 13
+          (event.code === 'Enter' ||
+            event.key === 'Enter' ||
+            event.keyCode === 13) &&
+          event.target.tagName !== 'TEXTAREA'
         )
           this.signUp()
       })
@@ -268,14 +269,19 @@ export default {
             })
           }
 
-          this.loading = false
-
           await this.$auth.loginWith('local', {
             data: {
               email: this.email,
               password: this.password
             }
           })
+
+          this.loading = false
+          this.$v.reset()
+          this.username = ''
+          this.email = ''
+          this.password = ''
+          this.confirmPassword = ''
 
           this.setAlert({
             status: 200,

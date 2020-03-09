@@ -32,7 +32,7 @@
             <span class="body-1">following</span>
           </div>
         </div>
-        <p class="ma-0">{{ description }}</p>
+        <p class="ma-0 description">{{ description }}</p>
       </v-col>
     </v-col>
   </v-row>
@@ -72,5 +72,9 @@ export default {
 <style scoped lang="scss">
 .avatar-border {
   border: 5px solid rgb(228, 68, 68);
+}
+
+.description {
+  white-space: pre-wrap;
 }
 </style>
