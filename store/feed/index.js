@@ -1,7 +1,9 @@
 export const state = () => ({
   fetchingFeed: false,
   feed: [],
-  moreFeedAvailable: true
+  moreFeedAvailable: true,
+  skipPosts: 0,
+  limitPosts: 2
 })
 
 export const getters = {
@@ -13,6 +15,12 @@ export const getters = {
   },
   moreFeedAvailable(state) {
     return state.moreFeedAvailable
+  },
+  skipPosts(state) {
+    return state.skipPosts
+  },
+  limitPosts(state) {
+    return state.limitPosts
   }
 }
 
@@ -25,10 +33,16 @@ export const mutations = {
   },
   changeMoreFeedAvailable(state, payload) {
     state.moreFeedAvailable = payload
+  },
+  increaseSkipPosts(state, payload) {
+    state.skipPosts += payload
   }
 }
 
 export const actions = {
+  increaseSkipPosts(context, payload) {
+    context.commit('increaseSkipPosts', payload)
+  },
   changeFetchingFeed(context, payload) {
     context.commit('changeFetchingFeed', payload)
   },
@@ -55,7 +69,7 @@ export const actions = {
           { root: true }
         )
       }
-    
+
       if (!result.posts.length) {
         return context.dispatch('changeMoreFeedAvailable', false)
       }

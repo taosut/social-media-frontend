@@ -28,7 +28,12 @@
           ></app-feed-card>
         </v-col>
         <v-col cols="12" md="8" xl="7">
-          <v-card ref="feed-preloader" height="60px" class="d-flex align-center justify-center">
+          <v-card
+            v-if="feed.length"
+            ref="feed-preloader"
+            height="60px"
+            class="d-flex align-center justify-center"
+          >
             <v-progress-circular v-if="moreFeedAvailable" indeterminate class="my-12"></v-progress-circular>
 
             <p class="ma-0 font-weight-bold" v-else>There are no more posts</p>
@@ -49,20 +54,31 @@ export default {
     if (!context.$auth.loggedIn) context.redirect('/sign-in')
     return true
   },
+  async fetch(context) {
+    if (!context.store.getters['feed/feed'].length) {
+      await context.store.dispatch('feed/fetchFeed', {
+        skip: context.store.getters['feed/skipPosts'],
+        limit: context.store.getters['feed/limitPosts']
+      })
+      context.store.dispatch(
+        'feed/increaseSkipPosts',
+        context.store.getters['feed/limitPosts']
+      )
+    }
+  },
   components: {
     AppFeedCard
   },
   data() {
-    return {
-      skipPosts: 0,
-      limitPosts: 2
-    }
+    return {}
   },
   computed: {
     ...mapGetters({
       fetchingFeed: 'feed/fetchingFeed',
       feed: 'feed/feed',
-      moreFeedAvailable: 'feed/moreFeedAvailable'
+      moreFeedAvailable: 'feed/moreFeedAvailable',
+      skipPosts: 'feed/skipPosts',
+      limitPosts: 'feed/limitPosts'
     })
   },
   mounted() {
@@ -71,10 +87,6 @@ export default {
         capture: true,
         passive: true
       })
-      if (!this.feed.length) {
-        this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
-        this.skipPosts += 2
-      }
     }
   },
   destroyed() {
@@ -86,7 +98,8 @@ export default {
   methods: {
     ...mapActions({
       changeFetchingFeed: 'feed/changeFetchingFeed',
-      fetchFeed: 'feed/fetchFeed'
+      fetchFeed: 'feed/fetchFeed',
+      increaseSkipPosts: 'feed/increaseSkipPosts'
     }),
     async handleScroll() {
       if (
@@ -96,7 +109,7 @@ export default {
         this.moreFeedAvailable
       ) {
         this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
-        this.skipPosts += 2
+        this.increaseSkipPosts(this.limitPosts)
       }
     }
   }
