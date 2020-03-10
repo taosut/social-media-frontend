@@ -18,7 +18,13 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="headline">{{ postTitle }}</v-list-item-title>
-          <v-list-item-subtitle>by {{ creatorUsername }}</v-list-item-subtitle>
+          <v-list-item-subtitle>
+            by
+            <nuxt-link
+              class="text-decoration-none"
+              :to="`/${creatorUsername}`"
+            >{{ creatorUsername }}</nuxt-link>
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-card-text>{{ postDescription | cutOffDescription }}</v-card-text>

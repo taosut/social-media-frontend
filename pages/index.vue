@@ -89,11 +89,6 @@ export default {
       fetchFeed: 'feed/fetchFeed'
     }),
     async handleScroll() {
-      console.log(
-        window.innerHeight >=
-          this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&
-          !this.fetchingFeed
-      )
       if (
         window.innerHeight >=
           this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&

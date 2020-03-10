@@ -55,7 +55,7 @@ export const actions = {
           { root: true }
         )
       }
-      console.log(result)
+    
       if (!result.posts.length) {
         return context.dispatch('changeMoreFeedAvailable', false)
       }
