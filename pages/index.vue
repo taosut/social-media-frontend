@@ -9,10 +9,23 @@
           >Hi {{ $auth.user.username }}, here are latest posts:</p>
         </v-col>
       </v-row>
-      <v-row class="align-start justify-center">
+      <v-row ref="feed-container" class="align-start justify-center">
         <!-- FEED -->
-        <v-col cols="12" md="8" xl="7">
-          <app-feed-card :post="post" v-for="(post, index) in feed" :key="index"></app-feed-card>
+        <v-col v-if="!feed.length" class="text-center" cols="12" md="8" xl="7">
+          <h3>Search for people and follow them to see their posts</h3>
+        </v-col>
+        <v-col v-else cols="12" md="8" xl="7">
+          <app-feed-card
+            :postImage="post.image.location"
+            :postId="post._id"
+            :postTitle="post.title"
+            :postDescription="post.description"
+            :creatorUsername="post.creator.username"
+            :creatorId="post.creator._id"
+            :creatorProfileImage="post.creator.profileImage.location"
+            v-for="(post, index) in feed"
+            :key="index"
+          ></app-feed-card>
         </v-col>
         <v-col cols="12" md="8" xl="7">
           <v-card ref="feed-preloader" height="60px" class="d-flex align-center justify-center">
@@ -39,85 +52,14 @@ export default {
   },
   data() {
     return {
-      feed: [
-        {
-          title: 'This is title',
-          description:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi magnam officiis eveniet, aut consequatur, sed harum amet libero fugit sapiente minus architecto ad. Nisi, fugiat! Porro repellat quam dicta aliquid minima quia fugit odit cupiditate placeat, beatae sapiente maiores maxime soluta obcaecati veniam commodi facilis illum animi, consectetur at aliquam et suscipit sit excepturi. Provident vero maxime nihil iste.',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi magnam officiis eveniet, aut consequatur, sed harum amet libero fugit sapiente minus architecto ad. Nisi, fugiat! Porro repellat quam dicta aliquid minima quia fugit odit cupiditate placeat, beatae sapiente maiores maxime soluta obcaecati veniam commodi facilis illum animi, consectetur at aliquam et suscipit sit excepturi. Provident vero maxime nihil iste.',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        },
-        {
-          title: 'This is title',
-          description: 'description',
-          postedAt: new Date(),
-          author: 'Marko Zlatar',
-          image: '/feed-img.jpg'
-        }
-      ]
+      skipPosts: 0,
+      limitPosts: 2
     }
   },
   computed: {
     ...mapGetters({
-      fetchingFeed: 'feed/fetchingFeed'
+      fetchingFeed: 'feed/fetchingFeed',
+      feed: 'feed/feed'
     })
   },
   mounted() {
@@ -126,6 +68,8 @@ export default {
         capture: true,
         passive: true
       })
+      this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
+      this.skipPosts += this.skipPosts
     }
   },
   destroyed() {
@@ -136,9 +80,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      changeFetchingFeed: 'feed/changeFetchingFeed'
+      changeFetchingFeed: 'feed/changeFetchingFeed',
+      fetchFeed: 'feed/fetchFeed'
     }),
-    handleScroll() {
+    async handleScroll() {
       if (
         window.innerHeight >=
           this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&

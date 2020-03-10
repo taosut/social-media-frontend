@@ -66,12 +66,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      changeNavbarMenu: 'changeNavbarMenu'
+    }),
     goToProfile(username) {
       this.$router.push(`/${username}`)
       this.model = null
       this.search = null
       this.users = []
+      this.changeNavbarMenu(false)
     }
   }
 }
