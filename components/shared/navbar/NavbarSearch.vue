@@ -10,7 +10,25 @@
     :search-input.sync="search"
     :loading="loading"
     :items="users"
-  ></v-autocomplete>
+    hide-no-data
+    return-object
+    item-text="username"
+    item-value="username"
+    hint
+  >
+    <template v-slot:item="data">
+      <template>
+        <v-list-item @click="goToProfile(data.item.username)">
+          <v-list-item-avatar>
+            <v-img :src="data.item.profileImage.location"></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title v-html="data.item.username"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </template>
+  </v-autocomplete>
 </template>
 
 <script>
@@ -22,7 +40,8 @@ export default {
       model: null,
       search: null,
       loading: false,
-      users: []
+      users: [],
+      searchDeley: false
     }
   },
   computed: {
@@ -30,23 +49,30 @@ export default {
   },
   watch: {
     async search(value) {
-      if (!this.loading) {
+      if (!this.loading && value && !this.searchDeley) {
         try {
+          this.searchDeley = true
+          setTimeout(() => (this.searchDeley = false), 300)
           this.loading = true
           const result = await this.$axios.$get(`/users/search/${value}`)
 
           if (!result) users = []
 
-          this.loading = false
           this.users = result.users
-        } catch (err) {
+        } finally {
           this.loading = false
         }
       }
     }
   },
   methods: {
-    ...mapActions({})
+    ...mapActions({}),
+    goToProfile(username) {
+      this.$router.push(`/${username}`)
+      this.model = null
+      this.search = null
+      this.users = []
+    }
   }
 }
 </script>
