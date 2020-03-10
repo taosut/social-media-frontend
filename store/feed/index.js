@@ -12,7 +12,7 @@ export const getters = {
     return state.feed
   },
   moreFeedAvailable(state) {
-    return state.moreFeed
+    return state.moreFeedAvailable
   }
 }
 
@@ -24,7 +24,7 @@ export const mutations = {
     state.feed.push(...payload)
   },
   changeMoreFeedAvailable(state, payload) {
-    state.moreFeed = payload
+    state.moreFeedAvailable = payload
   }
 }
 
@@ -44,7 +44,7 @@ export const actions = {
       const result = await this.$axios.$get(
         `/posts/?skip=${payload.skip}&limit=${payload.limit}`
       )
-      
+
       if (!result) {
         return context.dispatch(
           'alerts/setAlert',
@@ -55,7 +55,7 @@ export const actions = {
           { root: true }
         )
       }
-
+      console.log(result)
       if (!result.posts.length) {
         return context.dispatch('changeMoreFeedAvailable', false)
       }
@@ -82,7 +82,7 @@ export const actions = {
         )
       }
     } finally {
-      context.dispatch('changeFetchingFeed', true)
+      context.dispatch('changeFetchingFeed', false)
     }
   }
 }

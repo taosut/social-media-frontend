@@ -29,7 +29,9 @@
         </v-col>
         <v-col cols="12" md="8" xl="7">
           <v-card ref="feed-preloader" height="60px" class="d-flex align-center justify-center">
-            <v-progress-circular indeterminate class="my-12"></v-progress-circular>
+            <v-progress-circular v-if="moreFeedAvailable" indeterminate class="my-12"></v-progress-circular>
+
+            <p class="ma-0 font-weight-bold" v-else>There are no more posts</p>
           </v-card>
         </v-col>
       </v-row>
@@ -59,7 +61,8 @@ export default {
   computed: {
     ...mapGetters({
       fetchingFeed: 'feed/fetchingFeed',
-      feed: 'feed/feed'
+      feed: 'feed/feed',
+      moreFeedAvailable: 'feed/moreFeedAvailable'
     })
   },
   mounted() {
@@ -68,8 +71,10 @@ export default {
         capture: true,
         passive: true
       })
-      this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
-      this.skipPosts += this.skipPosts
+      if (!this.feed.length) {
+        this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
+        this.skipPosts += 2
+      }
     }
   },
   destroyed() {
@@ -84,16 +89,19 @@ export default {
       fetchFeed: 'feed/fetchFeed'
     }),
     async handleScroll() {
+      console.log(
+        window.innerHeight >=
+          this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&
+          !this.fetchingFeed
+      )
       if (
         window.innerHeight >=
           this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&
-        !this.fetchingFeed
+        !this.fetchingFeed &&
+        this.moreFeedAvailable
       ) {
-        this.changeFetchingFeed(true)
-        setTimeout(() => {
-          //fetch 10 more posts...
-          this.changeFetchingFeed(false)
-        }, 2000)
+        this.fetchFeed({ skip: this.skipPosts, limit: this.limitPosts })
+        this.skipPosts += 2
       }
     }
   }
