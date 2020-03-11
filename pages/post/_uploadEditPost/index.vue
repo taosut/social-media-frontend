@@ -4,7 +4,9 @@
       <v-col cols="12" sm="8" md="7" xl="5" class="mx-auto">
         <v-card>
           <v-card-title>
-            <h2 class="text-center full-width font-weight-light">New post</h2>
+            <h2
+              class="text-center full-width font-weight-light"
+            >{{ $route.params.uploadEditPost == 'upload' ? 'Create New post' : 'Edit Post' }}</h2>
           </v-card-title>
           <v-card-text>
             <v-text-field
@@ -39,7 +41,13 @@
               :author="{username: $auth.user.username, profileImage: $auth.user.profileImage.location}"
               :image="imageUrl"
             ></post-preview-dialog>
-            <v-btn :disabled="$v.$invalid" :loading="loading" @click="createPost">Create post</v-btn>
+            <v-btn
+              v-if="$route.params.uploadEditPost === 'upload'"
+              :disabled="$v.$invalid"
+              :loading="loading"
+              @click="createPost"
+            >Create post</v-btn>            
+            <v-btn v-else :disabled="$v.$invalid" :loading="loading" @click="editPost">Edit post</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -48,7 +56,7 @@
 </template>
 
 <script>
-import PostPreviewDialog from '@/components/upload/PostPreviewDialog'
+import PostPreviewDialog from '@/components/upload-edit/PostPreviewDialog'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -65,6 +73,14 @@ const imageFileSizeCheck = value => {
 }
 
 export default {
+  validate(context) {
+    if (
+      context.params.uploadEditPost === 'edit' ||
+      context.params.uploadEditPost === 'upload'
+    )
+      return true
+    return false
+  },
   components: {
     PostPreviewDialog
   },
@@ -169,6 +185,13 @@ export default {
     ...mapActions({
       setAlert: 'alerts/setAlert'
     }),
+    clearForm() {
+      this.$v.$reset()
+      this.title = ''
+      this.description = ''
+      this.imageFile = null
+      this.imageUrl = ''
+    },
     async createPost() {
       if (!this.$v.$invalid) {
         const formData = new FormData()
@@ -188,14 +211,10 @@ export default {
             })
           }
 
-          this.$v.$reset()
-          this.title = ''
-          this.description = ''
-          this.imageFile = null
-          this.imageUrl = ''
+          this.clearForm()
 
           await this.$auth.fetchUser()
-          
+
           this.loading = false
           this.setAlert({
             status: 200,
@@ -214,6 +233,53 @@ export default {
               message: 'An error occurred'
             })
           }
+        }
+      }
+    },
+    async editPost() {
+      if (!this.$v.$invalid) {
+        const formData = new FormData()
+
+        formData.append('title', this.title)
+        formData.append('description', this.description)
+        if (this.imageFile) formData.append('image', this.imageFile)
+
+        try {
+          this.loading = true
+          const result = await this.$axios.$patch(
+            '/posts/update-post',
+            formData
+          )
+
+          if (!result) {
+            this.setAlert({
+              status: 500,
+              message: 'An error occurred'
+            })
+          }
+
+          this.clearForm()
+
+          await this.$auth.fetchUser()
+
+          this.setAlert({
+            status: 200,
+            message: result.message
+          })
+        } catch (err) {
+          if (err.response) {
+            this.setAlert({
+              status: err.response.status,
+              message: err.response.data.message
+            })
+          } else {
+            this.setAlert({
+              status: 500,
+              message: 'An error occurred'
+            })
+          }
+        } finally {
+          this.loading = false
         }
       }
     }

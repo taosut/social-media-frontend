@@ -69,7 +69,7 @@
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"
       depressed
-      to="/upload"
+      to="/post/upload"
       exact
     >
       <v-icon left>mdi-upload</v-icon>Upload
