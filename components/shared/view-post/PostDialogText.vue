@@ -2,7 +2,7 @@
   <v-col cols="12" md="4" class="d-flex flex-column align-start justify-center">
     <div class="d-flex mt-3 flex-row align-center justify-center">
       <v-avatar size="40">
-        <v-img src="/avatar.png">
+        <v-img :src="creator.profileImage.location">
           <template v-slot:placeholder>
             <v-progress-circular indeterminate color="grey"></v-progress-circular>
           </template>
@@ -16,13 +16,33 @@
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
-      class="remove-scrollbar pt-6"
+      class="remove-scrollbar pt-6 d-flex flex-column align-start"
       :style="{'overflow-y': 'scroll'}"
       height="400px"
       max-height="400px"
       flat
     >
-      <div v-for="n in 10" :key="n" class="d-flex my-3 flex-row align-start justify-center">
+      <div class="d-flex my-3 flex-row align-start justify-start">
+        <v-avatar size="40" class="mr-1">
+          <v-img :src="creator.profileImage.location"></v-img>
+        </v-avatar>
+        <p class="ml-1 body-2">
+          <v-badge offset-y="2" offset-x="15" :value="true" icon="mdi-check-decagram">
+            <span class="mx-2 font-weight-bold ml-0">{{ creator.username }}:</span>
+          </v-badge>
+          <span>{{ showDescription }}</span>
+        </p>
+      </div>
+      <v-btn
+        v-if="postDescription.length > 100"
+        @click="descriptionReadMore = !descriptionReadMore"
+        fab
+        small
+        class="mb-3 mx-auto"
+      >
+        <v-icon>{{ descriptionReadMore ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+      </v-btn>
+      <div v-for="n in 9" :key="n" class="d-flex my-3 flex-row align-start justify-start">
         <v-avatar size="40" class="mr-1">
           <v-img src="/avatar.png"></v-img>
         </v-avatar>
@@ -43,9 +63,11 @@
         <v-icon>mdi-chat</v-icon>
       </v-btn>
       <br />
-      <span class="body-1 font-weight-bold">41,123 likes</span>
+      <span class="body-1 font-weight-bold">{{postLikes}} likes</span>
       <br />
-      <span class="body-2">{{ new Date().toLocaleDateString() }}</span>
+      <span
+        class="body-2"
+      >{{ new Date(postCreatedAt).toLocaleDateString(undefined, { month: 'long', year: 'numeric', day: 'numeric' }) }}</span>
     </v-card>
     <v-card width="100%" flat>
       <v-divider></v-divider>
@@ -60,7 +82,47 @@
 </template>
 
 <script>
-export default {}
+export default {
+  filters: {},
+  props: {
+    postDescription: {
+      type: String,
+      required: true
+    },
+    postCreatedAt: {
+      type: String,
+      required: true
+    },
+    postLikes: {
+      type: Number,
+      required: true
+    },
+    creator: {
+      type: Object,
+      required: true
+    },
+    comments: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      descriptionReadMore: false
+    }
+  },
+  computed: {
+    showDescription() {
+      console.log(this.postDescription.length)
+      if (this.postDescription.length > 100) {
+        if (this.descriptionReadMore) return this.postDescription
+        else return this.postDescription.slice(0, 97) + '...'
+      } else {
+        return this.postDescription
+      }
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">

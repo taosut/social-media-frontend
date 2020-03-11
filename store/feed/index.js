@@ -3,7 +3,9 @@ export const state = () => ({
   feed: [],
   moreFeedAvailable: true,
   skipPosts: 0,
-  limitPosts: 2
+  limitPosts: 2,
+  post: null,
+  loadingPost: false
 })
 
 export const getters = {
@@ -21,6 +23,12 @@ export const getters = {
   },
   limitPosts(state) {
     return state.limitPosts
+  },
+  post(state) {
+    return state.post
+  },
+  loadingPost(state) {
+    return state.loadingPost
   }
 }
 
@@ -36,6 +44,12 @@ export const mutations = {
   },
   increaseSkipPosts(state, payload) {
     state.skipPosts += payload
+  },
+  setPost(state, payload) {
+    state.post = payload
+  },
+  changeLoadingPost(state, payload) {
+    state.loadingPost = payload
   }
 }
 
@@ -97,6 +111,48 @@ export const actions = {
       }
     } finally {
       context.dispatch('changeFetchingFeed', false)
+    }
+  },
+  async fetchPost(context, payload) {
+    try {
+      context.dispatch('changePostDialog', true, { root: true })
+      context.commit('changeLoadingPost', true)
+      const result = await this.$axios.$get(`/posts/${payload}`)
+
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+      context.commit('setPost', result.post)
+    } catch (err) {
+      context.dispatch('changePostDialog', false, { root: true })
+      if (err.response) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      } else {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+    } finally {
+      context.commit('changeLoadingPost', false)
     }
   }
 }
