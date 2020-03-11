@@ -17,47 +17,7 @@
         <v-col cols="12" sm="10" lg="9" xl="8" class="mx-auto d-flex flex-wrap">
           <h3 class="text-center mx-auto" v-if="!posts.length">User has no posts</h3>
           <v-col v-else v-for="post in posts" :key="post._id" class="d-flex child-flex" cols="4">
-            <v-hover>
-              <template v-slot:default="{ hover }">
-                <v-card flat tile class="d-flex">
-                  <v-img :src="post.image.location" aspect-ratio="1" lazy-src="/placeholder.png">
-                    <template v-slot:placeholder>
-                      <v-row class="fill-height ma-0" align="center" justify="center">
-                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                  <v-fade-transition>
-                    <v-overlay v-if="hover" absolute color="grey darken-3">
-                      <v-btn
-                        @click="$store.dispatch('feed/fetchPost', post._id)"
-                        color="white"
-                        large
-                        icon
-                      >
-                        <v-icon>mdi-eye</v-icon>
-                      </v-btn>
-                      <v-btn
-                        v-if="$auth.user.username === $route.params.profile"
-                        color="white"
-                        large
-                        icon
-                      >
-                        <v-icon>mdi-circle-edit-outline</v-icon>
-                      </v-btn>
-                      <v-btn
-                        v-if="$auth.user.username === $route.params.profile"
-                        color="white"
-                        large
-                        icon
-                      >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
-                    </v-overlay>
-                  </v-fade-transition>
-                </v-card>
-              </template>
-            </v-hover>
+            <profile-posts-post :post="post"></profile-posts-post>
           </v-col>
         </v-col>
       </v-tab-item>
@@ -72,15 +32,7 @@
             class="d-flex child-flex"
             cols="4"
           >
-            <v-card flat tile class="d-flex">
-              <v-img :src="taggedPost.image.location" aspect-ratio="1" lazy-src="/placeholder.png">
-                <template v-slot:placeholder>
-                  <v-row class="fill-height ma-0" align="center" justify="center">
-                    <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </v-card>
+            <profile-posts-post :post="taggedPost"></profile-posts-post>
           </v-col>
         </v-col>
       </v-tab-item>
@@ -89,7 +41,12 @@
 </template>
 
 <script>
+import ProfilePostsPost from '@/components/profile/ProfilePostsPost'
+
 export default {
+  components: {
+    ProfilePostsPost
+  },
   props: {
     posts: {
       type: Array,
