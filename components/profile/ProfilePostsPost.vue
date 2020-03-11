@@ -14,7 +14,13 @@
             <v-btn @click="$store.dispatch('feed/fetchPost', post._id)" color="white" large icon>
               <v-icon>mdi-eye</v-icon>
             </v-btn>
-            <v-btn v-if="$auth.user.username === $route.params.profile" color="white" large icon>
+            <v-btn
+              @click="editPost"
+              v-if="$auth.user.username === $route.params.profile"
+              color="white"
+              large
+              icon
+            >
               <v-icon>mdi-circle-edit-outline</v-icon>
             </v-btn>
             <v-btn v-if="$auth.user.username === $route.params.profile" color="white" large icon>
@@ -33,6 +39,11 @@ export default {
     post: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    editPost() {
+      this.$router.push(`/post/edit?postId=${this.post._id}`)
     }
   }
 }

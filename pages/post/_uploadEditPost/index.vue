@@ -46,8 +46,13 @@
               :disabled="$v.$invalid"
               :loading="loading"
               @click="createPost"
-            >Create post</v-btn>            
-            <v-btn v-else :disabled="$v.$invalid" :loading="loading" @click="editPost">Edit post</v-btn>
+            >Create post</v-btn>
+            <v-btn
+              v-else
+              :disabled="Boolean($v.$anyError) || !Boolean(imageUrl)"
+              :loading="loading"
+              @click="editPost"
+            >Edit post</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -112,6 +117,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({}),
     titleErrors() {
       const errors = []
       if (!this.$v.title.$dirty) return errors
@@ -169,17 +175,46 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     if (process.client) {
+      console.log(this.$v)
       window.addEventListener('keypress', event => {
         if (
           event.code === 'Enter' ||
           event.key === 'Enter' ||
           event.keyCode === 13
         )
-          this.createPost()
+          if (this.$route.params.uploadEditPost === 'upload') this.createPost()
+          else this.editPost()
       })
+
+      if (this.$route.params.uploadEditPost === 'edit') {
+        try {
+          const result = await this.$axios.$get(
+            `/posts/get-post-for-update/${this.$route.query.postId}`
+          )
+
+          if (!result) {
+            this.setAlert('alerts/setAlert', {
+              status: 500,
+              message: 'An error occured'
+            })
+          }
+
+          this.title = result.post.title
+          this.imageUrl = result.post.image.location
+          this.description = result.post.description
+        } catch (err) {
+          this.setAlert('alerts/setAlert', {
+            status: 500,
+            message: 'An error occured'
+          })
+        }
+      }
     }
+  },
+  destroyed() {
+    this.clearForm()
   },
   methods: {
     ...mapActions({
@@ -237,10 +272,11 @@ export default {
       }
     },
     async editPost() {
-      if (!this.$v.$invalid) {
+      if (!Boolean(this.$v.$anyError) && Boolean(this.imageUrl)) {
         const formData = new FormData()
 
         formData.append('title', this.title)
+        formData.append('postId', this.$route.query.postId)
         formData.append('description', this.description)
         if (this.imageFile) formData.append('image', this.imageFile)
 
@@ -260,12 +296,12 @@ export default {
 
           this.clearForm()
 
-          await this.$auth.fetchUser()
-
           this.setAlert({
             status: 200,
             message: result.message
           })
+
+          this.$router.push(`/${this.$auth.user.username}`)
         } catch (err) {
           if (err.response) {
             this.setAlert({
