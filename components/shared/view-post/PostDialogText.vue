@@ -37,7 +37,7 @@
         v-if="postDescription.length > 100"
         @click="descriptionReadMore = !descriptionReadMore"
         fab
-        small
+        x-small
         class="mb-3 mx-auto"
       >
         <v-icon>{{ descriptionReadMore ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>

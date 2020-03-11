@@ -57,6 +57,7 @@ export default {
     baseURL: process.env.SERVER_URL
   },
   auth: {
+    resetOnError: true,
     redirect: {
       login: '/sign-in',
       logout: '/sign-in',
