@@ -2,14 +2,15 @@
   <v-content>
     <v-container>
       <profile-header
-        :username="user.username"
-        :followersNumber="user.followersNumber"
-        :followingNumber="user.followingNumber"
-        :postsNumber="user.postsNumber"
-        :description="user.description"
-        :profileImage="user.profileImage.location"
+        :username="profile.username"
+        :followersNumber="profile.followersNumber"
+        :followingNumber="profile.followingNumber"
+        :postsNumber="profile.postsNumber"
+        :description="profile.description"
+        :profileImage="profile.profileImage.location"
       ></profile-header>
-      <profile-posts :posts="user.posts" :taggedPosts="user.taggedPosts"></profile-posts>
+      <profile-posts :posts="profile.posts" :taggedPosts="profile.taggedPosts"></profile-posts>
+      <delete-post-dialog></delete-post-dialog>
     </v-container>
   </v-content>
 </template>
@@ -17,6 +18,9 @@
 <script>
 import ProfileHeader from '@/components/profile/ProfileHeader'
 import ProfilePosts from '@/components/profile/ProfilePosts'
+import DeletePostDialog from '@/components/profile/DeletePostDialog'
+
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   auth: false,
@@ -26,12 +30,13 @@ export default {
     }
     return false
   },
-  async asyncData(context) {
+  async fetch(context) {
     try {
       const result = await context.$axios.$get(
         `/users/${context.params.profile}`
       )
-      if (result && result.user) return result
+      if (result && result.user)
+        return context.store.dispatch('user/setProfile', result.user)
       else context.error({ statusCode: 404, message: 'User not found' })
     } catch (err) {
       if (err.response && err.response.status === 404)
@@ -41,12 +46,17 @@ export default {
   },
   components: {
     ProfileHeader,
-    ProfilePosts
+    ProfilePosts,
+    DeletePostDialog
   },
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      profile: 'user/profile'
+    })
+  },
   watch: {
     tab: function(value) {
       if (!value) {

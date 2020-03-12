@@ -17,7 +17,7 @@
         <div class="d-flex align-center justify-start">
           <h2>{{ username }}</h2>
           <v-btn
-            v-if="$route.params.profile !== $auth.user.username"
+            v-if="$auth.user && $route.params.profile !== $auth.user.username"
             color="primary mx-3"
             depressed
           >Follow</v-btn>
