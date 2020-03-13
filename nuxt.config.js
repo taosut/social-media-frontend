@@ -57,7 +57,7 @@ export default {
     baseURL: process.env.SERVER_URL
   },
   auth: {
-    resetOnError: true,
+    plugins: [`~/plugins/auth.js`],
     redirect: {
       login: '/sign-in',
       logout: '/sign-in',
