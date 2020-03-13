@@ -12,6 +12,7 @@
       <profile-posts :posts="profile.posts" :taggedPosts="profile.taggedPosts"></profile-posts>
       <delete-post-dialog></delete-post-dialog>
       <delete-account-dialog></delete-account-dialog>
+      <edit-profile-dialog></edit-profile-dialog>
     </v-container>
   </v-content>
 </template>
@@ -21,6 +22,7 @@ import ProfileHeader from '@/components/profile/ProfileHeader'
 import ProfilePosts from '@/components/profile/ProfilePosts'
 import DeletePostDialog from '@/components/profile/DeletePostDialog'
 import DeleteAccountDialog from '@/components/profile/DeleteAccountDialog'
+import EditProfileDialog from '@/components/profile/EditProfileDialog'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -50,7 +52,8 @@ export default {
     ProfileHeader,
     ProfilePosts,
     DeletePostDialog,
-    DeleteAccountDialog
+    DeleteAccountDialog,
+    EditProfileDialog
   },
   data() {
     return {}

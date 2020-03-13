@@ -248,6 +248,14 @@ export default {
     ...mapActions({
       setAlert: 'alerts/setAlert'
     }),
+    clearForm() {
+      this.loading = false
+      this.$v.reset()
+      this.username = ''
+      this.email = ''
+      this.password = ''
+      this.confirmPassword = ''
+    },
     async signUp() {
       if (!this.$v.$invalid) {
         const formData = new FormData()
@@ -276,12 +284,7 @@ export default {
             }
           })
 
-          this.loading = false
-          this.$v.reset()
-          this.username = ''
-          this.email = ''
-          this.password = ''
-          this.confirmPassword = ''
+          this.clearForm()
 
           this.setAlert({
             status: 200,

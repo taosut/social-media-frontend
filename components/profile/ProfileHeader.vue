@@ -33,7 +33,7 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item>
+              <v-list-item @click="$store.dispatch('user/changeEditProfileDialog', true)">
                 <v-list-item-icon>
                   <v-icon>mdi-circle-edit-outline</v-icon>
                 </v-list-item-icon>
