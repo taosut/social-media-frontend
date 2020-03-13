@@ -208,7 +208,7 @@ export default {
       const errors = []
       if (!this.$v.imageFile.$dirty) return errors
 
-      !this.$v.imageFile.required && errors.push('Password is required')
+      !this.$v.imageFile.required && errors.push('Image is required')
       !this.$v.imageFile.imageFileSizeCheck &&
         errors.push('Files size must be less then 1MB')
 
@@ -250,7 +250,7 @@ export default {
     }),
     clearForm() {
       this.loading = false
-      this.$v.reset()
+      this.$v.$reset()
       this.username = ''
       this.email = ''
       this.password = ''
