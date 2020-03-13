@@ -21,6 +21,32 @@
             color="primary mx-3"
             depressed
           >Follow</v-btn>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-on="on"
+                v-if="$auth.user && $route.params.profile === $auth.user.username"
+                icon
+                class="mx-3"
+              >
+                <v-icon>mdi-cog-outline</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-circle-edit-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Edit profile</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="$store.dispatch('user/changeDeleteAccountDialog', true)">
+                <v-list-item-icon>
+                  <v-icon>mdi-delete</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Delete profile</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </div>
         <div class="d-flex align-center justify-start">
           <div>

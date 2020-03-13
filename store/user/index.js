@@ -1,6 +1,7 @@
 export const state = () => ({
   deletePostId: '',
   deletePostDialog: false,
+  deleteAccountDialog: false,
   profile: null
 })
 
@@ -10,6 +11,9 @@ export const getters = {
   },
   deletePostDialog(state) {
     return state.deletePostDialog
+  },
+  deleteAccountDialog(state) {
+    return state.deleteAccountDialog
   },
   profile(state) {
     return state.profile
@@ -22,6 +26,9 @@ export const mutations = {
   },
   changeDeletePostDialog(state, payload) {
     state.deletePostDialog = payload
+  },
+  changeDeleteAccountDialog(state, payload) {
+    state.deleteAccountDialog = payload
   },
   setProfile(state, payload) {
     state.profile = payload
@@ -41,6 +48,9 @@ export const mutations = {
 export const actions = {
   changeDeletePostDialog(context, payload) {
     context.commit('changeDeletePostDialog', payload)
+  },
+  changeDeleteAccountDialog(context, payload) {
+    context.commit('changeDeleteAccountDialog', payload)
   },
   setDeletePostId(context, payload) {
     context.commit('setDeletePostId', payload)
