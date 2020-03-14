@@ -233,15 +233,6 @@ export default {
   },
   mounted() {
     if (process.client) {
-      window.addEventListener('keypress', event => {
-        if (
-          (event.code === 'Enter' ||
-            event.key === 'Enter' ||
-            event.keyCode === 13) &&
-          event.target.tagName !== 'TEXTAREA'
-        )
-          this.signUp()
-      })
     }
   },
   methods: {

@@ -177,17 +177,6 @@ export default {
   },
   async mounted() {
     if (process.client) {
-      console.log(this.$v)
-      window.addEventListener('keypress', event => {
-        if (
-          event.code === 'Enter' ||
-          event.key === 'Enter' ||
-          event.keyCode === 13
-        )
-          if (this.$route.params.uploadEditPost === 'upload') this.createPost()
-          else this.editPost()
-      })
-
       if (this.$route.params.uploadEditPost === 'edit') {
         try {
           const result = await this.$axios.$get(

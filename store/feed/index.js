@@ -50,10 +50,17 @@ export const mutations = {
   },
   changeLoadingPost(state, payload) {
     state.loadingPost = payload
+  },
+  clearFeed(state) {
+    state.feed = []
+    state.skipPosts = 0
   }
 }
 
 export const actions = {
+  clearFeed(context) {
+    context.commit('clearFeed')
+  },
   increaseSkipPosts(context, payload) {
     context.commit('increaseSkipPosts', payload)
   },

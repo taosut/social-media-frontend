@@ -14,7 +14,7 @@
       <v-card-text>
         <p
           class="my-3"
-        >All your data will be deleted, this include all your posts, people that follow you and that you follow!</p>
+        >All your data will be deleted, this include all your posts, messages, people that follow you and that you follow!</p>
         <v-text-field
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
@@ -97,7 +97,7 @@ export default {
       try {
         this.loading = true
         const result = await this.$axios.$delete('/users/delete-account', {
-          data: {}
+          data: { password: this.password, email: this.$auth.user.email }
         })
 
         if (!result) {
@@ -111,11 +111,14 @@ export default {
           status: 200,
           message: 'Account successfully deleted'
         })
+
+        this.$auth.logout()
+        this.$router.replace('/sign-up')
       } catch (err) {
         if (err.response)
           this.setAlert({
             status: err.response.status,
-            message: err.response.message
+            message: err.response.data.message
           })
         else
           this.setAlert({
@@ -123,6 +126,7 @@ export default {
             message: 'An error occurred'
           })
       } finally {
+        this.loading = false
       }
     },
     cancelAccountDeletion() {

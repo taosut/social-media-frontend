@@ -89,17 +89,7 @@ export default {
       return errors
     }
   },
-  mounted() {
-    if (process.client)
-      window.addEventListener('keypress', event => {
-        if (
-          event.code === 'Enter' ||
-          event.key === 'Enter' ||
-          event.keyCode === 13
-        )
-          this.signIn()
-      })
-  },
+  mounted() {},
   methods: {
     ...mapActions({
       setAlert: 'alerts/setAlert'

@@ -55,16 +55,15 @@ export default {
     return true
   },
   async fetch(context) {
-    if (!context.store.getters['feed/feed'].length) {
-      await context.store.dispatch('feed/fetchFeed', {
-        skip: context.store.getters['feed/skipPosts'],
-        limit: context.store.getters['feed/limitPosts']
-      })
-      context.store.dispatch(
-        'feed/increaseSkipPosts',
-        context.store.getters['feed/limitPosts']
-      )
-    }
+    context.store.dispatch('feed/clearFeed')
+    await context.store.dispatch('feed/fetchFeed', {
+      skip: context.store.getters['feed/skipPosts'],
+      limit: context.store.getters['feed/limitPosts']
+    })
+    context.store.dispatch(
+      'feed/increaseSkipPosts',
+      context.store.getters['feed/limitPosts']
+    )
   },
   components: {
     AppFeedCard
