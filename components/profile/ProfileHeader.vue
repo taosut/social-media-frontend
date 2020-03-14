@@ -62,7 +62,7 @@
             <span class="body-1">following</span>
           </div>
         </div>
-        <p class="ma-0 description">{{ description }}</p>
+        <p class="ma-0 description" v-html="description"></p>
       </v-col>
     </v-col>
   </v-row>
@@ -106,5 +106,7 @@ export default {
 
 .description {
   white-space: pre-wrap;
+  max-height: 155px;
+  overflow: hidden;
 }
 </style>
