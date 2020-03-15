@@ -31,8 +31,8 @@
       <v-card-actions>
         <v-btn text @click="$store.dispatch('feed/fetchPost', postId)">Read more</v-btn>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
+        <v-btn :color="isLikedPost ? 'red' : 'grey'" icon>
+          <v-icon>{{isLikedPost ? 'mdi-heart' : 'mdi-heart-outline'}}</v-icon>
         </v-btn>
         <v-btn icon @click="$store.dispatch('feed/fetchPost', postId)">
           <v-icon>mdi-comment</v-icon>
@@ -89,6 +89,13 @@ export default {
     setTimeout(() => {
       this.loading = false
     }, 1000)
+  },
+  computed: {
+    isLikedPost() {
+      return this.$store.getters['user/userData'].likedPosts.some(
+        likedPostId => likedPostId === this.postId
+      )
+    }
   }
 }
 </script>

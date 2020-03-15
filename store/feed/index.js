@@ -54,6 +54,7 @@ export const mutations = {
   clearFeed(state) {
     state.feed = []
     state.skipPosts = 0
+    state.moreFeedAvailable = true
   }
 }
 
