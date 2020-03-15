@@ -29,6 +29,7 @@
         <post-dialog-text
           :creator="post.creator"
           :postDescription="post.description"
+          :postId="post._id"
           :comments="post.comments"
           :postLikes="post.likes"
           :postCreatedAt="post.createdAt"

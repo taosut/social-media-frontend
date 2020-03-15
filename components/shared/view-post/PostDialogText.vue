@@ -56,14 +56,20 @@
     </v-card>
     <v-card flat width="100%" class="my-1">
       <v-divider></v-divider>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+      <v-btn
+        @click="$store.dispatch('user/setUserLikedPosts', postId)"
+        :color="isLikedPost ? 'red' : 'grey'"
+        icon
+      >
+        <v-icon>{{isLikedPost ? 'mdi-heart' : 'mdi-heart-outline'}}</v-icon>
       </v-btn>
       <v-btn icon>
         <v-icon>mdi-chat</v-icon>
       </v-btn>
       <br />
-      <span class="body-1 font-weight-bold">{{postLikes}} likes</span>
+      <span
+        class="body-1 font-weight-bold"
+      >{{showPostLikes}} {{ showPostLikes == 1 ? 'like' : 'likes'}}</span>
       <br />
       <span
         class="body-2"
@@ -85,6 +91,10 @@
 export default {
   filters: {},
   props: {
+    postId: {
+      type: String,
+      required: true
+    },
     postDescription: {
       type: String,
       required: true
@@ -108,7 +118,8 @@ export default {
   },
   data() {
     return {
-      descriptionReadMore: false
+      descriptionReadMore: false,
+      alreadyLiked: false
     }
   },
   computed: {
@@ -120,7 +131,28 @@ export default {
       } else {
         return this.postDescription
       }
+    },
+    showPostLikes() {
+      if (!this.alreadyLiked) {
+        if (this.isLikedPost) {
+          return this.postLikes + 1
+        }
+        return this.postLikes
+      } else {
+        if (this.isLikedPost) {
+          return this.postLikes
+        }
+        return this.postLikes - 1
+      }
+    },
+    isLikedPost() {
+      return this.$store.getters['user/userData'].likedPosts.some(
+        likedPostId => likedPostId === this.postId
+      )
     }
+  },
+  mounted() {
+    this.alreadyLiked = this.isLikedPost ? true : false
   }
 }
 </script>
