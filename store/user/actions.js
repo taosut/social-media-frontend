@@ -69,5 +69,35 @@ export default {
         )
       }
     }
+  },
+  async setUserLikedPosts(context, payload) {
+    console.log(payload)
+    try {
+      const result = await this.$axios.$put('/users/user/set-liked-posts', {
+        postId: payload
+      })
+      console.log(result)
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+
+      context.commit('setUserLikedPosts', result.likedPosts)
+    } catch (err) {
+      context.dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
+    }
   }
 }

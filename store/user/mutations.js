@@ -35,5 +35,8 @@ export default {
     profile.postsNumber -= 1
 
     state.profile = profile
+  },
+  setUserLikedPosts(state, payload) {
+    state.userData.likedPosts = payload
   }
 }

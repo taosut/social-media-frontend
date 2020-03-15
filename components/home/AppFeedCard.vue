@@ -31,7 +31,11 @@
       <v-card-actions>
         <v-btn text @click="$store.dispatch('feed/fetchPost', postId)">Read more</v-btn>
         <v-spacer></v-spacer>
-        <v-btn :color="isLikedPost ? 'red' : 'grey'" icon>
+        <v-btn
+          @click="$store.dispatch('user/setUserLikedPosts', postId)"
+          :color="isLikedPost ? 'red' : 'grey'"
+          icon
+        >
           <v-icon>{{isLikedPost ? 'mdi-heart' : 'mdi-heart-outline'}}</v-icon>
         </v-btn>
         <v-btn icon @click="$store.dispatch('feed/fetchPost', postId)">
