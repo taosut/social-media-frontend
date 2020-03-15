@@ -6,7 +6,11 @@
         primary-title
       >Are you sure you went to delete this post?</v-card-title>
       <v-divider></v-divider>
-
+      <v-card-text>
+        <p
+          class="my-1"
+        >On post deletion, all data is lost (that includes image, all likes and comments...)</p>
+      </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="primary" text @click="clearPostDeletion">Cancel</v-btn>

@@ -3,7 +3,14 @@ export const state = () => ({
   deletePostDialog: false,
   deleteAccountDialog: false,
   editProfileDialog: false,
-  profile: null
+  profile: null,
+  userData: {
+    followingNumber: null,
+    following: [],
+    followersNumber: null,
+    followers: [],
+    likedPosts: []
+  }
 })
 
 export const getters = {
@@ -21,6 +28,9 @@ export const getters = {
   },
   profile(state) {
     return state.profile
+  },
+  userData(state) {
+    return state.user
   }
 }
 
@@ -39,6 +49,18 @@ export const mutations = {
   },
   setProfile(state, payload) {
     state.profile = payload
+  },
+  setUserData(state, payload) {
+    state.userData = payload
+  },
+  clearUserdata(state) {
+    state.userData = {
+      followingNumber: null,
+      following: [],
+      followersNumber: null,
+      followers: [],
+      likedPosts: []
+    }
   },
   removeProfilePost(state, payload) {
     console.log(payload)
@@ -69,7 +91,59 @@ export const actions = {
   setProfile(context, payload) {
     context.commit('setProfile', payload)
   },
+  setUserData(context, payload) {
+    context.commit('setUserData', payload)
+  },
+  clearUserdata(context) {
+    context.commit('clearUserdata')
+  },
   removeProfilePost(context, payload) {
     context.commit('removeProfilePost', payload)
+  },
+  async fetchUserData(context) {
+    try {
+      const result = await this.$axios.$get(
+        '/auth/user?projection=followersNumber followers followingNumber following likedPosts'
+      )
+
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+
+      context.commit('setUserData', {
+        followingNumber: result.user.followingNumber,
+        following: result.user.following,
+        followersNumber: result.user.followersNumber,
+        followers: result.user.followers,
+        likedPosts: result.user.likedPosts
+      })
+    } catch (err) {
+      if (err.response) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      } else {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+    }
   }
 }

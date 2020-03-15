@@ -89,10 +89,13 @@ export default {
       return errors
     }
   },
-  mounted() {},
+  mounted() {
+    this.clearUserdata()
+  },
   methods: {
     ...mapActions({
-      setAlert: 'alerts/setAlert'
+      setAlert: 'alerts/setAlert',
+      clearUserdata: 'user/clearUserdata'
     }),
     async signIn() {
       console.log(this.$v.$invalid)

@@ -43,10 +43,15 @@ export default {
       throw this.error
     }
   },
-  mounted() {},
+  mounted() {
+    if (this.$auth.loggedIn && !this.user) {
+      this.fetchUserData()
+    }
+  },
   methods: {
     ...mapActions({
-      setError: 'setError'
+      setError: 'setError',
+      fetchUserData: 'user/fetchUserData'
     })
   }
 }

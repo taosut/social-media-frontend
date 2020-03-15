@@ -232,12 +232,14 @@ export default {
     }
   },
   mounted() {
+    this.clearUserdata()
     if (process.client) {
     }
   },
   methods: {
     ...mapActions({
-      setAlert: 'alerts/setAlert'
+      setAlert: 'alerts/setAlert',
+      clearUserdata: 'user/clearUserdata'
     }),
     clearForm() {
       this.loading = false
