@@ -298,7 +298,7 @@ export default {
       console.log(this.$v.$invalid)
       if (!this.$v.$invalid) {
         this.loading = true
-        console.log('works')
+
         const formData = new FormData()
 
         formData.append('username', this.username)

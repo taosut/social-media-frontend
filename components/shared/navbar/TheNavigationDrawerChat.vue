@@ -5,6 +5,7 @@
     clipped
     right
     :permanent="$vuetify.breakpoint.mdAndUp"
+    hide-overlay
   >
     <v-list-item>
       <v-list-item-content>

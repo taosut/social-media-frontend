@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <chat-box v-for="(chatbox, index) in chatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chat-box>
+    <chat-box v-for="(chatbox, index) in getChatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chat-box>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      chatboxes: 'chat/chatboxes'
+      getChatboxes: 'chat/getChatboxes'
     })
   },
   methods: {

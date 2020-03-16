@@ -5,7 +5,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click="removeChatbox(chatbox)" icon>
+      <v-btn @click.stop="removeChatbox(chatbox)" icon>
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>

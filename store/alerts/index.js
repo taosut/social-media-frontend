@@ -41,7 +41,7 @@ export const actions = {
     context.commit('SET_SHOW_ALERT', payload)
   },
   setAlert(context, { status, message }) {
-    console.log(payload)
+    console.log(status, message)
 
     status = Boolean(status) ? status : 500
 
