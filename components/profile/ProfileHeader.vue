@@ -16,11 +16,10 @@
       <v-col class="page-header" cols="12" sm="7" md="6">
         <div class="d-flex align-center justify-start">
           <h2>{{ username }}</h2>
-          <v-btn
+          <app-follow-btn
+            :userId="profileId"
             v-if="$auth.user && $route.params.profile !== $auth.user.username"
-            color="primary mx-3"
-            depressed
-          >Follow</v-btn>
+          ></app-follow-btn>
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn
@@ -69,8 +68,17 @@
 </template>
 
 <script>
+import AppFollowBtn from '@/components/shared/AppFollowBtn'
+
 export default {
+  components: {
+    AppFollowBtn
+  },
   props: {
+    profileId: {
+      type: String,
+      required: true
+    },
     profileImage: {
       type: String,
       required: true

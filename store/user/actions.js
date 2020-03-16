@@ -91,5 +91,33 @@ export default {
         { root: true }
       )
     }
+  },
+  async setUserFollowing(context, payload) {
+    try {
+      const result = await this.$axios.$put('/users/user/set-following', {
+        userId: payload
+      })
+      console.log(result)
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+      context.commit('SET_USER_FOLLOWING', result.following)
+    } catch (err) {
+      context.dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
+    }
   }
 }

@@ -35,5 +35,8 @@ export default {
   },
   SET_USER_LIKED_POSTS(state, payload) {
     state.likedPosts = payload
+  },
+  SET_USER_FOLLOWING(state, payload) {
+    state.following = payload
   }
 }

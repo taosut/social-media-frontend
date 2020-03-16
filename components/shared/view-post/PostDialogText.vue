@@ -12,7 +12,7 @@
         <span class="mx-2 font-weight-bold">username</span>
       </v-badge>
       <span>&bullet;</span>
-      <v-btn v-if="creator.username !== $auth.user.username" color="primary" text>Follow</v-btn>
+      <app-follow-btn :userId="creator._id"></app-follow-btn>
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
@@ -88,7 +88,12 @@
 </template>
 
 <script>
+import AppFollowBtn from '@/components/shared/AppFollowBtn'
+
 export default {
+  components: {
+    AppFollowBtn
+  },
   filters: {},
   props: {
     postId: {

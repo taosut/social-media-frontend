@@ -8,6 +8,7 @@
         :postsNumber="getProfile.posts.length"
         :description="getProfile.description"
         :profileImage="getProfile.profileImage.location"
+        :profileId="getProfile._id"
       ></profile-header>
       <profile-posts :posts="getProfile.posts" :taggedPosts="getProfile.taggedPosts"></profile-posts>
       <delete-post-dialog></delete-post-dialog>
