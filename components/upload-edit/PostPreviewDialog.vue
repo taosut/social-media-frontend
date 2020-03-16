@@ -2,7 +2,7 @@
   <v-dialog width="80%">
     <template v-slot:activator="{ on }">
       <v-btn
-        :disabled="!Boolean(title) || !Boolean(description) || !Boolean(image)"
+        :disabled="!Boolean(title) || !Boolean(description) || !Boolean(image) || loading"
         v-on="on"
       >Post preview</v-btn>
     </template>
@@ -39,6 +39,10 @@ export default {
     },
     author: {
       type: Object,
+      required: true
+    },
+    loading: {
+      type: Boolean,
       required: true
     }
   }

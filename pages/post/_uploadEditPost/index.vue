@@ -40,6 +40,7 @@
               :description="description"
               :author="{username: $auth.user.username, profileImage: $auth.user.profileImage.location}"
               :image="imageUrl"
+              :loading="loading"
             ></post-preview-dialog>
             <v-btn
               v-if="$route.params.uploadEditPost === 'upload'"
