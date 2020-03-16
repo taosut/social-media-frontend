@@ -3,12 +3,12 @@
     :width="$vuetify.breakpoint.xsOnly ? '95%' : '60%'"
     class="alert"
     transition="scale-transition"
-    :type="alert.type"
+    :type="getAlert.type"
     border="left"
     prominent
     dismissible
     v-model="showAlert"
-  >{{ alert.text }}</v-alert>
+  >{{ getAlert.text }}</v-alert>
 </template>
 
 <script>
@@ -16,17 +16,15 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
-    return {
-      type: ''
-    }
+    return {}
   },
   computed: {
     ...mapGetters({
-      alert: 'alerts/alert'
+      getAlert: 'alerts/getAlert'
     }),
     showAlert: {
       get() {
-        return this.alert.show
+        return this.getAlert.show
       },
       set(value) {
         this.$store.dispatch('alerts/setShowAlert', value)

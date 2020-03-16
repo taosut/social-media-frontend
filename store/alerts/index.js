@@ -5,16 +5,16 @@ export const state = () => ({
 })
 
 export const getters = {
-  alertType(state) {
+  getAlertType(state) {
     return state.type
   },
-  alertShow(state) {
+  isAlertShow(state) {
     return state.show
   },
-  alertText(state) {
+  getAlertText(state) {
     return state.text
   },
-  alert(state) {
+  getAlert(state) {
     return {
       type: state.type,
       show: state.show,
@@ -23,67 +23,70 @@ export const getters = {
   }
 }
 export const mutations = {
-  setAlert(state, payload) {
-    state.type = payload.type
-    state.show = payload.show
-    state.text = payload.text
+  SET_ALERT(state, { type, text, show }) {
+    state.type = type
+    state.show = show
+    state.text = text
   },
-  clearAlert(state) {
+  REMOVE_ALERT(state) {
     state.show = false
     state.text = ''
   },
-  setShowAlert(state, payload) {
+  SET_SHOW_ALERT(state, payload) {
     state.show = payload
   }
 }
 export const actions = {
-  setShowAlert(context, payload) {
-    context.commit('setShowAlert', payload)
+  changeShowAlert(context, payload) {
+    context.commit('SET_SHOW_ALERT', payload)
   },
-  setAlert(context, payload) {
+  setAlert(context, { status, message }) {
     console.log(payload)
-    payload.status = Boolean(payload.status) ? payload.status : 500
-    const alertType = parseInt(payload.status / 100)
-    if (Boolean(payload.message) && Boolean(payload.status)) {
+
+    status = Boolean(status) ? status : 500
+
+    const alertType = parseInt(status / 100)
+
+    if (Boolean(message) && Boolean(status)) {
       switch (alertType) {
         case 1:
-          context.commit('setAlert', {
+          context.commit('SET_ALERT', {
             type: 'info',
-            text: payload.message,
+            text: message,
             show: true
           })
           setTimeout(() => {
-            context.commit('clearAlert')
+            context.commit('REMOVE_ALERT')
           }, 5000)
           break
         case 2:
-          context.commit('setAlert', {
+          context.commit('SET_ALERT', {
             type: 'success',
-            text: payload.message,
+            text: message,
             show: true
           })
           setTimeout(() => {
-            context.commit('clearAlert')
+            context.commit('REMOVE_ALERT')
           }, 5000)
           break
         case 3:
-          context.commit('setAlert', {
+          context.commit('SET_ALERT', {
             type: 'warning',
-            text: payload.message,
+            text: message,
             show: true
           })
           setTimeout(() => {
-            context.commit('clearAlert')
+            context.commit('REMOVE_ALERT')
           }, 5000)
           break
         case 4:
-          context.commit('setAlert', {
+          context.commit('SET_ALERT', {
             type: 'error',
-            text: payload.message,
+            text: message,
             show: true
           })
           setTimeout(() => {
-            context.commit('clearAlert')
+            context.commit('REMOVE_ALERT')
           }, 5000)
           break
         default:
