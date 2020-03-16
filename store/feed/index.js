@@ -9,49 +9,49 @@ export const state = () => ({
 })
 
 export const getters = {
-  fetchingFeed(state) {
+  isFetchingFeed(state) {
     return state.fetchingFeed
   },
-  feed(state) {
+  getFeed(state) {
     return state.feed
   },
-  moreFeedAvailable(state) {
+  isMoreFeedAvailable(state) {
     return state.moreFeedAvailable
   },
-  skipPosts(state) {
+  getSkipPosts(state) {
     return state.skipPosts
   },
-  limitPosts(state) {
+  getLimitPosts(state) {
     return state.limitPosts
   },
-  post(state) {
+  getPost(state) {
     return state.post
   },
-  loadingPost(state) {
+  isLoadingPost(state) {
     return state.loadingPost
   }
 }
 
 export const mutations = {
-  changeFetchingFeed(state, payload) {
+  SET_FETCHING_FEED(state, payload) {
     state.fetchingFeed = payload
   },
-  addToFeed(state, payload) {
+  ADD_FEED(state, payload) {
     state.feed.push(...payload)
   },
-  changeMoreFeedAvailable(state, payload) {
+  SET_MORE_FEED_AVAILABLE(state, payload) {
     state.moreFeedAvailable = payload
   },
-  increaseSkipPosts(state, payload) {
+  ADD_SKIP_POSTS(state, payload) {
     state.skipPosts += payload
   },
-  setPost(state, payload) {
+  SET_POST(state, payload) {
     state.post = payload
   },
-  changeLoadingPost(state, payload) {
+  SET_LOADING_POST(state, payload) {
     state.loadingPost = payload
   },
-  clearFeed(state) {
+  RESTART_FEED_STATE(state) {
     state.feed = []
     state.skipPosts = 0
     state.moreFeedAvailable = true
@@ -59,26 +59,23 @@ export const mutations = {
 }
 
 export const actions = {
-  clearFeed(context) {
-    context.commit('clearFeed')
+  restartFeedState(context) {
+    context.commit('RESTART_FEED_STATE')
   },
   increaseSkipPosts(context, payload) {
-    context.commit('increaseSkipPosts', payload)
+    context.commit('ADD_SKIP_POSTS', payload)
   },
   changeFetchingFeed(context, payload) {
-    context.commit('changeFetchingFeed', payload)
-  },
-  addToFeed(context, payload) {
-    context.commit('addToFeed', payload)
+    context.commit('SET_FETCHING_FEED', payload)
   },
   changeMoreFeedAvailable(context, payload) {
-    context.commit('changeMoreFeedAvailable', payload)
+    context.commit('SET_MORE_FEED_AVAILABLE', payload)
   },
-  async fetchFeed(context, payload) {
+  async fetchFeed(context, { skip, limit }) {
     try {
       context.dispatch('changeFetchingFeed', true)
       const result = await this.$axios.$get(
-        `/posts/?skip=${payload.skip}&limit=${payload.limit}`
+        `/posts/?skip=${skip}&limit=${limit}`
       )
 
       if (!result) {
@@ -96,7 +93,7 @@ export const actions = {
         return context.dispatch('changeMoreFeedAvailable', false)
       }
 
-      context.dispatch('addToFeed', result.posts)
+      context.commit('ADD_FEED', result.posts)
     } catch (err) {
       if (err.response) {
         context.dispatch(
@@ -124,7 +121,7 @@ export const actions = {
   async fetchPost(context, payload) {
     try {
       context.dispatch('changePostDialog', true, { root: true })
-      context.commit('changeLoadingPost', true)
+      context.commit('SET_LOADING_POST', true)
       const result = await this.$axios.$get(`/posts/${payload}`)
 
       if (!result) {
@@ -137,7 +134,7 @@ export const actions = {
           { root: true }
         )
       }
-      context.commit('setPost', result.post)
+      context.commit('SET_POST', result.post)
     } catch (err) {
       context.dispatch('changePostDialog', false, { root: true })
       if (err.response) {
@@ -160,7 +157,7 @@ export const actions = {
         )
       }
     } finally {
-      context.commit('changeLoadingPost', false)
+      context.commit('SET_LOADING_POST', false)
     }
   }
 }

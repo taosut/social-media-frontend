@@ -15,7 +15,7 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <div
-        v-if="post && !loadingPost"
+        v-if="getPost && !isLoadingPost"
         class="ma-0 px-6 d-flex flex-column flex-md-row align-center justify-center"
       >
         <v-col class="pa-0 m-0" cols="12" md="8">
@@ -23,16 +23,16 @@
             :class="{'mr-6': $vuetify.breakpoint.mdAndUp, 'mt-6': $vuetify.breakpoint.smAndDown}"
             max-height="700px"
             contain
-            :src="post.image.location"
+            :src="getPost.image.location"
           ></v-img>
         </v-col>
         <post-dialog-text
-          :creator="post.creator"
-          :postDescription="post.description"
-          :postId="post._id"
-          :comments="post.comments"
-          :postLikes="post.likes"
-          :postCreatedAt="post.createdAt"
+          :creator="getPost.creator"
+          :postDescription="getPost.description"
+          :postId="getPost._id"
+          :comments="getPost.comments"
+          :postLikes="getPost.likes"
+          :postCreatedAt="getPost.createdAt"
         ></post-dialog-text>
       </div>
       <v-progress-circular
@@ -58,8 +58,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      post: 'feed/post',
-      loadingPost: 'feed/loadingPost'
+      getPost: 'feed/getPost',
+      isLoadingPost: 'feed/isLoadingPost'
     }),
     postDialog: {
       get() {
