@@ -1,5 +1,5 @@
 export const state = () => ({
-  drawer: false,
+  chatDrawer: false,
   navbarMenu: false,
   postDialog: false,
   error: {
@@ -9,13 +9,13 @@ export const state = () => ({
 })
 
 export const getters = {
-  drawer(state) {
-    return state.drawer
+  isChatDrawer(state) {
+    return state.chatDrawer
   },
-  navbarMenu(state) {
+  isNavbarMenu(state) {
     return state.navbarMenu
   },
-  postDialog(state) {
+  isPostDialog(state) {
     return state.postDialog
   },
   error(state) {
@@ -27,13 +27,13 @@ export const getters = {
 }
 
 export const mutations = {
-  changeDrawer(state, payload) {
-    state.drawer = payload
+  SET_CHAT_DRAWER(state, payload) {
+    state.chatDrawer = payload
   },
-  changeNavbarMenu(state, payload) {
+  SET_NAVBAR_MENU(state, payload) {
     state.navbarMenu = payload
   },
-  changePostDialog(state, payload) {
+  SET_POST_DIALOG(state, payload) {
     state.postDialog = payload
   },
   setError(state, payload) {
@@ -49,13 +49,13 @@ export const actions = {
   setError(context, payload) {
     context.commit('setError', payload)
   },
-  changeDrawer(context, payload) {
-    context.commit('changeDrawer', payload)
+  changeChatDrawer(context, payload) {
+    context.commit('SET_CHAT_DRAWER', payload)
   },
   changeNavbarMenu(context, payload) {
-    context.commit('changeNavbarMenu', payload)
+    context.commit('SET_NAVBAR_MENU', payload)
   },
   changePostDialog(context, payload) {
-    context.commit('changePostDialog', payload)
+    context.commit('SET_POST_DIALOG', payload)
   }
 }

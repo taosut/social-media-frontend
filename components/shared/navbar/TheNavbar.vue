@@ -37,7 +37,7 @@
       offset-x="20"
       color="red"
     >
-      <v-btn @click="changeDrawer(true)" class="mx-1 hidden-md-and-up" :icon="true" depressed>
+      <v-btn @click="changeChatDrawer(true)" class="mx-1 hidden-md-and-up" :icon="true" depressed>
         <v-icon>mdi-chat</v-icon>
       </v-btn>
     </v-badge>
@@ -106,12 +106,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      drawer: 'drawer'
+      isChatDrawer: 'isChatDrawer'
     })
   },
   methods: {
     ...mapActions({
-      changeDrawer: 'changeDrawer',
+      changeChatDrawer: 'changeChatDrawer',
       changeNavbarMenu: 'changeNavbarMenu',
       searchForPeople: 'searchForPeople',
       async logout() {

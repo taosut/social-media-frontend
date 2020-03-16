@@ -63,7 +63,7 @@ export default {
     }),
     postDialog: {
       get() {
-        return this.$store.getters.postDialog
+        return this.$store.getters.isPostDialog
       },
       set(value) {
         this.$store.dispatch('changePostDialog', value)

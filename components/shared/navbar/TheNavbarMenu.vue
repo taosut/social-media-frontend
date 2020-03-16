@@ -63,7 +63,7 @@ export default {
     ...mapGetters({}),
     navMenu: {
       get() {
-        return this.$store.getters.navbarMenu
+        return this.$store.getters.isNavbarMenu
       },
       set(value) {
         this.$store.dispatch('changeNavbarMenu', value)

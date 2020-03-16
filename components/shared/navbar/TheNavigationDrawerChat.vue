@@ -12,7 +12,7 @@
           <v-list-item-title class="title">Chat</v-list-item-title>
         </v-col>
         <v-col class="hidden-md-and-up" cols="3">
-          <button @click="changeDrawer(false)" icon>
+          <button @click="changeChatDrawer(false)" icon>
             <v-icon>mdi-close</v-icon>
           </button>
         </v-col>
@@ -64,17 +64,17 @@ export default {
     ...mapGetters({}),
     changeNavDrawer: {
       get() {
-        return this.$store.getters.drawer
+        return this.$store.getters.isChatDrawer
       },
       set(value) {
-        this.changeDrawer(value)
+        this.changeChatDrawer(value)
       }
     }
   },
   watch: {},
   methods: {
     ...mapActions({
-      changeDrawer: 'changeDrawer',
+      changeChatDrawer: 'changeChatDrawer',
       createChatbox: 'chat/createChatbox'
     }),
     openChat() {

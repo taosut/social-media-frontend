@@ -12,7 +12,7 @@
         <span class="mx-2 font-weight-bold">username</span>
       </v-badge>
       <span>&bullet;</span>
-      <v-btn color="primary" text>Follow</v-btn>
+      <v-btn v-if="creator.username !== $auth.user.username" color="primary" text>Follow</v-btn>
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
