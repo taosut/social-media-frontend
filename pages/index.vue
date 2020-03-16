@@ -34,7 +34,11 @@
             height="60px"
             class="d-flex align-center justify-center"
           >
-            <v-progress-circular v-if="isMoreFeedAvailable" indeterminate class="my-12"></v-progress-circular>
+            <v-progress-circular
+              v-if="isMoreFeedAvailable && showProgressCircular"
+              indeterminate
+              class="my-12"
+            ></v-progress-circular>
 
             <p class="ma-0 font-weight-bold" v-else>There are no more posts</p>
           </v-card>
@@ -78,7 +82,10 @@ export default {
       isMoreFeedAvailable: 'feed/isMoreFeedAvailable',
       getSkipPosts: 'feed/getSkipPosts',
       getLimitPosts: 'feed/getLimitPosts'
-    })
+    }),
+    showProgressCircular() {
+      return true
+    }
   },
   mounted() {
     if (process.client) {

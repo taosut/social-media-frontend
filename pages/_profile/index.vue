@@ -2,14 +2,14 @@
   <v-content>
     <v-container>
       <profile-header
-        :username="profile.username"
-        :followersNumber="profile.followersNumber"
-        :followingNumber="profile.followingNumber"
-        :postsNumber="profile.postsNumber"
-        :description="profile.description"
-        :profileImage="profile.profileImage.location"
+        :username="getProfile.username"
+        :followersNumber="getProfile.followers.length"
+        :followingNumber="getProfile.following.length"
+        :postsNumber="getProfile.posts.length"
+        :description="getProfile.description"
+        :profileImage="getProfile.profileImage.location"
       ></profile-header>
-      <profile-posts :posts="profile.posts" :taggedPosts="profile.taggedPosts"></profile-posts>
+      <profile-posts :posts="getProfile.posts" :taggedPosts="getProfile.taggedPosts"></profile-posts>
       <delete-post-dialog></delete-post-dialog>
       <delete-account-dialog></delete-account-dialog>
       <edit-profile-dialog></edit-profile-dialog>
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      profile: 'user/profile'
+      getProfile: 'user/getProfile'
     })
   },
   watch: {

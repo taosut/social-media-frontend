@@ -1,20 +1,26 @@
 export default {
-  deletePostId(state) {
+  getDeletePostId(state) {
     return state.deletePostId
   },
-  deletePostDialog(state) {
+  isDeletePostDialog(state) {
     return state.deletePostDialog
   },
-  deleteAccountDialog(state) {
+  isDeleteAccountDialog(state) {
     return state.deleteAccountDialog
   },
-  editProfileDialog(state) {
+  isEditProfileDialog(state) {
     return state.editProfileDialog
   },
-  profile(state) {
+  getProfile(state) {
     return state.profile
   },
-  userData(state) {
-    return state.userData
+  getUserFollowers(state) {
+    return state.followers
+  },
+  getUserFollowing(state) {
+    return state.following
+  },
+  getUserLikedPosts(state) {
+    return state.likedPosts
   }
 }

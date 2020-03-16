@@ -90,12 +90,12 @@ export default {
     }
   },
   mounted() {
-    this.clearUserdata()
+    this.clearUserDynamicData()
   },
   methods: {
     ...mapActions({
       setAlert: 'alerts/setAlert',
-      clearUserdata: 'user/clearUserdata'
+      clearUserDynamicData: 'user/clearUserDynamicData'
     }),
     async signIn() {
       console.log(this.$v.$invalid)

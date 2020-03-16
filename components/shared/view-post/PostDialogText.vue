@@ -124,7 +124,6 @@ export default {
   },
   computed: {
     showDescription() {
-      console.log(this.postDescription.length)
       if (this.postDescription.length > 100) {
         if (this.descriptionReadMore) return this.postDescription
         else return this.postDescription.slice(0, 97) + '...'
@@ -146,7 +145,7 @@ export default {
       }
     },
     isLikedPost() {
-      return this.$store.getters['user/userData'].likedPosts.some(
+      return this.$store.getters['user/getUserLikedPosts'].some(
         likedPostId => likedPostId === this.postId
       )
     }

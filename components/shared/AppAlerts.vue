@@ -27,7 +27,7 @@ export default {
         return this.getAlert.show
       },
       set(value) {
-        this.$store.dispatch('alerts/setShowAlert', value)
+        this.$store.dispatch('alerts/changeShowAlert', value)
       }
     }
   },

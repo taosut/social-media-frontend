@@ -45,13 +45,13 @@ export default {
   },
   mounted() {
     if (this.$auth.loggedIn && !this.user) {
-      this.fetchUserData()
+      this.fetchUserDynamicData()
     }
   },
   methods: {
     ...mapActions({
       setError: 'setError',
-      fetchUserData: 'user/fetchUserData'
+      fetchUserDynamicData: 'user/fetchUserDynamicData'
     })
   }
 }

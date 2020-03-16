@@ -1,42 +1,39 @@
 export default {
-  setDeletePostId(state, payload) {
+  SET_DELETE_POST_ID(state, payload) {
     state.deletePostId = payload
   },
-  changeDeletePostDialog(state, payload) {
+  SET_DELETE_POST_DIALOG(state, payload) {
     state.deletePostDialog = payload
   },
-  changeDeleteAccountDialog(state, payload) {
+  SET_DELETE_ACCOUNT_DIALOG(state, payload) {
     state.deleteAccountDialog = payload
   },
-  changeEditProfileDialog(state, payload) {
+  SET_EDIT_PROFILE_DIALOG(state, payload) {
     state.editProfileDialog = payload
   },
-  setProfile(state, payload) {
+  SET_PROFILE(state, payload) {
     state.profile = payload
   },
-  setUserData(state, payload) {
-    state.userData = payload
+  SET_USER_DYNAMIC_DATA(state, { following, followers, likedPosts }) {
+    state.following = following
+    state.followers = followers
+    state.likedPosts = likedPosts
   },
-  clearUserdata(state) {
-    state.userData = {
-      followingNumber: null,
-      following: [],
-      followersNumber: null,
-      followers: [],
-      likedPosts: []
-    }
+  REMOVE_USER_DYNAMIC_DATA(state) {
+    state.following = []
+    state.followers = []
+    state.likedPosts = []
   },
-  removeProfilePost(state, payload) {
+  REMOVE_PROFILE_POST(state, payload) {
     console.log(payload)
     let profile = state.profile
     profile.posts = profile.posts.filter(post => {
       return post._id !== payload
     })
-    profile.postsNumber -= 1
 
     state.profile = profile
   },
-  setUserLikedPosts(state, payload) {
-    state.userData.likedPosts = payload
+  SET_USER_LIKED_POSTS(state, payload) {
+    state.likedPosts = payload
   }
 }

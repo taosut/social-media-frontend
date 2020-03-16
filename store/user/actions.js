@@ -1,33 +1,29 @@
 export default {
   changeEditProfileDialog(context, payload) {
-    context.commit('changeEditProfileDialog', payload)
+    context.commit('SET_EDIT_PROFILE_DIALOG', payload)
   },
   changeDeletePostDialog(context, payload) {
-    context.commit('changeDeletePostDialog', payload)
+    context.commit('SET_DELETE_POST_DIALOG', payload)
   },
   changeDeleteAccountDialog(context, payload) {
-    context.commit('changeDeleteAccountDialog', payload)
+    context.commit('SET_DELETE_ACCOUNT_DIALOG', payload)
   },
   setDeletePostId(context, payload) {
-    context.commit('setDeletePostId', payload)
-    context.commit('changeDeletePostDialog', true)
+    context.commit('SET_DELETE_POST_ID', payload)
   },
   setProfile(context, payload) {
-    context.commit('setProfile', payload)
+    context.commit('SET_PROFILE', payload)
   },
-  setUserData(context, payload) {
-    context.commit('setUserData', payload)
-  },
-  clearUserdata(context) {
-    context.commit('clearUserdata')
+  clearUserDynamicData(context) {
+    context.commit('REMOVE_USER_DYNAMIC_DATA')
   },
   removeProfilePost(context, payload) {
-    context.commit('removeProfilePost', payload)
+    context.commit('REMOVE_PROFILE_POST', payload)
   },
-  async fetchUserData(context) {
+  async fetchUserDynamicData(context) {
     try {
       const result = await this.$axios.$get(
-        '/auth/user?projection=followersNumber followers followingNumber following likedPosts'
+        '/auth/user?projection=followers following likedPosts'
       )
 
       if (!result) {
@@ -41,10 +37,8 @@ export default {
         )
       }
 
-      context.commit('setUserData', {
-        followingNumber: result.user.followingNumber,
+      context.commit('SET_USER_DYNAMIC_DATA', {
         following: result.user.following,
-        followersNumber: result.user.followersNumber,
         followers: result.user.followers,
         likedPosts: result.user.likedPosts
       })
@@ -71,12 +65,10 @@ export default {
     }
   },
   async setUserLikedPosts(context, payload) {
-    console.log(payload)
     try {
       const result = await this.$axios.$put('/users/user/set-liked-posts', {
         postId: payload
       })
-      console.log(result)
       if (!result) {
         context.dispatch(
           'alerts/setAlert',
@@ -88,7 +80,7 @@ export default {
         )
       }
 
-      context.commit('setUserLikedPosts', result.likedPosts)
+      context.commit('SET_USER_LIKED_POSTS', result.likedPosts)
     } catch (err) {
       context.dispatch(
         'alerts/setAlert',

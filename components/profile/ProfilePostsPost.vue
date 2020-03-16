@@ -59,6 +59,7 @@ export default {
     },
     beforePostDeletion(postId) {
       this.$store.dispatch('user/setDeletePostId', postId)
+      this.$store.dispatch('user/changeDeletePostDialog', true)
     }
   }
 }

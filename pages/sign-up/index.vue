@@ -232,14 +232,14 @@ export default {
     }
   },
   mounted() {
-    this.clearUserdata()
+    this.clearUserDynamicData()
     if (process.client) {
     }
   },
   methods: {
     ...mapActions({
       setAlert: 'alerts/setAlert',
-      clearUserdata: 'user/clearUserdata'
+      clearUserDynamicData: 'user/clearUserDynamicData'
     }),
     clearForm() {
       this.loading = false

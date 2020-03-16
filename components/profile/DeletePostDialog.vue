@@ -33,7 +33,7 @@ export default {
     ...mapGetters({}),
     deletePostDialog: {
       get() {
-        return this.$store.getters['user/deletePostDialog']
+        return this.$store.getters['user/isDeletePostDialog']
       },
       set(value) {
         this.$store.dispatch('user/changePostDialog', value)
@@ -53,7 +53,7 @@ export default {
       try {
         this.loading = true
         const result = await this.$axios.$delete('/posts/delete-post', {
-          data: { postId: this.$store.getters['user/deletePostId'] }
+          data: { postId: this.$store.getters['user/getDeletePostId'] }
         })
 
         if (!result) {
@@ -63,7 +63,7 @@ export default {
           })
         }
 
-        this.removeProfilePost(this.$store.getters['user/deletePostId'])
+        this.removeProfilePost(this.$store.getters['user/getDeletePostId'])
 
         this.setAlert({
           status: 200,

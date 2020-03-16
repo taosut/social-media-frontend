@@ -187,11 +187,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      profile: 'user/profile'
+      getProfile: 'user/getProfile'
     }),
     editProfileDialog: {
       get() {
-        return this.$store.getters['user/editProfileDialog']
+        return this.$store.getters['user/isEditProfileDialog']
       },
       set(value) {
         this.$store.dispatch('user/changeEditProfileDialog', value)
@@ -329,7 +329,7 @@ export default {
           if (this.$auth.user.username !== result.user.username) {
             this.$router.push(`/${result.user.username}`)
           } else {
-            let profile = Object.assign({}, this.profile)
+            let profile = Object.assign({}, this.getProfile)
 
             profile.description = result.user.description
             profile.profileImage = result.user.profileImage

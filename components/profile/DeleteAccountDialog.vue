@@ -69,7 +69,7 @@ export default {
     ...mapGetters({}),
     deleteAccountDialog: {
       get() {
-        return this.$store.getters['user/deleteAccountDialog']
+        return this.$store.getters['user/isDeleteAccountDialog']
       },
       set(value) {
         this.$store.dispatch('changeDeleteAccountDialog', value)
@@ -112,6 +112,7 @@ export default {
           message: 'Account successfully deleted'
         })
 
+        this.$store.dispatch('user/changeDeleteAccountDialog', false)
         this.$auth.logout()
         this.$router.replace('/sign-up')
       } catch (err) {
