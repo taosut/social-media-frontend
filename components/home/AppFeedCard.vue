@@ -31,13 +31,7 @@
       <v-card-actions>
         <v-btn text @click="$store.dispatch('feed/fetchPost', postId)">Read more</v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          @click="$store.dispatch('user/setUserLikedPosts', postId)"
-          :color="isLikedPost ? 'red' : 'grey'"
-          icon
-        >
-          <v-icon>{{isLikedPost ? 'mdi-heart' : 'mdi-heart-outline'}}</v-icon>
-        </v-btn>
+        <app-like-btn :postId="postId"></app-like-btn>
         <v-btn icon @click="$store.dispatch('feed/fetchPost', postId)">
           <v-icon>mdi-comment</v-icon>
         </v-btn>
@@ -47,7 +41,12 @@
 </template>
 
 <script>
+import AppLikeBtn from '@/components/shared/AppLikeBtn'
+
 export default {
+  components: {
+    AppLikeBtn
+  },
   filters: {
     cutOffDescription(value) {
       if (value.length > 140) return value.slice(0, 140) + '...'
@@ -94,13 +93,7 @@ export default {
       this.loading = false
     }, 1000)
   },
-  computed: {
-    isLikedPost() {
-      return this.$store.getters['user/getUserLikedPosts'].some(
-        likedPostId => likedPostId === this.postId
-      )
-    }
-  }
+  computed: {}
 }
 </script>
 

@@ -56,13 +56,7 @@
     </v-card>
     <v-card flat width="100%" class="my-1">
       <v-divider></v-divider>
-      <v-btn
-        @click="$store.dispatch('user/setUserLikedPosts', postId)"
-        :color="isLikedPost ? 'red' : 'grey'"
-        icon
-      >
-        <v-icon>{{isLikedPost ? 'mdi-heart' : 'mdi-heart-outline'}}</v-icon>
-      </v-btn>
+      <app-like-btn :postId="postId"></app-like-btn>
       <v-btn icon>
         <v-icon>mdi-chat</v-icon>
       </v-btn>
@@ -89,12 +83,17 @@
 
 <script>
 import AppFollowBtn from '@/components/shared/AppFollowBtn'
+import AppLikeBtn from '@/components/shared/AppLikeBtn'
+
+import isLikedPostMixin from '@/mixins/isLikedPostMixin'
 
 export default {
   components: {
-    AppFollowBtn
+    AppFollowBtn,
+    AppLikeBtn
   },
   filters: {},
+  mixins: [isLikedPostMixin],
   props: {
     postId: {
       type: String,
@@ -148,11 +147,6 @@ export default {
         }
         return this.postLikes - 1
       }
-    },
-    isLikedPost() {
-      return this.$store.getters['user/getUserLikedPosts'].some(
-        likedPostId => likedPostId === this.postId
-      )
     }
   },
   mounted() {
