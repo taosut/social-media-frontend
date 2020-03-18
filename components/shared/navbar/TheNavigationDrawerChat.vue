@@ -23,14 +23,14 @@
     <v-divider></v-divider>
 
     <v-list>
-      <v-subheader>Recent chat</v-subheader>
-      <v-list-item @click="openChat" v-for="n in 5" :key="n">
+      <v-subheader>Recent contacts</v-subheader>
+      <v-list-item @click="openChat(user)" v-for="user in recentContacts" :key="user._id">
         <v-list-item-avatar>
           <v-img src="/avatar.png"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="'First ' + 'Last'"></v-list-item-title>
+          <v-list-item-title>{{ user.username }}</v-list-item-title>
         </v-list-item-content>
         <v-list-item-icon>
           <v-icon>mdi-message</v-icon>
@@ -38,15 +38,18 @@
       </v-list-item>
       <v-list-group value="true">
         <template v-slot:activator>
-          <v-list-item-title>Online friends</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title>People online</v-list-item-title>
+          </v-list-item-content>
         </template>
-        <v-list-item @click="openChat" v-for="n in 5" :key="n">
+        <v-list-item v-if="!peopleOnline.length"></v-list-item>
+        <v-list-item v-else @click="openChat(user)" v-for="user in peopleOnline" :key="user._id">
           <v-list-item-avatar>
             <v-img src="/avatar.png"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title v-text="'First ' + 'Last'"></v-list-item-title>
+            <v-list-item-title>{{ user.username }}</v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
             <v-icon>mdi-message</v-icon>
@@ -62,7 +65,10 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      recentContacts: 'chat/getRecentContacts',
+      peopleOnline: 'chat/getPeopleOnline'
+    }),
     changeNavDrawer: {
       get() {
         return this.$store.getters.isChatDrawer

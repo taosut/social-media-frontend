@@ -47,7 +47,10 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
+    // Doc: https://auth.nuxtjs.org/
+    '@nuxtjs/auth',
+    // Doc: https://github.com/richardeschloss/nuxt-socket-io
+    'nuxt-socket-io'
   ],
   /*
    ** Axios module configuration
@@ -80,6 +83,16 @@ export default {
         }
       }
     }
+  },
+  io: {
+    sockets: [
+      {
+        name: 'dummy',
+        url: process.env.SERVER_URL,
+        default: true,
+        vuex: {}
+      }
+    ]
   },
   /*
    ** vuetify module configuration

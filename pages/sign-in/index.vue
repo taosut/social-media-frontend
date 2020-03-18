@@ -98,7 +98,6 @@ export default {
       clearUserDynamicData: 'user/clearUserDynamicData'
     }),
     async signIn() {
-      console.log(this.$v.$invalid)
       if (!this.$v.$invalid) {
         try {
           this.loading = true
