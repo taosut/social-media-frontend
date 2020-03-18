@@ -44,11 +44,6 @@ export default {
     }
   },
   mounted() {
-    this.socket = this.$nuxtSocket({
-      reconnection: false,
-      name: 'dummy'
-    })
-
     if (this.$auth.loggedIn && !this.user) {
       this.fetchUserDynamicData()
     }

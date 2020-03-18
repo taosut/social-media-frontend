@@ -2,7 +2,11 @@
   <v-hover>
     <template v-slot:default="{ hover }">
       <v-card flat tile class="d-flex">
-        <v-img :src="post.image.location" aspect-ratio="1" lazy-src="/placeholder.png">
+        <v-img
+          :src="post.image.location"
+          aspect-ratio="1"
+          :lazy-src="post.image.location ? post.image.location : '/placeholder.png'"
+        >
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>

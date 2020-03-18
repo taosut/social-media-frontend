@@ -7,7 +7,7 @@
       >Post preview</v-btn>
     </template>
     <v-card>
-      <v-img :aspect-ratio="$vuetify.breakpoint.xsOnly ? 1 : 16/9" :src="image"></v-img>
+      <v-img v-if="image" :aspect-ratio="$vuetify.breakpoint.xsOnly ? 1 : 16/9" :src="image"></v-img>
       <v-list-item>
         <v-list-item-avatar>
           <v-img :src="author.profileImage"></v-img>
