@@ -38,7 +38,7 @@
             <post-preview-dialog
               :title="title"
               :description="description"
-              :author="{username: $auth.user.username, profileImage: $auth.user.profileImage.location}"
+              :author="{username: $auth.user.username, profileImage: $auth.user ? $auth.user.profileImage.location : '/placeholder.png'}"
               :image="imageUrl"
               :loading="loading"
             ></post-preview-dialog>
