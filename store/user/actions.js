@@ -119,5 +119,19 @@ export default {
         { root: true }
       )
     }
+  },
+  async logoutUser(context) {
+    try {
+      await this.$axios.$patch('/users/user/remove-token-expiration')
+    } catch (err) {
+      context.dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
+    }
   }
 }

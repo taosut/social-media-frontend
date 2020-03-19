@@ -114,9 +114,8 @@ export default {
       changeChatDrawer: 'changeChatDrawer',
       changeNavbarMenu: 'changeNavbarMenu',
       searchForPeople: 'searchForPeople',
-      setOnlineActivity: 'user/setOnlineActivity',
       async logout() {
-        this.setOnlineActivity(false)
+        this.$store.dispatch('user/logoutUser')
         await this.$auth.logout()
       }
     })

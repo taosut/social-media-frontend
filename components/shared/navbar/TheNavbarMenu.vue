@@ -76,10 +76,9 @@ export default {
   methods: {
     ...mapActions({
       changeNavbarMenu: 'changeNavbarMenu',
-      setOnlineActivity: 'user/setOnlineActivity',
       logout() {
+        this.$store.dispatch('user/logoutUser')
         this.changeNavbarMenu(false)
-        this.setOnlineActivity(false)
         this.$auth.logout()
       }
     })
