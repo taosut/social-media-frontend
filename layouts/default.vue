@@ -49,19 +49,21 @@ export default {
         name: 'default',
         reconnect: false
       })
-      console.log(this.socket)
 
-
+      this.setOnlineActivity(true)
       this.fetchOnlinePeople()
       this.fetchUserDynamicData()
     }
   },
-  destroyed() {},
+  beforeDestroy() {
+    if (this.$auth.loggedIn) this.setOnlineActivity(false)
+  },
   methods: {
     ...mapActions({
       setError: 'setError',
       fetchUserDynamicData: 'user/fetchUserDynamicData',
-      fetchOnlinePeople: 'chat/fetchOnlinePeople'
+      fetchOnlinePeople: 'chat/fetchOnlinePeople',
+      setOnlineActivity: 'user/setOnlineActivity'
     })
   }
 }

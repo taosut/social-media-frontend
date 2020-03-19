@@ -8,11 +8,16 @@
           </template>
         </v-img>
       </v-avatar>
-      <v-badge offset-y="2" offset-x="15" :value="true" icon="mdi-check-decagram">
-        <span class="mx-2 font-weight-bold">username</span>
+      <v-badge
+        offset-y="2"
+        offset-x="15"
+        :value="this.$store.getters['user/getUserFollowers'].length > 5"
+        icon="mdi-check-decagram"
+      >
+        <span class="mx-2 font-weight-bold">{{ creator.username }}</span>
       </v-badge>
       <span>&bullet;</span>
-      <app-follow-btn :userId="creator._id"></app-follow-btn>
+      <app-follow-btn v-if="creator.username !== $auth.user.username" :userId="creator._id"></app-follow-btn>
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
@@ -27,7 +32,12 @@
           <v-img :src="creator.profileImage.location"></v-img>
         </v-avatar>
         <p class="ml-1 body-2">
-          <v-badge offset-y="2" offset-x="15" :value="true" icon="mdi-check-decagram">
+          <v-badge
+            offset-y="2"
+            offset-x="15"
+            :value="this.$store.getters['user/getUserFollowers'].length > 5"
+            icon="mdi-check-decagram"
+          >
             <span class="mx-2 font-weight-bold ml-0">{{ creator.username }}:</span>
           </v-badge>
           <span>{{ showDescription }}</span>
@@ -42,12 +52,12 @@
       >
         <v-icon>{{ descriptionReadMore ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
-      <div v-for="n in 9" :key="n" class="d-flex my-3 flex-row align-start justify-start">
+      <div v-for="n in 0" :key="n" class="d-flex my-3 flex-row align-start justify-start">
         <v-avatar size="40" class="mr-1">
           <v-img src="/avatar.png"></v-img>
         </v-avatar>
         <p class="ml-1 body-2">
-          <v-badge offset-y="2" offset-x="15" :value="true" icon="mdi-check-decagram">
+          <v-badge offset-y="2" offset-x="15" :value="[].length > 5" icon="mdi-check-decagram">
             <span class="mx-2 font-weight-bold ml-0">username:</span>
           </v-badge>
           <span>some random text for post description... Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>

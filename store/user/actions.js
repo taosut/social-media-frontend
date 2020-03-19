@@ -119,5 +119,35 @@ export default {
         { root: true }
       )
     }
+  },
+  async setOnlineActivity(context, payload) {
+    try {
+      const result = await this.$axios.$patch(
+        '/users/user/set-online-activity',
+        {
+          isOnline: payload
+        }
+      )
+
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+    } catch (err) {
+      context.dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
+    }
   }
 }
