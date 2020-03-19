@@ -87,7 +87,7 @@ export default {
   io: {
     sockets: [
       {
-        name: 'dummy',
+        name: 'default',
         url: process.env.SERVER_URL,
         default: true,
         vuex: {}

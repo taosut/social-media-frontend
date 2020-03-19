@@ -1,7 +1,7 @@
 export const state = () => ({
   chatboxes: [],
   recentContacts: [],
-  peopleOnline: []
+  onlinePeople: []
 })
 
 export const getters = {
@@ -11,8 +11,13 @@ export const getters = {
   getRecentContacts(state) {
     return state.recentContacts
   },
-  getPeopleOnline(state) {
-    return state.recentContacts
+  getOnlinePeople(state) {
+    let onlinePeople = state.onlinePeople.slice(0)
+
+    return onlinePeople.sort((user1, user2) => {
+      if (user1.username < user2.username) return -1
+      else return 1
+    })
   }
 }
 
@@ -29,10 +34,10 @@ export const mutations = {
     state.recentContacts = payload
   },
   SET_ONLINE_PEOPLE(state, payload) {
-    state.recentContacts = payload
+    state.onlinePeople = payload
   },
   ADD_ONLINE_PEOPLE(state, payload) {
-    state.recentContacts.unshift(payload)
+    state.onlinePeople.push(payload)
   }
 }
 
@@ -52,8 +57,32 @@ export const actions = {
   setRecentContacts(context, payload) {
     context.commit('SET_RECENT_CONTACTS', payload)
   },
-  setOnlinePeople(context, payload) {
-    context.commit('SET_ONLINE_PEOPLE', payload)
+  async fetchOnlinePeople(context) {
+    try {
+      const result = await this.$axios.$get('/users/online')
+
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+
+      context.commit('SET_ONLINE_PEOPLE', result.onlineUsers)
+    } catch (err) {
+      context.dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
+    }
   },
   addOnlinePeople(context, payload) {
     context.commit('ADD_ONLINE_PEOPLE', payload)

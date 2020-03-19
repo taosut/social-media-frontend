@@ -26,7 +26,7 @@
       <v-subheader>Recent contacts</v-subheader>
       <v-list-item @click="openChat(user)" v-for="user in recentContacts" :key="user._id">
         <v-list-item-avatar>
-          <v-img src="/avatar.png"></v-img>
+          <v-img :src="user.profileImage"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -42,10 +42,10 @@
             <v-list-item-title>People online</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item v-if="!peopleOnline.length"></v-list-item>
-        <v-list-item v-else @click="openChat(user)" v-for="user in peopleOnline" :key="user._id">
+        <v-list-item v-if="!onlinePeople.length"></v-list-item>
+        <v-list-item v-else @click="openChat(user)" v-for="user in onlinePeople" :key="user._id">
           <v-list-item-avatar>
-            <v-img src="/avatar.png"></v-img>
+            <v-img :src="user.profileImage.location"></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -67,7 +67,7 @@ export default {
   computed: {
     ...mapGetters({
       recentContacts: 'chat/getRecentContacts',
-      peopleOnline: 'chat/getPeopleOnline'
+      onlinePeople: 'chat/getOnlinePeople'
     }),
     changeNavDrawer: {
       get() {
@@ -84,9 +84,8 @@ export default {
       changeChatDrawer: 'changeChatDrawer',
       createChatbox: 'chat/createChatbox'
     }),
-    openChat() {
-      console.log('chat oppened')
-      this.createChatbox({ userId: Date.now().toString(), username: 'marko' })
+    openChat(user) {
+      this.createChatbox(user)
     }
   }
 }

@@ -45,13 +45,23 @@ export default {
   },
   mounted() {
     if (this.$auth.loggedIn && !this.user) {
+      this.socket = this.$nuxtSocket({
+        name: 'default',
+        reconnect: false
+      })
+      console.log(this.socket)
+
+
+      this.fetchOnlinePeople()
       this.fetchUserDynamicData()
     }
   },
+  destroyed() {},
   methods: {
     ...mapActions({
       setError: 'setError',
-      fetchUserDynamicData: 'user/fetchUserDynamicData'
+      fetchUserDynamicData: 'user/fetchUserDynamicData',
+      fetchOnlinePeople: 'chat/fetchOnlinePeople'
     })
   }
 }
