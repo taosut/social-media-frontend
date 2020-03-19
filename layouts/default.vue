@@ -50,20 +50,15 @@ export default {
         reconnect: false
       })
 
-      this.setOnlineActivity(true)
-      this.fetchOnlinePeople()
+      this.fetchOnlineUsers()
       this.fetchUserDynamicData()
     }
-  },
-  beforeDestroy() {
-    if (this.$auth.loggedIn) this.setOnlineActivity(false)
   },
   methods: {
     ...mapActions({
       setError: 'setError',
       fetchUserDynamicData: 'user/fetchUserDynamicData',
-      fetchOnlinePeople: 'chat/fetchOnlinePeople',
-      setOnlineActivity: 'user/setOnlineActivity'
+      fetchOnlineUsers: 'chat/fetchOnlineUsers'
     })
   }
 }

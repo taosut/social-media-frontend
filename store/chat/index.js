@@ -1,7 +1,7 @@
 export const state = () => ({
   chatboxes: [],
   recentContacts: [],
-  onlinePeople: []
+  onlineUsers: []
 })
 
 export const getters = {
@@ -11,10 +11,10 @@ export const getters = {
   getRecentContacts(state) {
     return state.recentContacts
   },
-  getOnlinePeople(state) {
-    let onlinePeople = state.onlinePeople.slice(0)
+  getOnlineUsers(state) {
+    let onlineUsers = state.onlineUsers.slice(0)
 
-    return onlinePeople.sort((user1, user2) => {
+    return onlineUsers.sort((user1, user2) => {
       if (user1.username < user2.username) return -1
       else return 1
     })
@@ -34,10 +34,20 @@ export const mutations = {
     state.recentContacts = payload
   },
   SET_ONLINE_PEOPLE(state, payload) {
-    state.onlinePeople = payload
+    state.onlineUsers = payload
   },
   ADD_ONLINE_PEOPLE(state, payload) {
-    state.onlinePeople.push(payload)
+    state.onlineUsers.push(payload)
+  },
+  REMOVE_ONLINE_PEOPLE(state, payload) {
+    let onlineUsers = state.onlineUsers.splice(0)
+
+    if (onlineUsers.some(user => user._id === payload)) {
+      onlineUsers = onlineUsers.filter(user => {
+        return user._id !== payload
+      })
+      state.onlineUsers = onlineUsers
+    }
   }
 }
 
@@ -57,7 +67,14 @@ export const actions = {
   setRecentContacts(context, payload) {
     context.commit('SET_RECENT_CONTACTS', payload)
   },
-  async fetchOnlinePeople(context) {
+  addUserToOnlineUsers({ commit, getters }, payload) {
+    if (
+      getters.getOnlineUsers.every(user => user._id !== payload._id) &&
+      this.$auth.user._id !== payload._id
+    )
+      commit('ADD_ONLINE_PEOPLE', payload)
+  },
+  async fetchOnlineUsers(context) {
     try {
       const result = await this.$axios.$get('/users/online')
 
@@ -83,8 +100,5 @@ export const actions = {
         { root: true }
       )
     }
-  },
-  addOnlinePeople(context, payload) {
-    context.commit('ADD_ONLINE_PEOPLE', payload)
   }
 }
