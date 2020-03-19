@@ -33,7 +33,7 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_FETCHING_FEED(state, payload) {
+  SET_FEED(state, payload) {
     state.fetchingFeed = payload
   },
   ADD_FEED(state, payload) {
@@ -55,6 +55,15 @@ export const mutations = {
     state.feed = []
     state.skipPosts = 0
     state.moreFeedAvailable = true
+  },
+  ADD_NEW_POST(state, payload) {
+    state.feed.unshift(payload)
+  },
+  REMOVE_FEED_POST(state, payload) {
+    state.feed = state.feed.filter(post => post._id !== payload)
+  },
+  UPDATE_FEED_POST(state, { postIndex, post }) {
+    state.feed.splice(postIndex, 1, post)
   }
 }
 
@@ -66,7 +75,7 @@ export const actions = {
     context.commit('ADD_SKIP_POSTS', payload)
   },
   changeFetchingFeed(context, payload) {
-    context.commit('SET_FETCHING_FEED', payload)
+    context.commit('SET_FEED', payload)
   },
   changeMoreFeedAvailable(context, payload) {
     context.commit('SET_MORE_FEED_AVAILABLE', payload)
@@ -116,6 +125,27 @@ export const actions = {
       }
     } finally {
       context.dispatch('changeFetchingFeed', false)
+    }
+  },
+  removeFeedPost({ commit }, payload) {
+    commit('REMOVE_FEED_POST', payload)
+  },
+  addNewPost({ commit, getters, rootGetters }, payload) {
+    if (
+      rootGetters['user/getUserFollowing'].some(
+        userId => userId === payload.creator
+      )
+    ) {
+      commit('ADD_NEW_POST', payload)
+    }
+  },
+  updateFeedPost({ commit, getters }, payload) {
+    const postIndex = getters.getFeed.findIndex(
+      post => post._id === payload._id
+    )
+    console.log(postIndex)
+    if (postIndex !== -1) {
+      commit('UPDATE_FEED_POST', { postIndex, post: payload })
     }
   },
   async fetchPost(context, payload) {

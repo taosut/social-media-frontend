@@ -92,7 +92,12 @@ export default {
         default: true,
         vuex: {
           mutations: [{ 'remove online user': 'chat/REMOVE_ONLINE_PEOPLE' }],
-          actions: [{ 'add online user': 'chat/addUserToOnlineUsers' }]
+          actions: [
+            { 'add online user': 'chat/addUserToOnlineUsers' },
+            { 'new post created': 'feed/addNewPost' },
+            { 'remove post': 'feed/removeFeedPost' },
+            { 'update post': 'feed/updateFeedPost' },
+          ]
         }
       }
     ]
