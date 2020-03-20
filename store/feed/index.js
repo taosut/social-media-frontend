@@ -64,6 +64,18 @@ export const mutations = {
   },
   UPDATE_FEED_POST(state, { postIndex, post }) {
     state.feed.splice(postIndex, 1, post)
+  },
+  ADD_COMMENT(state, payload) {
+    if (state.post) {
+      state.post.comments.push(payload)
+    }
+  },
+  REMOVE_COMMENT(state, payload) {
+    if (state.post) {
+      state.post.comments = state.post.comments.filter(
+        comment => comment._id !== payload
+      )
+    }
   }
 }
 
@@ -188,6 +200,88 @@ export const actions = {
       }
     } finally {
       context.commit('SET_LOADING_POST', false)
+    }
+  },
+  async createComment({ commit, dispatch }, { postId, text }) {
+    try {
+      const result = await this.$axios.$post('/comments/create-comment', {
+        postId,
+        text
+      })
+
+      if (!result) {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      }
+
+      commit('ADD_COMMENT', result.comment)
+    } catch (err) {
+      if (err.response) {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      } else {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+    }
+  },
+  async deleteComment({ commit, dispatch }, payload) {
+    try {
+      console.log(payload)
+      const result = await this.$axios.$delete('/comments/delete-comment', {
+        data: { commentId: payload }
+      })
+
+      if (!result) {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      }
+
+      commit('REMOVE_COMMENT', payload)
+    } catch (err) {
+      if (err.response) {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      } else {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
     }
   }
 }

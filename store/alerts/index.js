@@ -90,14 +90,19 @@ export const actions = {
           }, 5000)
           break
         default:
-          context.commit(
-            'setError',
-            {
-              status: 500,
-              message: 'An error occurred'
-            },
-            { root: true }
-          )
+          if (message === 'jwt expired') {
+            this.$auth.logout()
+            this.$router.push('/sign-in')
+          } else {
+            context.commit(
+              'setError',
+              {
+                status: 500,
+                message: 'An error occurred'
+              },
+              { root: true }
+            )
+          }
           break
       }
     } else {

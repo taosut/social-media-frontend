@@ -49,7 +49,13 @@ export default {
   },
   watch: {
     async search(value) {
-      if (!this.loading && value && !this.searchDeley) {
+      if (
+        !this.loading &&
+        value &&
+        !this.searchDeley &&
+        this.$auth &&
+        this.$auth.loggedIn
+      ) {
         try {
           this.searchDeley = true
           setTimeout(() => (this.searchDeley = false), 300)

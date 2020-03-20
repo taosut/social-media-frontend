@@ -56,6 +56,9 @@ export default {
   components: {
     PostDialogText
   },
+  data() {
+    return {}
+  },
   computed: {
     ...mapGetters({
       getPost: 'feed/getPost',
@@ -68,6 +71,12 @@ export default {
       set(value) {
         this.$store.dispatch('changePostDialog', value)
       }
+    }
+  },
+  watch: {
+    $route(to, from) {
+      if (this.$store.getters.isPostDialog)
+        this.$store.dispatch('changePostDialog', false)
     }
   },
   methods: {
