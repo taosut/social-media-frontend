@@ -67,9 +67,18 @@ export const actions = {
   setRecentContacts(context, payload) {
     context.commit('SET_RECENT_CONTACTS', payload)
   },
-  addUserToOnlineUsers({ commit, getters }, payload) {
+  addUserToOnlineUsers({ commit, getters, rootGetters }, payload) {
+    let isNotUserAlreadyOnline = getters.getOnlineUsers.every(
+      user => user._id !== payload._id
+    )
+
+    let isUserInFollowing = rootGetters['user/getUserFollowing'].some(
+      userId => userId === payload._id
+    )
+
     if (
-      getters.getOnlineUsers.every(user => user._id !== payload._id) &&
+      isUserInFollowing &&
+      isNotUserAlreadyOnline &&
       this.$auth.user._id !== payload._id
     )
       commit('ADD_ONLINE_PEOPLE', payload)

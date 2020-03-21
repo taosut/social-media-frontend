@@ -1,16 +1,16 @@
 <template>
   <div class="chat-container">
-    <chat-box v-for="(chatbox, index) in getChatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chat-box>
+    <chatbox v-for="(chatbox, index) in getChatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chatbox>
   </div>
 </template>
 
 <script>
-import ChatBox from '@/components/shared/chat/ChatBox'
+import Chatbox from '@/components/shared/chat/Chatbox'
 
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
-    ChatBox
+    Chatbox
   },
   data() {
     return {

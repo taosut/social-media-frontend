@@ -17,34 +17,17 @@
       three-line
       ref="chatbox-list"
     >
-      <v-list-item v-for="(item, index) in items" :key="index">
-        <v-list-item-avatar v-if="index % 2 == 0">
-          <v-img :src="item.avatar"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title
-            class="font-weight-bold mb-auto"
-            :class="{'text-right': index % 2 != 0}"
-          >username</v-list-item-title>
-          <span
-            class="body-2 pa-2"
-            :class="{'grey lighten-2': index % 2 != 0 && !$vuetify.theme.dark, 'grey darken-3': index % 2 != 0 && $vuetify.theme.dark }"
-            :style="{ 'border-radius': '5px' }"
-          >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id nisi ex, laudantium praesentium provident, tenetur consequatur sunt unde similique hic veritatis quo repudiandae non neque.</span>
-        </v-list-item-content>
-      </v-list-item>
+      <chatbox-message
+        :message="message.message"
+        :createdAt="message.createdAt"
+        :fromUser="message.from"
+        v-for="message in messages"
+        :key="message._id"
+      ></chatbox-message>
     </v-list>
     <v-card-actions class="d-flex align-end justify-center">
       <v-text-field clearable hide-details label="Send message"></v-text-field>
-      <v-btn
-        @click="items.push( {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Brunch this weekend?',
-          subtitle:
-            `<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`
-        })"
-        icon
-      >
+      <v-btn icon>
         <v-icon>mdi-send</v-icon>
       </v-btn>
     </v-card-actions>
@@ -52,9 +35,14 @@
 </template>
 
 <script>
+import ChatboxMessage from '@/components/shared/chat/ChatboxMessage'
+
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  components: {
+    ChatboxMessage
+  },
   props: {
     chatbox: {
       type: Object,
@@ -63,19 +51,36 @@ export default {
   },
   data() {
     return {
-      items: [
+      messages: [
         {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg'
+          to: {
+            _id: '123123123',
+            profileImage: this.$auth.user.profileImage.location,
+            username: this.chatbox.username
+          },
+          from: {
+            _id: '123123123' || this.$auth.user._id,
+            profileImage: this.$auth.user.profileImage.location,
+            username: this.$auth.user.username
+          },
+          createdAt: new Date(),
+          message:
+            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, placeat enim quo iusto id, distinctio quos beatae aspernatur vero, sit non exercitationem laborum voluptates possimus hic consequuntur perferendis tempore velit illo quas aliquam voluptatibus officia! Veniam sed voluptatem modi atque quo quod ut consequatur obcaecati necessitatibus fugiat, dolorum quisquam dignissimos esse distinctio nihil voluptatum in. Non voluptatem deleniti, incidunt illo nihil architecto hic nemo veniam quam saepe asperiores molestiae necessitatibus sint dolorem fuga aliquam itaque fugit, quia voluptates quisquam? Praesentium quae nulla nemo sit suscipit eius temporibus? Excepturi dolore soluta nesciunt, iusto consectetur repellat earum repellendus voluptatum non temporibus ducimus necessitatibus nihil itaque ipsam animi magnam iste cum eveniet provident, quibusdam dolorum, asperiores molestiae dolores! Omnis ratione minima dolore. In tempora aliquid autem debitis non praesentium aliquam itaque quidem doloribus eius, amet voluptas deserunt placeat ut maxime possimus consequatur a impedit! Repudiandae veniam commodi, voluptas quis culpa eius asperiores iste natus nam quia! Itaque ea laboriosam, explicabo quo reiciendis similique nostrum modi commodi necessitatibus nisi, alias dolor aspernatur, molestias ipsum iste repellendus. Porro in placeat repudiandae neque maiores doloremque quam odit dolorum tempora quas velit tempore iste animi eius earum odio modi iusto assumenda explicabo suscipit, fugiat eum soluta officiis!',
+          _id: '123123123123'
         }
       ]
     }
   },
   computed: {},
   mounted() {
+    console.log('created chat box')
     if (process.client) this.scrollBottom()
   },
   updated() {
     this.scrollBottom()
+  },
+  destroyed() {
+    console.log('deleted chat box')
   },
   methods: {
     ...mapActions({
