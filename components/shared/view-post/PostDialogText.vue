@@ -25,7 +25,7 @@
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
-      class="remove-scrollbar pt-6 d-flex flex-column align-start"
+      class="remove-scrollbar pt-6 d-flex flex-column align-start full-width"
       :style="{'overflow-y': 'scroll'}"
       height="400px"
       max-height="400px"
@@ -63,7 +63,6 @@
       <!-- POST COMMENTS -->
       <v-hover v-for="comment in comments" :key="comment._id" v-slot:default="{ hover }">
         <div
-          style="position: relative;"
           class="d-flex my-3 flex-row align-start justify-start full-width"
         >
           <v-btn

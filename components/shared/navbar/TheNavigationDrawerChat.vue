@@ -4,13 +4,21 @@
     app
     clipped
     right
-    :permanent="$vuetify.breakpoint.mdAndUp"
+    :permanent="$vuetify.breakpoint.mdAndUp && $auth.loggedIn"
     hide-overlay
   >
     <v-list-item>
       <v-list-item-content>
-        <v-col cols="9">
-          <v-list-item-title class="title">Chat</v-list-item-title>
+        <v-col v-if="$auth && $auth.loggedIn" cols="9" class="d-flex align-center justify-center">
+          <v-list-item-avatar size="60px">
+            <v-avatar>
+              <v-img :src="$auth.user.profileImage.location"></v-img>
+            </v-avatar>
+          </v-list-item-avatar>
+          <v-list-item-title class="title">{{ $auth.user.username }}</v-list-item-title>
+        </v-col>
+        <v-col v-else class="d-flex align-center justify-center">
+          <v-list-item-title>Chat</v-list-item-title>
         </v-col>
         <v-col class="hidden-md-and-up" cols="3">
           <button @click="changeChatDrawer(false)" icon>
