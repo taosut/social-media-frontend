@@ -51,7 +51,12 @@
           </v-list-item-content>
         </template>
         <v-list-item v-if="!onlineUsers.length"></v-list-item>
-        <v-list-item v-else @click="openChat(user)" v-for="user in onlineUsers" :key="user._id">
+        <v-list-item
+          v-else
+          @click="openChat({user: user, messages: []})"
+          v-for="user in onlineUsers"
+          :key="user._id"
+        >
           <v-list-item-avatar>
             <v-img :src="user.profileImage.location"></v-img>
           </v-list-item-avatar>

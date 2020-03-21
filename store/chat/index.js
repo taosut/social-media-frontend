@@ -27,7 +27,7 @@ export const mutations = {
   },
   REMOVE_CHATBOX(state, payload) {
     state.chatboxes = state.chatboxes.filter(chatbox => {
-      return chatbox.userId !== payload.userId
+      return chatbox.username !== payload.username
     })
   },
   SET_RECENT_CONTACTS(state, payload) {
@@ -48,13 +48,28 @@ export const mutations = {
       })
       state.onlineUsers = onlineUsers
     }
+  },
+  SET_CHATBOX_MESSAGES(state, { username, messages }) {
+    let chatboxIndex = state.chatboxes.findIndex(
+      chatbox => chatbox.user.username === username
+    )
+
+    state.chatboxes[chatboxIndex].messages = messages
+  },
+  ADD_CHATBOX_MESSAGE(state, { username, message }) {
+    console.log(username, message)
+    let chatboxIndex = state.chatboxes.findIndex(
+      chatbox => chatbox.user.username === username
+    )
+
+    state.chatboxes[chatboxIndex].messages.push(message)
   }
 }
 
 export const actions = {
   createChatbox(context, payload) {
     const chatboxExist = context.getters.getChatboxes.some(chatbox => {
-      return chatbox.username === payload.username
+      return chatbox.user.username === payload.username
     })
     if (!chatboxExist) context.commit('ADD_CHATBOX', payload)
     else {
@@ -108,6 +123,49 @@ export const actions = {
         },
         { root: true }
       )
+    }
+  },
+  async fetchMessages({ commit, dispatch }, payload) {
+    try {
+      const result = await this.$axios.$get(
+        `/messages/get-private-messages?username1=${this.$auth.user.username}&username2=${payload}`
+      )
+
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+
+      commit('SET_CHATBOX_MESSAGES', {
+        username: payload,
+        messages: result.messages
+      })
+    } catch (err) {
+      if (err.response) {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: err.response.status,
+            message: err.response.data.message
+          },
+          { root: true }
+        )
+      } else {
+        dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
     }
   }
 }

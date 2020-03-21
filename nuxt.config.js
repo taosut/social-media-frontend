@@ -96,8 +96,11 @@ export default {
             { 'add online user': 'chat/addUserToOnlineUsers' },
             { 'new post created': 'feed/addNewPost' },
             { 'remove post': 'feed/removeFeedPost' },
-            { 'update post': 'feed/updateFeedPost' },
+            { 'update post': 'feed/updateFeedPost' }
           ]
+        },
+        namespaces: {
+          '/chat': {}
         }
       }
     ]
