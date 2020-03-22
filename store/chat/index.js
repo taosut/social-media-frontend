@@ -26,8 +26,9 @@ export const mutations = {
     state.chatboxes.push(payload)
   },
   REMOVE_CHATBOX(state, payload) {
+    console.log(payload)
     state.chatboxes = state.chatboxes.filter(chatbox => {
-      return chatbox.username !== payload.username
+      return chatbox.user.username !== payload.user.username
     })
   },
   SET_RECENT_CONTACTS(state, payload) {
@@ -130,7 +131,7 @@ export const actions = {
       const result = await this.$axios.$get(
         `/messages/get-private-messages?username1=${this.$auth.user.username}&username2=${payload}`
       )
-
+      console.log(result)
       if (!result) {
         context.dispatch(
           'alerts/setAlert',

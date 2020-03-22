@@ -5,7 +5,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click.stop="removeChatbox(chatbox)" icon>
+      <v-btn x-small @click.stop="removeChatbox(chatbox)" icon>
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -27,8 +27,14 @@
       ></chatbox-message>
     </v-list>
     <v-card-actions class="d-flex align-end justify-center">
-      <v-text-field v-model="message.message" clearable hide-details label="Send message"></v-text-field>
-      <v-btn @click="sendMessage" :disabled="false" icon>
+      <v-text-field
+        @keypress.enter="sendMessage"
+        v-model="message.message"
+        clearable
+        hide-details
+        label="Send message"
+      ></v-text-field>
+      <v-btn @click="sendMessage" :disabled="$v.$invalid" icon>
         <v-icon>mdi-send</v-icon>
       </v-btn>
     </v-card-actions>
@@ -38,12 +44,16 @@
 <script>
 import ChatboxMessage from '@/components/shared/chat/ChatboxMessage'
 
+import { validationMixin } from 'vuelidate'
+import { maxLength, required } from 'vuelidate/lib/validators'
+
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
     ChatboxMessage
   },
+  mixins: [validationMixin],
   props: {
     chatbox: {
       type: Object,
@@ -62,12 +72,22 @@ export default {
           username: this.$auth.user.username,
           profileImage: this.$auth.user.profileImage.location
         },
-        createdAt: new Date()
+        createdAt: ''
+      }
+    }
+  },
+  validations: {
+    message: {
+      message: {
+        required,
+        maxLength: maxLength(2000)
       }
     }
   },
   computed: {},
   mounted() {
+    this.$store.dispatch('chat/fetchMessages', this.chatbox.user.username)
+
     this.chatSocket = this.$nuxtSocket({
       name: 'default',
       channel: `/chat?user1=${this.$auth.user.username}&user2=${this.chatbox.user.username}`
@@ -100,16 +120,19 @@ export default {
       ].$el.scrollHeight
     },
     sendMessage() {
-      this.chatSocket.emit('new message', this.message)
+      if (!this.$v.$invalid) {
+        this.message.createdAt = new Date()
+        this.chatSocket.emit('new message', this.message)
 
-      const message = Object.assign({}, this.message)
+        const message = Object.assign({}, this.message)
 
-      this.$store.commit('chat/ADD_CHATBOX_MESSAGE', {
-        username: this.chatbox.user.username,
-        message
-      })
+        this.$store.commit('chat/ADD_CHATBOX_MESSAGE', {
+          username: this.chatbox.user.username,
+          message
+        })
 
-      this.message.message = ''
+        this.message.message = ''
+      }
     }
   }
 }
