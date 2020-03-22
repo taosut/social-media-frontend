@@ -91,7 +91,10 @@ export default {
         url: process.env.SERVER_URL,
         default: true,
         vuex: {
-          mutations: [{ 'remove online user': 'chat/REMOVE_ONLINE_PEOPLE' }],
+          mutations: [
+            { 'remove online user': 'chat/REMOVE_ONLINE_PEOPLE' },
+            { 'chat notification': 'chat/ADD_CHAT_NOTIFICATION' }
+          ],
           actions: [
             { 'add online user': 'chat/addUserToOnlineUsers' },
             { 'new post created': 'feed/addNewPost' },

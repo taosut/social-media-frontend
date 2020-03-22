@@ -102,9 +102,7 @@ export default {
   updated() {
     this.scrollBottom()
   },
-  destroyed() {
-    console.log('deleted chat box')
-  },
+  destroyed() {},
   methods: {
     ...mapActions({
       removeChatbox: 'chat/removeChatbox'

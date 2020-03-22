@@ -31,7 +31,7 @@
     <v-divider></v-divider>
 
     <v-list>
-      <v-subheader>Recent contacts</v-subheader>
+      <!-- <v-subheader>Recent contacts</v-subheader>
       <v-list-item @click="openChat(user)" v-for="user in recentContacts" :key="user._id">
         <v-list-item-avatar>
           <v-img :src="user.profileImage"></v-img>
@@ -43,7 +43,7 @@
         <v-list-item-icon>
           <v-icon>mdi-message</v-icon>
         </v-list-item-icon>
-      </v-list-item>
+      </v-list-item>-->
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-content>
@@ -64,9 +64,17 @@
           <v-list-item-content>
             <v-list-item-title>{{ user.username }}</v-list-item-title>
           </v-list-item-content>
-          <v-list-item-icon>
-            <v-icon>mdi-message</v-icon>
-          </v-list-item-icon>
+          <v-badge
+            color="red"
+            :content="user.notifications"
+            :value="Boolean(user.notifications)"
+            offset-y="20"
+            offset-x="30"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-message</v-icon>
+            </v-list-item-icon>
+          </v-badge>
         </v-list-item>
       </v-list-group>
     </v-list>
@@ -97,8 +105,9 @@ export default {
       changeChatDrawer: 'changeChatDrawer',
       createChatbox: 'chat/createChatbox'
     }),
-    openChat(user) {
-      this.createChatbox(user)
+    openChat(data) {
+      this.$store.commit('chat/REMOVE_CHAT_NOTIFICATIONS', data.user.username)
+      this.createChatbox(data)
     }
   }
 }

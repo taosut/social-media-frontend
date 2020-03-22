@@ -64,6 +64,33 @@ export const mutations = {
     )
 
     state.chatboxes[chatboxIndex].messages.push(message)
+  },
+  ADD_CHAT_NOTIFICATION(state, payload) {
+    let onlineUser = state.onlineUsers.find(
+      onlineUser => onlineUser.username === payload
+    )
+
+    if (onlineUser) {
+      if (onlineUser.notifications) onlineUser.notifications++
+      else onlineUser.notifications = 1
+
+      let onlineUsers = state.onlineUsers.slice(0)
+
+      state.onlineUsers = onlineUsers
+    }
+  },
+  REMOVE_CHAT_NOTIFICATIONS(state, payload) {
+    let onlineUser = state.onlineUsers.find(
+      onlineUser => onlineUser.username === payload
+    )
+
+    if (onlineUser) {
+      onlineUser.notifications = 0
+
+      let onlineUsers = state.onlineUsers.slice(0)
+
+      state.onlineUsers = onlineUsers
+    }
   }
 }
 

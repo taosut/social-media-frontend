@@ -47,7 +47,10 @@ export default {
     if (this.$auth.loggedIn && !this.user) {
       this.socket = this.$nuxtSocket({
         name: 'default',
-        reconnect: false
+        reconnect: false,
+        query: {
+          username: this.$auth.user.username
+        }
       })
 
       this.fetchOnlineUsers()
