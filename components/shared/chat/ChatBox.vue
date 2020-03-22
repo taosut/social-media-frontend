@@ -21,7 +21,8 @@
       <chatbox-message
         :message="message.message"
         :createdAt="new Date(message.createdAt)"
-        :fromUser="message.from"
+        :username="message.from"
+        :profileImage="message.from === $auth.user.username ? $auth.user.profileImage.location : chatbox.user.profileImage.location"
         v-for="message in chatbox.messages"
         :key="message._id"
       ></chatbox-message>
@@ -64,14 +65,8 @@ export default {
     return {
       message: {
         message: '',
-        to: {
-          username: this.chatbox.user.username,
-          profileImage: this.chatbox.user.profileImage.location
-        },
-        from: {
-          username: this.$auth.user.username,
-          profileImage: this.$auth.user.profileImage.location
-        },
+        to: this.chatbox.user.username,
+        from: this.$auth.user.username,
         createdAt: ''
       }
     }

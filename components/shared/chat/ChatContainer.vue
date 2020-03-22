@@ -49,12 +49,12 @@ export default {
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 5px;
-  background-color: #22222285;
+  background-color: #f4f4f4;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #222222;
+  background: #b8b8b8f1;
   border-radius: 10px;
 }
 </style>

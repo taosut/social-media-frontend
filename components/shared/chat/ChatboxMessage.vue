@@ -1,13 +1,13 @@
 <template>
   <v-list-item>
     <v-list-item-avatar v-if="!isLoggedUserSender">
-      <v-img :src="fromUser.profileImage"></v-img>
+      <v-img :src="profileImage"></v-img>
     </v-list-item-avatar>
     <v-list-item-content>
       <v-list-item-title class="font-weight-bold" :class="{'text-right': isLoggedUserSender}">
         <span class="body-2 grey--text">{{ createdAt.toLocaleString() }}</span>
         <br />
-        <span>{{ isLoggedUserSender ? 'Me' : fromUser.username }}</span>
+        <span>{{ isLoggedUserSender ? 'Me' : username }}</span>
       </v-list-item-title>
       <p class="ma-0 d-flex align-center" :class="{ 'justify-end': isLoggedUserSender }">
         <span
@@ -18,7 +18,7 @@
       </p>
     </v-list-item-content>
     <v-list-item-avatar v-if="isLoggedUserSender">
-      <v-img :src="fromUser.profileImage"></v-img>
+      <v-img :src="profileImage"></v-img>
     </v-list-item-avatar>
   </v-list-item>
 </template>
@@ -30,18 +30,22 @@ export default {
       type: String,
       required: true
     },
-    fromUser: {
-      type: Object,
+    username: {
+      type: String,
       required: true
     },
     createdAt: {
       type: Date,
       required: true
+    },
+    profileImage: {
+      type: String,
+      required: true
     }
   },
   computed: {
     isLoggedUserSender() {
-      if (this.fromUser.username === this.$auth.user.username) return true
+      if (this.username === this.$auth.user.username) return true
       else return false
     }
   }
