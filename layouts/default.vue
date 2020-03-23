@@ -44,6 +44,10 @@ export default {
     }
   },
   mounted() {
+    if (process.client) {
+      this.$vuetify.theme.dark = this.$cookies.get('dark_theme')
+    }
+
     if (this.$auth.loggedIn && !this.user) {
       this.socket = this.$nuxtSocket({
         name: 'default',

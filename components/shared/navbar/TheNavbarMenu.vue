@@ -7,7 +7,7 @@
     </template>
     <v-list class="hidden-md-and-up">
       <v-list-item>
-        <v-switch v-model="$vuetify.theme.dark" label="Dark Theme"></v-switch>
+        <app-theme-switch></app-theme-switch>
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -52,6 +52,7 @@
 
 <script>
 import NavbarSearch from '@/components/shared/navbar/NavbarSearch'
+import AppThemeSwitch from '@/components/shared/AppThemeSwitch'
 
 import { mapGetters, mapActions } from 'vuex'
 

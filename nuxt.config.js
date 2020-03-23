@@ -50,7 +50,9 @@ export default {
     // Doc: https://auth.nuxtjs.org/
     '@nuxtjs/auth',
     // Doc: https://github.com/richardeschloss/nuxt-socket-io
-    'nuxt-socket-io'
+    'nuxt-socket-io',
+    // Doc: https://github.com/microcipcip/cookie-universal/tree/master/packages/cookie-universal-nuxt#readme
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration
@@ -125,7 +127,6 @@ export default {
           srCyrl
         }
       },
-      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,

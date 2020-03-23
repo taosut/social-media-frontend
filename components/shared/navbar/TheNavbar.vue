@@ -77,12 +77,7 @@
     <v-btn v-if="$auth.loggedIn" @click="logout" class="mx-1 hidden-sm-and-down" depressed>
       <v-icon left>mdi-logout</v-icon>Logout
     </v-btn>
-    <v-switch
-      v-model="$vuetify.theme.dark"
-      class="hidden-sm-and-down"
-      :hide-details="true"
-      label="Dark Theme"
-    ></v-switch>
+    <app-theme-switch class="hidden-sm-and-down"></app-theme-switch>
     <the-navbar-menu></the-navbar-menu>
     <v-spacer></v-spacer>
   </v-app-bar>
@@ -91,13 +86,15 @@
 <script>
 import TheNavbarMenu from '@/components/shared/navbar/TheNavbarMenu'
 import NavbarSearch from '@/components/shared/navbar/NavbarSearch'
+import AppThemeSwitch from '@/components/shared/AppThemeSwitch'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
     TheNavbarMenu,
-    NavbarSearch
+    NavbarSearch,
+    AppThemeSwitch
   },
   data() {
     return {

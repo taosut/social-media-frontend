@@ -46,6 +46,14 @@ export const mutations = {
   }
 }
 export const actions = {
+  nuxtServerInit(vuexContext, { app, $vuetify }) {
+    // CHECK AND SET THEME
+    let isDarkTheme = app.$cookies.get('dark_theme')
+    console.log(isDarkTheme)
+    if (isDarkTheme) {
+      $vuetify.theme.dark = isDarkTheme
+    }
+  },
   setError(context, payload) {
     context.commit('setError', payload)
   },
