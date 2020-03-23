@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container>
+    <v-container ref="homepage-container">
       <v-row class="align-center justify-center">
         <v-col cols="12" md="8" xl="7">
           <p
@@ -27,20 +27,15 @@
             :key="index"
           ></app-feed-card>
         </v-col>
-        <v-col cols="12" md="8" xl="7">
-          <v-card
-            v-if="getFeed.length"
-            ref="feed-preloader"
-            height="60px"
-            class="d-flex align-center justify-center"
-          >
+
+        <v-col v-if="showFeedLoader" cols="12" md="8" xl="7">
+          <v-card height="60px" class="d-flex align-center justify-center">
             <v-progress-circular
-              v-if="isMoreFeedAvailable && showProgressCircular"
+              v-if="this.isMoreFeedAvailable && this.getFeed.length === this.getLimitPosts"
               indeterminate
               class="my-12"
             ></v-progress-circular>
-
-            <p class="ma-0 font-weight-bold" v-else>There are no more posts</p>
+            <p v-else class="ma-0 font-weight-bold">There are no more posts</p>
           </v-card>
         </v-col>
       </v-row>
@@ -73,7 +68,9 @@ export default {
     AppFeedCard
   },
   data() {
-    return {}
+    return {
+      showFeedLoader: true
+    }
   },
   computed: {
     ...mapGetters({
@@ -82,10 +79,7 @@ export default {
       isMoreFeedAvailable: 'feed/isMoreFeedAvailable',
       getSkipPosts: 'feed/getSkipPosts',
       getLimitPosts: 'feed/getLimitPosts'
-    }),
-    showProgressCircular() {
-      return true
-    }
+    })
   },
   mounted() {
     if (process.client) {
@@ -108,9 +102,15 @@ export default {
       increaseSkipPosts: 'feed/increaseSkipPosts'
     }),
     async handleScroll() {
+      if (this.$refs['homepage-container'])
+        if (this.$refs['homepage-container'].clientHeight > window.innerHeight)
+          this.showFeedLoader = true
+        else this.showFeedLoader = false
+      else this.showFeedLoader = false
+
       if (
-        window.innerHeight >=
-          this.$refs['feed-preloader'].$el.getBoundingClientRect().top &&
+        this.$refs['homepage-container'].clientHeight <
+          window.scrollY + window.innerHeight - 50 &&
         !this.isFetchingFeed &&
         this.isMoreFeedAvailable
       ) {

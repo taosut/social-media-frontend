@@ -24,7 +24,6 @@ export default {
     return state.likedPosts
   },
   getUserMessageNotifications: state => username => {
-    console.log(state.notifications, username)
     return state.notifications.filter(
       notification =>
         notification.from === username && notification.type === 'message'
