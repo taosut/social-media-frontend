@@ -66,8 +66,8 @@
           </v-list-item-content>
           <v-badge
             color="red"
-            :content="user.notifications"
-            :value="Boolean(user.notifications)"
+            :content="Boolean(messageNotifications(user.username).length) ?  messageNotifications(user.username)[0].number : ''"
+            :value="Boolean(messageNotifications(user.username).length)"
             offset-y="20"
             offset-x="30"
           >
@@ -88,7 +88,8 @@ export default {
   computed: {
     ...mapGetters({
       recentContacts: 'chat/getRecentContacts',
-      onlineUsers: 'chat/getOnlineUsers'
+      onlineUsers: 'chat/getOnlineUsers',
+      messageNotifications: 'user/getUserMessageNotifications'
     }),
     changeNavDrawer: {
       get() {
@@ -100,13 +101,14 @@ export default {
     }
   },
   watch: {},
+  mounted() {},
   methods: {
     ...mapActions({
       changeChatDrawer: 'changeChatDrawer',
       createChatbox: 'chat/createChatbox'
     }),
     openChat(data) {
-      this.$store.commit('chat/REMOVE_CHAT_NOTIFICATIONS', data.user.username)
+      this.$store.dispatch('chat/removeChatNotification', data.user.username)
       this.createChatbox(data)
     }
   }

@@ -14,15 +14,20 @@ export default {
   SET_PROFILE(state, payload) {
     state.profile = payload
   },
-  SET_USER_DYNAMIC_DATA(state, { following, followers, likedPosts }) {
+  SET_USER_DYNAMIC_DATA(
+    state,
+    { following, followers, likedPosts, notifications }
+  ) {
     state.following = following
     state.followers = followers
     state.likedPosts = likedPosts
+    state.notifications = notifications
   },
   REMOVE_USER_DYNAMIC_DATA(state) {
     state.following = []
     state.followers = []
     state.likedPosts = []
+    state.notifications = []
   },
   REMOVE_PROFILE_POST(state, payload) {
     console.log(payload)
@@ -38,5 +43,24 @@ export default {
   },
   SET_USER_FOLLOWING(state, payload) {
     state.following = payload
+  },
+  ADD_NOTIFICATION(state, payload) {
+    let sameNotificationIndex = state.notifications.findIndex(
+      notification =>
+        notification.from === payload.from && notification.type === payload.type
+    )
+
+    if (sameNotificationIndex !== -1) {
+      state.notifications[sameNotificationIndex].number++
+    } else {
+      state.notifications.push(payload)
+    }
+  },
+  REMOVE_NOTIFICATION(state, payload) {
+    console.log('remove chat notification', payload)
+    state.notifications = state.notifications.filter(
+      notification =>
+        notification.type !== payload.type && notification.from !== payload.from
+    )
   }
 }

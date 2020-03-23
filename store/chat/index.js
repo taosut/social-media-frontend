@@ -64,33 +64,6 @@ export const mutations = {
     )
 
     state.chatboxes[chatboxIndex].messages.push(message)
-  },
-  ADD_CHAT_NOTIFICATION(state, payload) {
-    let onlineUser = state.onlineUsers.find(
-      onlineUser => onlineUser.username === payload
-    )
-
-    if (onlineUser) {
-      if (onlineUser.notifications) onlineUser.notifications++
-      else onlineUser.notifications = 1
-
-      let onlineUsers = state.onlineUsers.slice(0)
-
-      state.onlineUsers = onlineUsers
-    }
-  },
-  REMOVE_CHAT_NOTIFICATIONS(state, payload) {
-    let onlineUser = state.onlineUsers.find(
-      onlineUser => onlineUser.username === payload
-    )
-
-    if (onlineUser) {
-      onlineUser.notifications = 0
-
-      let onlineUsers = state.onlineUsers.slice(0)
-
-      state.onlineUsers = onlineUsers
-    }
   }
 }
 
@@ -194,6 +167,45 @@ export const actions = {
           { root: true }
         )
       }
+    }
+  },
+  async removeChatNotification({ commit, getters, dispatch }, payload) {
+    try {
+      const result = await this.$axios.$delete(
+        `/users/user/remove-notification`,
+        {
+          data: {
+            username: payload,
+            type: 'message'
+          }
+        }
+      )
+      console.log(result)
+      if (!result) {
+        context.dispatch(
+          'alerts/setAlert',
+          {
+            status: 500,
+            message: 'An error occured'
+          },
+          { root: true }
+        )
+      }
+
+      commit(
+        'user/REMOVE_NOTIFICATION',
+        { from: payload, type: 'message' },
+        { root: true }
+      )
+    } catch (err) {
+      dispatch(
+        'alerts/setAlert',
+        {
+          status: 500,
+          message: 'An error occured'
+        },
+        { root: true }
+      )
     }
   }
 }

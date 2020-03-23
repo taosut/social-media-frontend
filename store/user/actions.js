@@ -23,7 +23,7 @@ export default {
   async fetchUserDynamicData(context) {
     try {
       const result = await this.$axios.$get(
-        '/auth/user?projection=followers following likedPosts'
+        '/auth/user?projection=followers following likedPosts notifications'
       )
 
       if (!result) {
@@ -40,7 +40,8 @@ export default {
       context.commit('SET_USER_DYNAMIC_DATA', {
         following: result.user.following,
         followers: result.user.followers,
-        likedPosts: result.user.likedPosts
+        likedPosts: result.user.likedPosts,
+        notifications: result.user.notifications
       })
     } catch (err) {
       if (err.response) {

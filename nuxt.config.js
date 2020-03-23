@@ -93,7 +93,7 @@ export default {
         vuex: {
           mutations: [
             { 'remove online user': 'chat/REMOVE_ONLINE_PEOPLE' },
-            { 'chat notification': 'chat/ADD_CHAT_NOTIFICATION' }
+            { 'chat notification': 'user/ADD_NOTIFICATION' }
           ],
           actions: [
             { 'add online user': 'chat/addUserToOnlineUsers' },

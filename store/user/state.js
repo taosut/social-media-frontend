@@ -6,5 +6,6 @@ export default () => ({
   editProfileDialog: false,
   following: [],
   followers: [],
-  likedPosts: []
+  likedPosts: [],
+  notifications: []
 })
