@@ -28,7 +28,7 @@
           ></app-feed-card>
         </v-col>
 
-        <v-col v-if="showFeedLoader" cols="12" md="8" xl="7">
+        <v-col v-if="showFeedLoader && getFeed.length" cols="12" md="8" xl="7">
           <v-card height="60px" class="d-flex align-center justify-center">
             <v-progress-circular
               v-if="this.isMoreFeedAvailable && this.getFeed.length === this.getLimitPosts"

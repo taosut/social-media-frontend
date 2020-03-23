@@ -14,6 +14,7 @@
                 @blur="$v.email.$touch()"
                 v-model="email"
                 label="Enter email"
+                @keypress.enter="signIn"
               ></v-text-field>
               <v-text-field
                 :error-messages="passwordErrors"
@@ -24,6 +25,7 @@
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="showPassword ? 'text' : 'password'"
                 @click:append="showPassword = !showPassword"
+                @keypress.enter="signIn"
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">

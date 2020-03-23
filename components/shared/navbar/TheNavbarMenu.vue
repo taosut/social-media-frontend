@@ -58,7 +58,8 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    NavbarSearch
+    NavbarSearch,
+    AppThemeSwitch
   },
   computed: {
     ...mapGetters({}),

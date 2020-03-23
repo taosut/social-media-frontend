@@ -66,6 +66,13 @@
                 no-resize
                 label="Enter something about you"
               ></v-textarea>
+              <v-checkbox
+                @change="$v.termsAndConditions.$touch()"
+                @blue="$v.termsAndConditions.$touch()"
+                :error-messages="termsAndConditionsErrors"
+                v-model="termsAndConditions"
+                label="Accept Terms & Conditions"
+              ></v-checkbox>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn :loading="loading" :disabled="$v.$invalid" @click="signUp" block>Create account</v-btn>
@@ -116,7 +123,8 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      description: ''
+      description: '',
+      termsAndConditions: false
     }
   },
   validations: {
@@ -146,6 +154,11 @@ export default {
     description: {
       minLength: minLength(0),
       maxLength: maxLength(150)
+    },
+    termsAndConditions: {
+      checked(val) {
+        return val
+      }
     }
   },
   computed: {
@@ -211,6 +224,15 @@ export default {
       !this.$v.imageFile.required && errors.push('Image is required')
       !this.$v.imageFile.imageFileSizeCheck &&
         errors.push('Files size must be less then 1MB')
+
+      return errors
+    },
+    termsAndConditionsErrors() {
+      const errors = []
+      if (!this.$v.termsAndConditions.$dirty) return errors
+
+      !this.$v.termsAndConditions.checked &&
+        errors.push('This field is required')
 
       return errors
     }
