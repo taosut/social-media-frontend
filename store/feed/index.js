@@ -3,7 +3,7 @@ export const state = () => ({
   feed: [],
   moreFeedAvailable: true,
   skipPosts: 0,
-  limitPosts: 2,
+  limitPosts: 20,
   post: null,
   loadingPost: false
 })

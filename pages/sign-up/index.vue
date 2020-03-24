@@ -96,6 +96,8 @@ import {
   sameAs
 } from 'vuelidate/lib/validators'
 
+import { descriptionCharactersCheck } from '@/components/profile/EditProfileDialog'
+
 const usernameCharactersCheck = value => {
   const regEx = /^[\w\.\-\_]{2,32}$/
   return regEx.test(value)
@@ -153,7 +155,8 @@ export default {
     },
     description: {
       minLength: minLength(0),
-      maxLength: maxLength(150)
+      maxLength: maxLength(150),
+      descriptionCharactersCheck
     },
     termsAndConditions: {
       checked(val) {
@@ -214,6 +217,8 @@ export default {
         errors.push('Description length must be at least 8 characters long')
       !this.$v.description.maxLength &&
         errors.push("Description length can't be greate then 100 characters")
+      !this.$v.description.descriptionCharactersCheck &&
+        errors.push('Forbidden character useage')
 
       return errors
     },

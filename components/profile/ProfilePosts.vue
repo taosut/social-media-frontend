@@ -7,9 +7,6 @@
       <v-tab>
         <v-icon left>mdi-grid</v-icon>POSTS
       </v-tab>
-      <v-tab>
-        <v-icon left>mdi-account-box</v-icon>TAGGED
-      </v-tab>
     </v-tabs>
     <v-tabs-items class="mx-auto full-width" v-model="tab">
       <!-- POSTS -->
@@ -27,21 +24,6 @@
             xl="3"
           >
             <profile-posts-post :post="post"></profile-posts-post>
-          </v-col>
-        </v-col>
-      </v-tab-item>
-      <!-- TAGGED POSTS -->
-      <v-tab-item>
-        <v-col cols="12" sm="10" lg="9" xl="8" class="mx-auto d-flex flex-wrap">
-          <h3 class="text-center mx-auto" v-if="!taggedPosts.length">User has no tagged posts</h3>
-          <v-col
-            v-else
-            v-for="taggedPost in taggedPosts"
-            :key="taggedPost._id"
-            class="d-flex child-flex"
-            cols="4"
-          >
-            <profile-posts-post :post="taggedPost"></profile-posts-post>
           </v-col>
         </v-col>
       </v-tab-item>

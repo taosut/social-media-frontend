@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" md="4" class="d-flex flex-column align-start justify-center">
-    <div class="d-flex mt-3 flex-row align-center justify-center">
+    <div class="d-flex mt-3 flex-row align-center justify-center flex-wrap">
       <v-avatar size="40">
         <v-img :src="creator.profileImage.location">
           <template v-slot:placeholder>
@@ -8,20 +8,18 @@
           </template>
         </v-img>
       </v-avatar>
-      <v-badge
-        offset-y="2"
-        offset-x="15"
-        :value="this.$store.getters['user/getUserFollowers'].length > 5"
-        icon="mdi-check-decagram"
-      >
-        <nuxt-link
-          :to="`/${creator.username}`"
-          class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-2 cursor-pointer"
-          tag="span"
-        >{{ creator.username }}:</nuxt-link>
-      </v-badge>
+
+      <nuxt-link
+        :to="`/${creator.username}`"
+        class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-2 cursor-pointer"
+        tag="span"
+      >{{ creator.username }}:</nuxt-link>
       <span>&bullet;</span>
-      <app-follow-btn v-if="creator.username !== $auth.user.username" :userId="creator._id"></app-follow-btn>
+      <app-follow-btn
+        class="mt-1 mr-0 ml-1"
+        v-if="creator.username !== $auth.user.username"
+        :userId="creator._id"
+      ></app-follow-btn>
     </div>
     <v-divider class="full-width mt-6"></v-divider>
     <v-card
@@ -48,7 +46,7 @@
               class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-0"
             >{{ creator.username }}:</nuxt-link>
           </v-badge>
-          <span class="comment-text">{{ showDescription }}</span>
+          <span class="comment-text" >{{ showDescription }}</span>
         </p>
       </div>
       <v-btn
@@ -62,9 +60,7 @@
       </v-btn>
       <!-- POST COMMENTS -->
       <v-hover v-for="comment in comments" :key="comment._id" v-slot:default="{ hover }">
-        <div
-          class="d-flex my-3 flex-row align-start justify-start full-width"
-        >
+        <div class="d-flex my-3 flex-row align-start justify-start full-width">
           <v-btn
             @click="$store.dispatch('feed/deleteComment', comment._id)"
             color="red"
@@ -79,12 +75,10 @@
             <v-img :src="comment.creator.profileImage"></v-img>
           </v-avatar>
           <p class="ml-1 body-2" style="width: calc(100% - 44px);">
-            <v-badge offset-y="2" offset-x="15" :value="[].length > 5" icon="mdi-check-decagram">
-              <nuxt-link
-                :to="`/${creator.username}`"
-                class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-0"
-              >{{ comment.creator.username }}:</nuxt-link>
-            </v-badge>
+            <nuxt-link
+              :to="`/${creator.username}`"
+              class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-0"
+            >{{ comment.creator.username }}:</nuxt-link>
             <span class="comment-text">{{ comment.text }}</span>
           </p>
         </div>

@@ -78,6 +78,8 @@ const imageFileSizeCheck = value => {
   return value ? (value.size > 1048576 ? false : true) : true
 }
 
+import { descriptionCharactersCheck } from '@/components/profile/EditProfileDialog'
+
 export default {
   validate(context) {
     if (
@@ -110,7 +112,8 @@ export default {
     description: {
       required,
       minLength: minLength(0),
-      maxLength: maxLength(2200)
+      maxLength: maxLength(2200),
+      descriptionCharactersCheck
     },
     imageFile: {
       required,
@@ -142,6 +145,8 @@ export default {
         errors.push('Description length must be at least 2 characters long')
       !this.$v.description.maxLength &&
         errors.push("Description length can't be greate then 2200 characters")
+      !this.$v.description.descriptionCharactersCheck &&
+        errors.push('Forbidden character useage')
 
       return errors
     },

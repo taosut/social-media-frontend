@@ -106,12 +106,18 @@ const imageFileSizeCheck = value => {
   return value ? (value.size > 1048576 ? false : true) : true
 }
 
+export const descriptionCharactersCheck = value => {
+  const regEx = /^[\w\s\.\,\?\!\'\"\;\:\(\)]*$/g
+  return regEx.test(value)
+}
+
 export default {
   mixins: [validationMixin],
   data() {
     let imageUrl = this.$auth.user ? this.$auth.user.profileImage.location : ''
     let username = this.$auth.user ? this.$auth.user.username : ''
     let description = this.$auth.user ? this.$auth.user.description : ''
+
     return {
       loading: false,
       showCurrentPassword: false,
@@ -151,7 +157,8 @@ export default {
         },
         description: {
           minLength: minLength(0),
-          maxLength: maxLength(150)
+          maxLength: maxLength(150),
+          descriptionCharactersCheck
         }
       }
     else
@@ -181,7 +188,8 @@ export default {
         },
         description: {
           minLength: minLength(0),
-          maxLength: maxLength(150)
+          maxLength: maxLength(150),
+          descriptionCharactersCheck
         }
       }
   },
@@ -256,6 +264,8 @@ export default {
         errors.push('Description length must be at least 8 characters long')
       !this.$v.description.maxLength &&
         errors.push("Description length can't be greate then 100 characters")
+      !this.$v.description.descriptionCharactersCheck &&
+        errors.push('Forbidden character usage')
 
       return errors
     },
