@@ -40,7 +40,7 @@ export const actions = {
   changeShowAlert(context, payload) {
     context.commit('SET_SHOW_ALERT', payload)
   },
-  setAlert(context, { status, message }) {
+  async setAlert(context, { status, message }) {
     console.log(status, message)
 
     status = Boolean(status) ? status : 500
@@ -91,7 +91,9 @@ export const actions = {
           break
         default:
           if (message === 'jwt expired') {
-            this.$auth.logout()
+            await this.$auth.logout({
+              data: { refreshToken: this.$auth.refreshToken.get() }
+            })
             this.$router.push('/sign-in')
           } else {
             context.commit(

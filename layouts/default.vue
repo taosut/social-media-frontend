@@ -58,8 +58,15 @@ export default {
       })
 
       this.fetchOnlineUsers()
+
+      this.fetchOnlieUsersInterval = setInterval(() => {
+        this.fetchOnlineUsers()
+      }, 5 * 60 * 1000)
       this.fetchUserDynamicData()
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.fetchOnlieUsersInterval)
   },
   methods: {
     ...mapActions({

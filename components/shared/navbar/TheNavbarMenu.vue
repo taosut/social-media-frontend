@@ -78,10 +78,11 @@ export default {
   methods: {
     ...mapActions({
       changeNavbarMenu: 'changeNavbarMenu',
-      logout() {
-        this.$store.dispatch('user/logoutUser')
+      async logout() {
         this.changeNavbarMenu(false)
-        this.$auth.logout()
+        await this.$auth.logout({
+          data: { refreshToken: this.$auth.refreshToken.get() }
+        })
       }
     })
   }

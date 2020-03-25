@@ -112,7 +112,6 @@ export default {
       changeNavbarMenu: 'changeNavbarMenu',
       searchForPeople: 'searchForPeople',
       async logout() {
-        this.$store.dispatch('user/logoutUser')
         await this.$auth.logout({
           data: { refreshToken: this.$auth.refreshToken.get() }
         })
