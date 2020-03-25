@@ -49,7 +49,6 @@ export const actions = {
   nuxtServerInit(vuexContext, { app, $vuetify }) {
     // CHECK AND SET THEME
     let isDarkTheme = app.$cookies.get('dark_theme')
-    console.log(isDarkTheme)
     if (isDarkTheme) {
       $vuetify.theme.dark = isDarkTheme
     }

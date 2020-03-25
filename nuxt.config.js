@@ -71,17 +71,31 @@ export default {
     },
     strategies: {
       local: {
+        _scheme: 'refresh',
+        token: {
+          property: 'accessToken',
+          type: 'Bearer',
+          name: 'Authorization',
+          maxAge: 30
+        },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 60
+        },
+        user: {
+          property: 'user',
+          autoFetch: true
+        },
+        clientId: false,
+        grantType: false,
+        autoRefresh: { enable: true },
+        autoLogout: true,
         endpoints: {
-          login: {
-            url: '/auth/sign-in',
-            method: 'post',
-            propertyName: 'token'
-          },
-          logout: false,
-          user: { url: '/auth/user', method: 'get', propertName: 'user' },
-          tokenRequired: true,
-          tokenName: 'Authorization',
-          tokenType: 'Bearer'
+          login: { url: '/auth/sign-in', method: 'post' },
+          refresh: { url: '/auth/refresh-token', method: 'post' },
+          user: { url: '/auth/user', method: 'get' },
+          logout: { url: '/auth/logout', method: 'post' }
         }
       }
     }

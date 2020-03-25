@@ -30,7 +30,6 @@ export default {
     state.notifications = []
   },
   REMOVE_PROFILE_POST(state, payload) {
-    console.log(payload)
     let profile = state.profile
     profile.posts = profile.posts.filter(post => {
       return post._id !== payload
