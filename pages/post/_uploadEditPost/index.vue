@@ -186,7 +186,7 @@ export default {
       if (this.$route.params.uploadEditPost === 'edit') {
         try {
           const result = await this.$axios.$get(
-            `/posts/get-post-for-update/${this.$route.query.postId}`
+            `/posts/${this.$route.query.postId}?isForUpdate=true`
           )
 
           if (!result) {

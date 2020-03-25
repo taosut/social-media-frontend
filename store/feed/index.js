@@ -143,9 +143,10 @@ export const actions = {
     commit('REMOVE_FEED_POST', payload)
   },
   addNewPost({ commit, getters, rootGetters }, payload) {
+    console.log(payload)
     if (
       rootGetters['user/getUserFollowing'].some(
-        userId => userId === payload.creator
+        userId => userId === payload.creator._id
       )
     ) {
       commit('ADD_NEW_POST', payload)

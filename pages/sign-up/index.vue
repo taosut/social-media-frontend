@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-container>
-      <v-row class="align-center justify-center auth-row--height">
+      <v-row class="align-center justify-center auth-row--height mt-5">
         <v-col cols="12" sm="8" md="6" xl="4">
           <v-card outlined>
             <v-card-text>
