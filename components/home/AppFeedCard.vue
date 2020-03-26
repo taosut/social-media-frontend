@@ -5,7 +5,7 @@
     type="image, list-item-avatar-three-line"
     height="500px"
   >
-    <v-card class="mb-5">
+    <v-card class="mb-8" elevation="6">
       <v-img
         @click="$store.dispatch('feed/fetchPost', postId)"
         :aspect-ratio="16/9"

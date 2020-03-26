@@ -1,7 +1,9 @@
 <template>
   <v-app-bar clipped-right color="#663dfc" height="64" app elevate-on-scroll dark>
     <v-spacer></v-spacer>
-    <v-toolbar-title class="display-1 mx-1">LOGO</v-toolbar-title>
+    <nuxt-link to="/">
+      <v-img src="/logo-w.png" contain height="40px"></v-img>
+    </nuxt-link>
     <v-spacer></v-spacer>
     <v-btn
       :text="$vuetify.breakpoint.lgAndUp"
@@ -47,7 +49,7 @@
     <navbar-search class="hidden-sm-and-down"></navbar-search>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
     <v-btn
-      :text="$vuetify.breakpoint.lgAndUp"
+      :text="$vuetify.breakpoint.mdAndUp"
       v-if="!$auth.loggedIn"
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"
@@ -58,7 +60,7 @@
       <v-icon left>mdi-login</v-icon>Sign In
     </v-btn>
     <v-btn
-      :text="$vuetify.breakpoint.lgAndUp"
+      :text="$vuetify.breakpoint.mdAndUp"
       v-if="!$auth.loggedIn"
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"

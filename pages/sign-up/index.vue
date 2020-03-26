@@ -1,12 +1,12 @@
 <template>
-  <v-content>
+  <v-content :class="{'grey lighten-4': !$vuetify.theme.dark}">
     <v-container>
       <v-row class="align-center justify-center auth-row--height mt-5">
         <v-col cols="12" sm="8" md="6" xl="4">
-          <v-card outlined>
-            <v-card-text>
-              <v-card-title class="d-flex align-center justify-center">
-                <h1>LOGO</h1>
+          <v-card elevation="12" class="pa-6">
+            <v-card-text class="pb-0">
+              <v-card-title class="d-flex align-center justify-center pt-0">
+                <img :src=" $vuetify.theme.dark ? '/logo-w.png' : '/logo-b&w.png'" width="170" />
               </v-card-title>
               <v-text-field
                 :error-messages="usernameErrors"
@@ -62,7 +62,7 @@
                 @blur="$v.description.$touch()"
                 v-model="description"
                 counter="150"
-                rows="4"
+                rows="3"
                 no-resize
                 label="Enter something about you"
               ></v-textarea>
@@ -75,7 +75,14 @@
               ></v-checkbox>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
-              <v-btn :loading="loading" :disabled="$v.$invalid" @click="signUp" block>Create account</v-btn>
+              <v-btn
+                color="#663dfc"
+                :loading="loading"
+                :disabled="$v.$invalid"
+                @click="signUp"
+                block
+                :dark="!$v.$invalid"
+              >Create account</v-btn>
               <nuxt-link class="my-2" to="/sign-in">Already have account? Login</nuxt-link>
             </v-card-actions>
           </v-card>

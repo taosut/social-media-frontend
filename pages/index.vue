@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content :class="{'grey lighten-4': !$vuetify.theme.dark}">
     <v-container ref="homepage-container">
       <v-row class="align-center justify-center">
         <v-col cols="12" md="8" xl="7">

@@ -1,12 +1,12 @@
 <template>
-  <v-content>
+  <v-content :class="{'grey lighten-4': !$vuetify.theme.dark}">
     <v-container>
       <v-row class="align-center justify-center auth-row--height">
         <v-col cols="12" sm="8" md="6" xl="4">
-          <v-card outlined>
+          <v-card elevation="12" class="pa-6">
             <v-card-text>
               <v-card-title class="d-flex align-center justify-center">
-                <h1>LOGO</h1>
+                <img :src=" $vuetify.theme.dark ? '/logo-w.png' : '/logo-b&w.png'" width="170" />
               </v-card-title>
               <v-text-field
                 :error-messages="emailErrors"
@@ -29,9 +29,9 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
-              <v-btn :loading="loading" @click="signIn" block>Login</v-btn>
+              <v-btn color="#663dfc" dark :loading="loading" @click="signIn" block>Login</v-btn>
               <p class="my-2 text-center or-paragraph full-width">or</p>
-              <v-btn :nuxt="true" to="/sign-up" block>Sign Up</v-btn>
+              <v-btn color="#663dfc" dark :nuxt="true" to="/sign-up" block>Sign Up</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
