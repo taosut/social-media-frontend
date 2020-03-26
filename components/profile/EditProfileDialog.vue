@@ -72,7 +72,6 @@
       <v-card-actions class="d-flex align-center justify-end flex-wrap">
         <v-btn
           class="mt-1"
-          color="white"
           @click="$store.dispatch('user/changeEditProfileDialog', false)"
         >Cancel</v-btn>
         <v-btn

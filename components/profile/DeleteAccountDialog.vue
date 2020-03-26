@@ -113,7 +113,7 @@ export default {
         })
 
         this.$store.dispatch('user/changeDeleteAccountDialog', false)
-        this.$auth.logout()
+        this.$auth.reset()
         this.$router.replace('/sign-up')
       } catch (err) {
         if (err.response)

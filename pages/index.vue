@@ -4,8 +4,7 @@
       <v-row class="align-center justify-center">
         <v-col cols="12" md="8" xl="7">
           <p
-            class="font-weight-light ma-0"
-            :class="{ 'headline': $vuetify.breakpoint.xsOnly, 'display-1': $vuetify.breakpoint.smAndUp}"
+            class="font-weight-light ma-0 welcome-headline"
           >Hi {{ $auth.user.username }}, here are latest posts:</p>
         </v-col>
       </v-row>
@@ -123,4 +122,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.welcome-headline {
+  font-size: 35px;
+}
+@media only screen and (max-width: 600px) {
+  .welcome-headline {
+    font-size: 25px;
+  }
+}
 </style>

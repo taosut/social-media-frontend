@@ -110,6 +110,7 @@ export default {
         )
       }
       context.commit('SET_USER_FOLLOWING', result.following)
+      context.dispatch('chat/fetchOnlineUsers', {}, { root: true })
     } catch (err) {
       context.dispatch(
         'alerts/setAlert',
