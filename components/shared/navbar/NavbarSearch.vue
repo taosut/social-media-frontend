@@ -15,6 +15,7 @@
     item-text="username"
     item-value="username"
     hint
+    light
   >
     <template v-slot:item="data">
       <template>

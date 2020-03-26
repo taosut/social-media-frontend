@@ -8,30 +8,26 @@
     hide-overlay
   >
     <v-list-item>
-      <v-list-item-content>
-        <v-col v-if="$auth && $auth.loggedIn" cols="9" class="d-flex align-center justify-center">
-          <v-list-item-avatar size="60px">
-            <v-avatar>
-              <v-img :src="$auth.user.profileImage.location"></v-img>
-            </v-avatar>
-          </v-list-item-avatar>
-          <v-list-item-title class="title">{{ $auth.user.username }}</v-list-item-title>
-        </v-col>
-        <v-col v-else class="d-flex align-center justify-center">
-          <v-list-item-title>Chat</v-list-item-title>
-        </v-col>
-        <v-col class="hidden-md-and-up" cols="3">
-          <button @click="changeChatDrawer(false)" icon>
-            <v-icon>mdi-close</v-icon>
-          </button>
-        </v-col>
-      </v-list-item-content>
+      <v-col v-if="$auth && $auth.loggedIn" cols="9" class="d-flex align-center justify-center">
+        <v-avatar size="60">
+          <v-img :src="$auth.user.profileImage.location"></v-img>
+        </v-avatar>
+        <span class="title ml-2">{{ $auth.user.username }}</span>
+      </v-col>
+      <v-col v-else class="d-flex align-center justify-center">
+        <v-list-item-title>Chat</v-list-item-title>
+      </v-col>
+      <v-col class="hidden-md-and-up" cols="3">
+        <button @click="changeChatDrawer(false)" icon>
+          <v-icon>mdi-close</v-icon>
+        </button>
+      </v-col>
     </v-list-item>
 
     <v-divider></v-divider>
 
     <v-list>
-      <v-list-group value="true">
+      <v-list-group :color=" $vuetify.theme.dark ? 'white' : '#663dfc'" value="true">
         <template v-slot:activator>
           <v-list-item-content>
             <v-list-item-title>People online</v-list-item-title>

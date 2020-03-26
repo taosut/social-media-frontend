@@ -1,9 +1,10 @@
 <template>
-  <v-app-bar clipped-right height="64" app elevate-on-scroll>
+  <v-app-bar clipped-right color="#663dfc" height="64" app elevate-on-scroll dark>
     <v-spacer></v-spacer>
     <v-toolbar-title class="display-1 mx-1">LOGO</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn
+      :text="$vuetify.breakpoint.lgAndUp"
       v-if="$auth.loggedIn"
       :icon="$vuetify.breakpoint.mdAndDown"
       class="hidden-sm-and-down mx-1"
@@ -16,6 +17,7 @@
       <span class="hidden-md-and-down">Home</span>
     </v-btn>
     <v-btn
+      :text="$vuetify.breakpoint.lgAndUp"
       v-if="$auth.loggedIn"
       :icon="$vuetify.breakpoint.mdAndDown"
       :nuxt="true"
@@ -45,6 +47,7 @@
     <navbar-search class="hidden-sm-and-down"></navbar-search>
     <v-spacer class="hidden-sm-and-down"></v-spacer>
     <v-btn
+      :text="$vuetify.breakpoint.lgAndUp"
       v-if="!$auth.loggedIn"
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"
@@ -55,6 +58,7 @@
       <v-icon left>mdi-login</v-icon>Sign In
     </v-btn>
     <v-btn
+      :text="$vuetify.breakpoint.lgAndUp"
       v-if="!$auth.loggedIn"
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"
@@ -65,6 +69,7 @@
       <v-icon left>mdi-account</v-icon>Sign Up
     </v-btn>
     <v-btn
+      :text="$vuetify.breakpoint.mdAndUp"
       v-if="$auth.loggedIn"
       :nuxt="true"
       class="mx-1 hidden-sm-and-down"
@@ -74,7 +79,13 @@
     >
       <v-icon left>mdi-upload</v-icon>Upload
     </v-btn>
-    <v-btn v-if="$auth.loggedIn" @click="logout" class="mx-1 hidden-sm-and-down" depressed>
+    <v-btn
+      :text="$vuetify.breakpoint.mdAndUp"
+      v-if="$auth.loggedIn"
+      @click="logout"
+      class="mx-1 hidden-sm-and-down"
+      depressed
+    >
       <v-icon left>mdi-logout</v-icon>Logout
     </v-btn>
     <app-theme-switch class="hidden-sm-and-down"></app-theme-switch>

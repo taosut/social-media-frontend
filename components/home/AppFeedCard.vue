@@ -29,7 +29,11 @@
       </v-list-item>
       <v-card-text>{{ postDescription | cutOffDescription }}</v-card-text>
       <v-card-actions>
-        <v-btn text @click="$store.dispatch('feed/fetchPost', postId)">Read more</v-btn>
+        <v-btn
+          :color=" $vuetify.theme.dark ? 'white' : '#663dfc'"
+          text
+          @click="$store.dispatch('feed/fetchPost', postId)"
+        >View more</v-btn>
         <v-spacer></v-spacer>
         <app-like-btn :postId="postId"></app-like-btn>
         <v-btn icon @click="$store.dispatch('feed/fetchPost', postId)">

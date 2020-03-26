@@ -9,13 +9,13 @@
       xl="8"
     >
       <v-col class="page-header d-flex align-start justify-center" cols="3">
-        <v-avatar class="avatar-border" color="primary" size="130">
+        <v-avatar class="avatar-border" color="#663dfc" size="130">
           <v-img :src="profileImage"></v-img>
         </v-avatar>
       </v-col>
       <v-col class="page-header" cols="12" sm="7" md="6">
         <div class="d-flex align-center justify-start">
-          <h2>{{ username }}</h2>
+          <h2 class="mr-2">{{ username }}</h2>
           <app-follow-btn
             :userId="profileId"
             v-if="$auth.user && $route.params.profile !== $auth.user.username"

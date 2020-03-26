@@ -1,8 +1,9 @@
 <template>
   <v-btn
-    color="primary mx-3"
+    :color="'#663dfc'"
     @click="$store.dispatch('user/setUserFollowing', userId)"
     depressed
+    dark
   >{{ isFollowingUser ? 'Following' : 'Follow'}}</v-btn>
 </template>
 

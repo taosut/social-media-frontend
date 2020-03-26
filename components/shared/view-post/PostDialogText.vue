@@ -11,10 +11,11 @@
 
       <nuxt-link
         :to="`/${creator.username}`"
-        class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-2 cursor-pointer"
+        class="text-decoration-none mx-2 font-weight-bold ml-2 cursor-pointer"
         tag="span"
+        :class="$vuetify.theme.dark ? 'white--text' : ' grey--text text--darken-3'"
       >{{ creator.username }}:</nuxt-link>
-      <span>&bullet;</span>
+
       <app-follow-btn
         class="mt-1 mr-0 ml-1"
         v-if="creator.username !== $auth.user.username"
@@ -43,10 +44,11 @@
           >
             <nuxt-link
               :to="`/${creator.username}`"
-              class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-0"
+              class="text-decoration-none mx-2 font-weight-bold ml-0"
+              :class="$vuetify.theme.dark ? 'white--text' : ' grey--text text--darken-3'"
             >{{ creator.username }}:</nuxt-link>
           </v-badge>
-          <span class="comment-text" >{{ showDescription }}</span>
+          <span class="comment-text">{{ showDescription }}</span>
         </p>
       </div>
       <v-btn
@@ -77,7 +79,8 @@
           <p class="ml-1 body-2" style="width: calc(100% - 44px);">
             <nuxt-link
               :to="`/${creator.username}`"
-              class="text-decoration-none grey--text text--darken-3 mx-2 font-weight-bold ml-0"
+              class="text-decoration-none mx-2 font-weight-bold ml-0"
+              :class="$vuetify.theme.dark ? 'white--text' : ' grey--text text--darken-3'"
             >{{ comment.creator.username }}:</nuxt-link>
             <span class="comment-text">{{ comment.text }}</span>
           </p>
