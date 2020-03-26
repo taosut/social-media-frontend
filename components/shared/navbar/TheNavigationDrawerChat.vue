@@ -31,19 +31,6 @@
     <v-divider></v-divider>
 
     <v-list>
-      <!-- <v-subheader>Recent contacts</v-subheader>
-      <v-list-item @click="openChat(user)" v-for="user in recentContacts" :key="user._id">
-        <v-list-item-avatar>
-          <v-img :src="user.profileImage"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ user.username }}</v-list-item-title>
-        </v-list-item-content>
-        <v-list-item-icon>
-          <v-icon>mdi-message</v-icon>
-        </v-list-item-icon>
-      </v-list-item>-->
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-content>

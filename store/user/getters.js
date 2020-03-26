@@ -1,3 +1,5 @@
+import { state } from '..'
+
 export default {
   getDeletePostId(state) {
     return state.deletePostId
@@ -28,5 +30,10 @@ export default {
       notification =>
         notification.from === username && notification.type === 'message'
     )
+  },
+  getNumberOfAllNotifications(state) {
+    return state.notifications.reduce((sum, notification) => {
+      return sum + notification.number
+    }, 0)
   }
 }

@@ -30,8 +30,8 @@
     <v-badge
       v-if="$auth.loggedIn"
       class="hidden-md-and-up"
-      :value="true"
-      content="1"
+      :value="Boolean(getNumberOfAllNotifications)"
+      :content="getNumberOfAllNotifications"
       overlap
       offset-y="20"
       offset-x="20"
@@ -103,7 +103,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isChatDrawer: 'isChatDrawer'
+      isChatDrawer: 'isChatDrawer',
+      getNumberOfAllNotifications: 'user/getNumberOfAllNotifications'
     })
   },
   methods: {
