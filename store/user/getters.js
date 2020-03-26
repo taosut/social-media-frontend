@@ -31,9 +31,14 @@ export default {
         notification.from === username && notification.type === 'message'
     )
   },
-  getNumberOfAllNotifications(state) {
+  getNumberOfAllNotifications(state, getters, rootState, rootGetters) {
     return state.notifications.reduce((sum, notification) => {
-      return sum + notification.number
+      let isUserInFollowing = rootGetters['chat/getOnlineUsers'].some(
+        user => user.username === notification.from
+      )
+
+      if (isUserInFollowing) return sum + notification.number
+      else return sum
     }, 0)
   }
 }
