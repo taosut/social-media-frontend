@@ -1,12 +1,16 @@
 <template>
-  <v-dialog width="80%">
+  <v-dialog v-model="postPreviewDrawer" width="80%">
     <template v-slot:activator="{ on }">
       <v-btn
         :disabled="!Boolean(title) || !Boolean(description) || !Boolean(image) || loading"
         v-on="on"
+        @click="postPreviewDrawer = true"
       >Post preview</v-btn>
     </template>
     <v-card>
+      <v-btn @click="postPreviewDrawer = false" style="z-index: 1;" icon absolute top right>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
       <v-img v-if="image" :aspect-ratio="$vuetify.breakpoint.xsOnly ? 1 : 16/9" :src="image"></v-img>
       <v-list-item>
         <v-list-item-avatar>
@@ -44,6 +48,11 @@ export default {
     loading: {
       type: Boolean,
       required: true
+    }
+  },
+  data() {
+    return {
+      postPreviewDrawer: false
     }
   }
 }

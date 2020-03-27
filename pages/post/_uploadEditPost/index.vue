@@ -1,8 +1,8 @@
 <template>
-  <v-content>
+  <v-content class="grey lighten-4">
     <v-row class="align-center justify-center" :style="{ 'min-height': '100%' }">
       <v-col cols="12" sm="8" md="7" xl="5" class="mx-auto">
-        <v-card>
+        <v-card elevation="12" class="pa-6">
           <v-card-title>
             <h2
               class="text-center full-width font-weight-light"
