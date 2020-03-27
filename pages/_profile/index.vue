@@ -10,7 +10,7 @@
         :profileImage="getProfile.profileImage.location"
         :profileId="getProfile._id"
       ></profile-header>
-      <profile-posts :posts="getProfile.posts" :taggedPosts="getProfile.taggedPosts"></profile-posts>
+      <profile-posts :posts="getProfile.posts"></profile-posts>
       <delete-post-dialog></delete-post-dialog>
       <delete-account-dialog></delete-account-dialog>
       <edit-profile-dialog></edit-profile-dialog>

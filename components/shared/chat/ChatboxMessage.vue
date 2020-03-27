@@ -12,7 +12,11 @@
       <p class="ma-0 d-flex align-center" :class="{ 'justify-end': isLoggedUserSender }">
         <span
           class="body-2 pa-2"
-          :class="{'grey lighten-2': isLoggedUserSender && !$vuetify.theme.dark, 'grey darken-3': isLoggedUserSender && $vuetify.theme.dark }"
+          :class="{
+            'grey lighten-2': isLoggedUserSender && !$vuetify.theme.dark, 
+            'grey lighten-4': !isLoggedUserSender && !$vuetify.theme.dark , 
+            'grey darken-3': isLoggedUserSender && $vuetify.theme.dark, 
+            'grey darken-2': !isLoggedUserSender && $vuetify.theme.dark }"
           :style="{ 'border-radius': '5px', width: 'auto' }"
         >{{ message }}</span>
       </p>

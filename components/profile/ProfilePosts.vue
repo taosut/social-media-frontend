@@ -3,11 +3,7 @@
     <v-col cols="10" lg="9" xl="8" class="mx-auto px-6">
       <v-divider></v-divider>
     </v-col>
-    <v-tabs
-      :color="'#663dfc'"
-      centered
-      v-model="tab"
-    >
+    <v-tabs :color="'#663dfc'" centered v-model="tab">
       <v-tab>
         <v-icon left>mdi-grid</v-icon>POSTS
       </v-tab>
@@ -44,10 +40,6 @@ export default {
   },
   props: {
     posts: {
-      type: Array,
-      required: true
-    },
-    taggedPosts: {
       type: Array,
       required: true
     }

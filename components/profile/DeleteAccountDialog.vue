@@ -7,7 +7,8 @@
   >
     <v-card>
       <v-card-title
-        class="headline grey lighten-2"
+        dark
+        class="headline white--text unique-purple"
         :style="{'white-space': 'pre-wrap', 'word-break': 'keep-all'}"
         primary-title
       >Are you sure you went to delete your account?</v-card-title>

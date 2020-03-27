@@ -2,7 +2,7 @@
   <v-dialog transition="scroll-y-transition" persistent v-model="deletePostDialog" width="500">
     <v-card>
       <v-card-title
-        class="headline grey lighten-2"
+        class="headline white--text unique-purple"
         primary-title
       >Are you sure you went to delete this post?</v-card-title>
       <v-divider></v-divider>

@@ -1,7 +1,7 @@
 <template>
   <v-dialog persistent v-model="editProfileDialog" max-width="550px">
     <v-card>
-      <v-card-title>Edit your profile</v-card-title>
+      <v-card-title class="white--text unique-purple">Edit your profile</v-card-title>
       <v-divider></v-divider>
       <v-card-text class="my-3">
         <v-text-field
@@ -70,10 +70,7 @@
         </div>
       </v-card-text>
       <v-card-actions class="d-flex align-center justify-end flex-wrap">
-        <v-btn
-          class="mt-1"
-          @click="$store.dispatch('user/changeEditProfileDialog', false)"
-        >Cancel</v-btn>
+        <v-btn class="mt-1" @click="$store.dispatch('user/changeEditProfileDialog', false)">Cancel</v-btn>
         <v-btn
           :loading="loading"
           :disabled="$v.$invalid"

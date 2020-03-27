@@ -1,6 +1,11 @@
 <template>
   <div class="chat-container">
-    <chatbox v-for="(chatbox, index) in getChatboxes" :chatbox="chatbox" :key="index" class="mr-2"></chatbox>
+    <chatbox
+      v-for="(chatbox, index) in getChatboxes"
+      :chatbox="chatbox"
+      :key="index"
+      :class="{'ml-2': getChatboxes.length > 1}"
+    ></chatbox>
   </div>
 </template>
 
@@ -47,14 +52,14 @@ export default {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
+  box-shadow: inset 0 0 5px #663dfc;
   border-radius: 5px;
   background-color: #f4f4f4;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #b8b8b8f1;
+  background: #663dfc;
   border-radius: 10px;
 }
 </style>
