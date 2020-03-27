@@ -1,8 +1,8 @@
 <template>
   <v-app-bar clipped-right color="#663dfc" height="64" app elevate-on-scroll dark>
     <v-spacer></v-spacer>
-    <nuxt-link to="/">
-      <v-img src="/logo-w.png" contain height="40px"></v-img>
+    <nuxt-link to="/" class="d-flex align-center justify-center">
+      <img src="/logo-w.png" width="140px" />
     </nuxt-link>
     <v-spacer></v-spacer>
     <v-btn
