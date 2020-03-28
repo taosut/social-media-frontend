@@ -1,23 +1,27 @@
 <template>
-  <v-card>
-    <v-toolbar height="35px" color="#663dfc" class="white--text">
+  <v-card max-width="260px">
+    <v-toolbar max-width="270px" height="35px" color="#663dfc" class="white--text">
       <v-toolbar-title>{{ chatbox.user.username }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn color="white" x-small @click.stop="removeChatbox(chatbox)" icon>
+      <v-btn color="white" class="mr-1" x-small @click.stop="removeChatbox(chatbox)" icon>
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
     <v-list
-      max-height="370px"
-      height="370px"
-      width="300px"
+      max-height="360px"
+      height="360px"
+      width="260px"
       class="grey--text text--darken-4 chatbox-list"
       three-line
       ref="chatbox-list"
     >
-      <p class="text-center title mt-auto" v-if="!chatbox.messages.length">Be first and say Hello</p>
+      <p
+        class="text-center title mt-auto"
+        :class="{ 'white--text': $vuetify.theme.dark }"
+        v-if="!chatbox.messages.length"
+      >Be first and say Hello</p>
       <chatbox-message
         :message="message.message"
         :createdAt="new Date(message.createdAt)"
@@ -108,9 +112,10 @@ export default {
       removeChatbox: 'chat/removeChatbox'
     }),
     scrollBottom() {
-      this.$refs['chatbox-list'].$el.scrollTop = this.$refs[
-        'chatbox-list'
-      ].$el.scrollHeight
+      if (this.$refs['chatbox-list'])
+        this.$refs['chatbox-list'].$el.scrollTop = this.$refs[
+          'chatbox-list'
+        ].$el.scrollHeight
     },
     sendMessage() {
       if (!this.$v.$invalid) {

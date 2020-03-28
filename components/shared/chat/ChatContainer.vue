@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-container">
+  <div class="chat-container" :style="{ 'z-index':  $vuetify.breakpoint.xsOnly ? '1' : '10' }">
     <chatbox
       v-for="(chatbox, index) in getChatboxes"
       :chatbox="chatbox"
@@ -43,18 +43,19 @@ export default {
   height: auto;
   max-width: 100%;
   overflow-x: scroll;
-  z-index: 100;
+  z-index: 10;
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 10px;
+  height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #663dfc;
   border-radius: 5px;
-  background-color: #f4f4f4;
+  background-color: #333;
 }
 
 /* Handle */

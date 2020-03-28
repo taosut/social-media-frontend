@@ -5,7 +5,7 @@
     </v-list-item-avatar>
     <v-list-item-content>
       <v-list-item-title class="font-weight-bold" :class="{'text-right': isLoggedUserSender}">
-        <span class="body-2 grey--text">{{ createdAt.toLocaleString() }}</span>
+        <span class="body-2 grey--text">{{ createdAt.toLocaleTimeString() }}</span>
         <br />
         <span>{{ isLoggedUserSender ? 'Me' : username }}</span>
       </v-list-item-title>
