@@ -1,5 +1,13 @@
 <template>
-  <v-app-bar clipped-right color="#663dfc" height="64" app elevate-on-scroll dark>
+  <v-app-bar
+    v-resize="onResize"
+    clipped-right
+    color="#663dfc"
+    height="64"
+    app
+    elevate-on-scroll
+    dark
+  >
     <v-spacer></v-spacer>
     <nuxt-link to="/" class="d-flex align-center justify-center">
       <img src="/logo-w.png" width="140px" />
@@ -20,7 +28,7 @@
     </v-btn>
     <v-btn
       :text="$vuetify.breakpoint.lgAndUp"
-      v-if="$auth.loggedIn"
+      v-if="$auth.loggedIn && getWindowWidth > 335"
       :icon="$vuetify.breakpoint.mdAndDown"
       :nuxt="true"
       class="mx-1"
@@ -117,7 +125,8 @@ export default {
   computed: {
     ...mapGetters({
       isChatDrawer: 'isChatDrawer',
-      getNumberOfAllNotifications: 'user/getNumberOfAllNotifications'
+      getNumberOfAllNotifications: 'user/getNumberOfAllNotifications',
+      getWindowWidth: 'getWindowWidth'
     })
   },
   methods: {
@@ -129,6 +138,11 @@ export default {
         await this.$auth.logout({
           data: { refreshToken: this.$auth.refreshToken.get() }
         })
+      },
+      onResize() {
+        if (process.client)
+          this.$store.commit('SET_WINDOW_WIDTH', window.innerWidth)
+        console.log(this.getWindowWidth)
       }
     })
   }

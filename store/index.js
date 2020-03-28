@@ -5,7 +5,8 @@ export const state = () => ({
   error: {
     message: '',
     statusCode: null
-  }
+  },
+  windowWidth: null
 })
 
 export const getters = {
@@ -23,6 +24,9 @@ export const getters = {
   },
   errorStatusCode(state) {
     return state.error.statusCode
+  },
+  getWindowWidth(state) {
+    return state.windowWidth
   }
 }
 
@@ -43,6 +47,9 @@ export const mutations = {
   clearError(state) {
     state.error.statusCode = null
     state.error.message = ''
+  },
+  SET_WINDOW_WIDTH(state, payload) {
+    state.windowWidth = payload
   }
 }
 export const actions = {
