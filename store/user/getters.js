@@ -16,6 +16,9 @@ export default {
   getProfile(state) {
     return state.profile
   },
+  getProfileFollowers(state) {
+    return state.profile.followers
+  },
   getUserFollowers(state) {
     return state.followers
   },

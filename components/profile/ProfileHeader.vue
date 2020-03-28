@@ -54,7 +54,7 @@
           </div>
           <div class="ma-3">
             <span class="body-1 font-weight-bold">{{ followersNumber }}</span>
-            <span class="body-1">followers</span>
+            <span class="body-1">{{ followersNumber == 1 ? 'follower' : 'followers' }}</span>
           </div>
           <div>
             <span class="body-1 font-weight-bold">{{ followingNumber }}</span>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import AppFollowBtn from '@/components/shared/AppFollowBtn'
 
 export default {

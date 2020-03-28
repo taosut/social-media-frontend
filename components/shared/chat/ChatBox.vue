@@ -138,6 +138,8 @@ export default {
 
 <style scoped lang="scss">
 .chatbox-list {
+  scrollbar-width: none;
+  scrollbar-color: transparent;
   &::-webkit-scrollbar {
     width: 0px; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */

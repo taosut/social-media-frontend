@@ -64,10 +64,6 @@ export default {
       }, 5 * 60 * 1000)
       this.fetchUserDynamicData()
     }
-
-    setTimeout(() => {
-      this.setError({ status: 500, message: 'asd' })
-    }, 5000)
   },
   beforeDestroy() {
     clearInterval(this.fetchOnlieUsersInterval)
