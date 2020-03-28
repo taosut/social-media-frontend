@@ -47,6 +47,10 @@ import { validationMixin } from 'vuelidate'
 import { email, required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
+  validate(context) {
+    if (context.$auth.loggedIn) context.redirect('/')
+    else return true
+  },
   layout: 'no-navbar',
   validations: {
     email: {
