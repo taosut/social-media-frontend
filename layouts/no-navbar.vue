@@ -22,13 +22,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      error: 'error',
-      errorStatusCode: 'errorStatusCode'
+      getError: 'getError',
+      getErrorStatusCode: 'getErrorStatusCode'
     })
   },
   watch: {
-    errorStatusCode: function(value) {
-      throw this.error
+    getErrorStatusCode: function(value) {
+      throw this.getError
     }
   },
   mounted() {

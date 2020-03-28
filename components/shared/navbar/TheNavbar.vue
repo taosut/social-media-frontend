@@ -142,7 +142,6 @@ export default {
       onResize() {
         if (process.client)
           this.$store.commit('SET_WINDOW_WIDTH', window.innerWidth)
-        console.log(this.getWindowWidth)
       }
     })
   }

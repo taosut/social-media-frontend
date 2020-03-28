@@ -97,7 +97,7 @@ export const actions = {
             this.$router.push('/sign-in')
           } else {
             context.commit(
-              'setError',
+              'SET_ERROR',
               {
                 status: 500,
                 message: 'An error occurred'
@@ -109,7 +109,7 @@ export const actions = {
       }
     } else {
       context.commit(
-        'setError',
+        'SET_ERROR',
         {
           status: 500,
           message: 'An error occurred'

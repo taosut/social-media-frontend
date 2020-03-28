@@ -19,10 +19,10 @@ export const getters = {
   isPostDialog(state) {
     return state.postDialog
   },
-  error(state) {
+  getError(state) {
     return state.error
   },
-  errorStatusCode(state) {
+  getErrorStatusCode(state) {
     return state.error.statusCode
   },
   getWindowWidth(state) {
@@ -40,11 +40,12 @@ export const mutations = {
   SET_POST_DIALOG(state, payload) {
     state.postDialog = payload
   },
-  setError(state, payload) {
+  SET_ERROR(state, payload) {
+    console.log(payload)
     state.error.statusCode = payload.status
     state.error.message = payload.message
   },
-  clearError(state) {
+  REMOVE_ERROR(state) {
     state.error.statusCode = null
     state.error.message = ''
   },
@@ -61,7 +62,7 @@ export const actions = {
     }
   },
   setError(context, payload) {
-    context.commit('setError', payload)
+    context.commit('SET_ERROR', payload)
   },
   changeChatDrawer(context, payload) {
     context.commit('SET_CHAT_DRAWER', payload)
