@@ -30,6 +30,7 @@
             </v-card-text>
             <v-card-actions class="d-flex flex-column justify-center">
               <v-btn color="#663dfc" dark :loading="loading" @click="signIn" block>Login</v-btn>
+              <change-password-dialog></change-password-dialog>
               <p class="my-2 text-center or-paragraph full-width">or</p>
               <v-btn color="#663dfc" dark :nuxt="true" to="/sign-up" block>Sign Up</v-btn>
             </v-card-actions>
@@ -41,6 +42,8 @@
 </template>
 
 <script>
+import ChangePasswordDialog from '@/components/sign-in/ChangePasswordDialog'
+
 import { mapGetters, mapActions } from 'vuex'
 
 import { validationMixin } from 'vuelidate'
@@ -74,6 +77,9 @@ export default {
       minLength: minLength(8),
       maxLength: maxLength(100)
     }
+  },
+  components: {
+    ChangePasswordDialog
   },
   mixins: [validationMixin],
   data() {
