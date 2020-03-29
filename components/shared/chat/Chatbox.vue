@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="260px">
+  <v-card max-width="260px" outlined>
     <v-toolbar max-width="270px" height="35px" color="#663dfc" class="white--text">
       <v-toolbar-title>{{ chatbox.user.username }}</v-toolbar-title>
 
@@ -12,8 +12,8 @@
     <v-list
       max-height="360px"
       height="360px"
-      width="260px"
-      class="grey--text text--darken-4 chatbox-list"
+      width="258px"
+      class="grey--text text--darken-4 chatbox-list mx-auto"
       three-line
       ref="chatbox-list"
     >

@@ -143,7 +143,6 @@ export const actions = {
     commit('REMOVE_FEED_POST', payload)
   },
   addNewPost({ commit, getters, rootGetters }, payload) {
-    console.log(payload)
     if (
       rootGetters['user/getUserFollowing'].some(
         userId => userId === payload.creator._id
@@ -156,7 +155,6 @@ export const actions = {
     const postIndex = getters.getFeed.findIndex(
       post => post._id === payload._id
     )
-    console.log(postIndex)
     if (postIndex !== -1) {
       commit('UPDATE_FEED_POST', { postIndex, post: payload })
     }

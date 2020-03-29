@@ -67,8 +67,9 @@ export const mutations = {
 
 export const actions = {
   createChatbox(context, payload) {
+    console.log(payload)
     const chatboxExist = context.getters.getChatboxes.some(chatbox => {
-      return chatbox.user.username === payload.username
+      return chatbox.user.username === payload.user.username
     })
     if (!chatboxExist) context.commit('ADD_CHATBOX', payload)
   },
@@ -175,7 +176,7 @@ export const actions = {
           }
         }
       )
-      
+
       if (!result) {
         context.dispatch(
           'alerts/setAlert',
