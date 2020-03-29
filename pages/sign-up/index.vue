@@ -111,7 +111,7 @@ const usernameCharactersCheck = value => {
 }
 
 const imageFileSizeCheck = value => {
-  return value ? (value.size > 1048576 ? false : true) : true
+  return value ? (value.size > 2621440 ? false : true) : true
 }
 
 export default {
@@ -248,7 +248,7 @@ export default {
 
       !this.$v.imageFile.required && errors.push('Image is required')
       !this.$v.imageFile.imageFileSizeCheck &&
-        errors.push('Files size must be less then 1MB')
+        errors.push('Files size must be less then 2.5MB')
 
       return errors
     },
@@ -299,6 +299,8 @@ export default {
     async signUp() {
       if (!this.$v.$invalid) {
         const formData = new FormData()
+
+        this.email = this.email.toLowerCase()
 
         formData.append('username', this.username)
         formData.append('email', this.email)

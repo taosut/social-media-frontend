@@ -77,7 +77,7 @@ const titleCharactersCheck = value => {
 }
 
 const imageFileSizeCheck = value => {
-  return value ? (value.size > 1048576 ? false : true) : true
+  return value ? (value.size > 2621440 ? false : true) : true
 }
 
 import { descriptionCharactersCheck } from '@/components/profile/EditProfileDialog'
@@ -175,7 +175,7 @@ export default {
 
       !this.$v.imageFile.required && errors.push('Password is required')
       !this.$v.imageFile.imageFileSizeCheck &&
-        errors.push('Files size must be less then 1MB')
+        errors.push('Files size must be less then 2.5MB')
 
       return errors
     }

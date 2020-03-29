@@ -124,6 +124,7 @@ export default {
     }),
     async signIn() {
       if (!this.$v.$invalid) {
+        this.email = this.email.toLowerCase()
         try {
           this.loading = true
           await this.$auth.loginWith('local', {

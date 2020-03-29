@@ -67,7 +67,6 @@ export const mutations = {
 
 export const actions = {
   createChatbox(context, payload) {
-    console.log(payload)
     const chatboxExist = context.getters.getChatboxes.some(chatbox => {
       return chatbox.user.username === payload.user.username
     })

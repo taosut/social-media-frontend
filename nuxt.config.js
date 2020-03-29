@@ -108,6 +108,7 @@ export default {
     }
   },
   io: {
+    warnings: true,
     sockets: [
       {
         name: 'default',
