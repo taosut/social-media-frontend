@@ -41,7 +41,6 @@ export const mutations = {
     state.postDialog = payload
   },
   SET_ERROR(state, payload) {
-    console.log(payload)
     state.error.statusCode = payload.status
     state.error.message = payload.message
   },
