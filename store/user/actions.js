@@ -98,7 +98,7 @@ export default {
       const result = await this.$axios.$put('/users/user/set-following', {
         userId: payload
       })
-      console.log(result)
+
       if (!result) {
         context.dispatch(
           'alerts/setAlert',

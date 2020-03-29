@@ -246,7 +246,6 @@ export const actions = {
   },
   async deleteComment({ commit, dispatch }, payload) {
     try {
-      console.log(payload)
       const result = await this.$axios.$delete('/comments/delete-comment', {
         data: { commentId: payload }
       })

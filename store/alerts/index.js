@@ -41,8 +41,6 @@ export const actions = {
     context.commit('SET_SHOW_ALERT', payload)
   },
   async setAlert(context, { status, message }) {
-    console.log(status, message)
-
     status = Boolean(status) ? status : 500
 
     const alertType = parseInt(status / 100)

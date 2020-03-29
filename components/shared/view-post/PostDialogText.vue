@@ -215,7 +215,6 @@ export default {
   methods: {
     async createComment() {
       this.$v.$touch()
-      console.log(this.$v)
       if (!this.$v.$invalid) {
         this.loading = true
         await this.$store.dispatch('feed/createComment', {

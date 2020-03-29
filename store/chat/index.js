@@ -26,7 +26,6 @@ export const mutations = {
     state.chatboxes.push(payload)
   },
   REMOVE_CHATBOX(state, payload) {
-    console.log(payload)
     state.chatboxes = state.chatboxes.filter(chatbox => {
       return chatbox.user.username !== payload.user.username
     })
@@ -58,7 +57,6 @@ export const mutations = {
     state.chatboxes[chatboxIndex].messages = messages
   },
   ADD_CHATBOX_MESSAGE(state, { username, message }) {
-    console.log(username, message)
     let chatboxIndex = state.chatboxes.findIndex(
       chatbox => chatbox.user.username === username
     )
@@ -73,9 +71,6 @@ export const actions = {
       return chatbox.user.username === payload.username
     })
     if (!chatboxExist) context.commit('ADD_CHATBOX', payload)
-    else {
-      // Show alert that chat is already opened
-    }
   },
   removeChatbox(context, payload) {
     context.commit('REMOVE_CHATBOX', payload)
@@ -131,7 +126,7 @@ export const actions = {
       const result = await this.$axios.$get(
         `/messages/get-private-messages?username1=${this.$auth.user.username}&username2=${payload}`
       )
-      console.log(result)
+
       if (!result) {
         context.dispatch(
           'alerts/setAlert',
@@ -180,7 +175,7 @@ export const actions = {
           }
         }
       )
-      console.log(result)
+      
       if (!result) {
         context.dispatch(
           'alerts/setAlert',
