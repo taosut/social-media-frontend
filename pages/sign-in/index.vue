@@ -47,6 +47,18 @@ import { validationMixin } from 'vuelidate'
 import { email, required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Welcome to Sign In page'
+        }
+      ]
+    }
+  },
   validate(context) {
     if (context.$auth.loggedIn) context.redirect('/')
     else return true
@@ -66,6 +78,7 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
+      title: 'Sign In',
       showPassword: false,
       email: '',
       password: '',

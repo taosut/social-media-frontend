@@ -5,7 +5,7 @@
         <v-card elevation="12" class="pa-6">
           <v-card-title>
             <h2
-              class="text-center full-width font-weight-light"
+              class="text-center full-width font-weight-light keep-whole-word-wrap"
             >{{ $route.params.uploadEditPost == 'upload' ? 'Create New post' : 'Edit Post' }}</h2>
           </v-card-title>
           <v-card-text>
@@ -34,7 +34,7 @@
             accept="image/*"
             label="Post image"
           ></v-file-input>
-          <v-card-actions class="d-flex align-center justify-space-between">
+          <v-card-actions class="d-flex align-center justify-space-between flex-wrap">
             <post-preview-dialog
               :title="title"
               :description="description"
@@ -43,12 +43,14 @@
               :loading="loading"
             ></post-preview-dialog>
             <v-btn
+              class="mt-1"
               v-if="$route.params.uploadEditPost === 'upload'"
               :disabled="$v.$invalid"
               :loading="loading"
               @click="createPost"
             >Create post</v-btn>
             <v-btn
+              class="mt-1"
               v-else
               :disabled="Boolean($v.$anyError) || !Boolean(imageUrl)"
               :loading="loading"
@@ -81,6 +83,18 @@ const imageFileSizeCheck = value => {
 import { descriptionCharactersCheck } from '@/components/profile/EditProfileDialog'
 
 export default {
+  head() {
+    return {
+      title: this.metaTitle,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'On this page, you can upload/edit post'
+        }
+      ]
+    }
+  },
   validate(context) {
     if (
       context.params.uploadEditPost === 'edit' ||
@@ -94,7 +108,12 @@ export default {
   },
   mixins: [validationMixin],
   data() {
+    let metaTitle =
+      this.$route.params.uploadEditPost[0].toUpperCase() +
+      this.$route.params.uploadEditPost.slice(1) +
+      ' Post'
     return {
+      metaTitle: metaTitle,
       title: '',
       description: '',
       imageFile: null,

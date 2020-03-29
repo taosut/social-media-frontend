@@ -9,7 +9,7 @@
       <v-list-item
         v-if="$auth.loggedIn && getWindowWidth < 340"
         @click="changeNavbarMenu(false)"
-        :to="`/post/${this.$auth.user.username}`"
+        :to="`/${this.$auth.user.username}`"
       >
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>

@@ -28,6 +28,18 @@ import EditProfileDialog from '@/components/profile/EditProfileDialog'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  head() {
+    return {
+      title: this.metaTitle,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'On this page, you can upload/edit post'
+        }
+      ]
+    }
+  },
   auth: false,
   validate(context) {
     if (Boolean(context.params.profile) && context.params.profile.length) {
@@ -57,7 +69,9 @@ export default {
     EditProfileDialog
   },
   data() {
-    return {}
+    return {
+      metaTitle: '@' + this.$route.params.profile
+    }
   },
   computed: {
     ...mapGetters({

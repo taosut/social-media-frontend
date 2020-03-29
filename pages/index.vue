@@ -48,6 +48,18 @@ import AppFeedCard from '@/components/home/AppFeedCard'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Welcome to home page, enjoy in posts from other people'
+        }
+      ]
+    }
+  },
   validate(context) {
     if (!context.$auth.loggedIn) context.redirect('/sign-in')
     return true
@@ -68,6 +80,7 @@ export default {
   },
   data() {
     return {
+      title: 'Home Page',
       showFeedLoader: true
     }
   },

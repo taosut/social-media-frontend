@@ -10,18 +10,27 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: titleChunk => {
+      // If undefined or blank then we don't need the hyphen
+      return titleChunk ? `${titleChunk} | Gem Media` : 'Gem Media'
+    },
+    htmlAttrs: {
+      lang: 'en',
+      amp: true
+    },
+    title: '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'Social media website. Follow people, chat with them, post photos, like them, enjoj!'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    noscript: [{ innerHTML: 'This website requires JavaScript.' }]
   },
   /*
    ** Customize the progress-bar color
@@ -136,10 +145,7 @@ export default {
     },
     theme: {
       lang: {
-        current: 'en',
-        locales: {
-          srCyrl
-        }
+        current: 'en'
       },
       themes: {
         dark: {

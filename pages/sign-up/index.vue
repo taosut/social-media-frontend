@@ -115,6 +115,18 @@ const imageFileSizeCheck = value => {
 }
 
 export default {
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Welcome to Sign Up page'
+        }
+      ]
+    }
+  },
   auth: false,
   validate(context) {
     if (context.$auth.loggedIn) context.redirect('/')
@@ -124,6 +136,7 @@ export default {
   mixins: [validationMixin],
   data() {
     return {
+      title: 'Sign Up',
       loading: false,
       show: false,
       imageFile: null,

@@ -23,3 +23,8 @@ $purple: #663dfc;
 .unique-purple {
   background-color: $purple;
 }
+
+.keep-whole-word-wrap {
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
