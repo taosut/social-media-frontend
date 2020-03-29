@@ -1,7 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 
-import srCyrl from 'vuetify/es5/locale/sr-Cyrl'
-
 require('dotenv').config()
 
 export default {
@@ -55,7 +53,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { systemvars: true }],
     // Doc: https://auth.nuxtjs.org/
     '@nuxtjs/auth',
     // Doc: https://github.com/richardeschloss/nuxt-socket-io
